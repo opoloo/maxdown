@@ -1,6 +1,6 @@
 $(document).ready ->
   app.init()
-  editor.init(".editor")
+  maxdown.init(".editor")
 
 # --------------- #
 
@@ -20,26 +20,48 @@ app =
     $(document).on "click", ".btn-theme", (e) ->
       e.preventDefault()
       $(this).toggleClass("maxdown-light maxdown-dark")
-      editor.toggle_theme()
+      maxdown.toggle_theme()
 
     # Create new document button
     $(document).on "click", ".btn-new-document", (e) ->
       e.preventDefault()
-      editor.new_document()
+      maxdown.new_document()
 
     # Handle document buttons
     $(document).on "click", ".document", (e) ->
       e.preventDefault()
-      editor.load_document $(this).data('docid')
+      $('.documents .document').removeClass 'active'
+      $(this).addClass 'active'
+      maxdown.load_document $(this).data('docid')
 
-# -------------- #
+    # Handle title renaming
+    $(document).on "click", ".navbar .title", (e) ->
+      $(this).attr("contenteditable", "true")
 
-editor =
+    # Handle title saving
+    $(document).on "focusout", ".navbar .title", (e) ->
+      maxdown.rename_document $(this).text()
+      console.log 'Renamed document (Doc-ID: ' + maxdown.current_doc + ')'
+
+
+# ------------------------------ #
+
+
+maxdown =
+  version: '0.2.1'
   cm: ''
+  current_doc: null
   default_title: 'UntitledDocument'
-  default_value: '# New document\n\nStart writing your story here...'
+  default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://google.com/image.png)'
 
   init: (selector, t = 'maxdown-light') ->
+    console.log '/*'
+    console.log ' * Maxdown - Markdown Editor'
+    console.log ' * Version: ' + @version
+    console.log ' * Author: Max Boll'
+    console.log ' * License: MIT'
+    console.log ' */'
+
     @bind_events()
     @load_documents()
 
@@ -55,30 +77,32 @@ editor =
     # @cm.setValue(@default_value)
 
   bind_events: ->
-    $(document).on 'click', '.btn-action', (e) ->
-      action = $(this).data('action')
-      switch action
-        when 'new'
-          editor.new_document()
-        when 'save'
-          editor.save_document()
-
     $(document).on 'change', '.documents', (e) ->
-      editor.load_document $(this).val()
+      maxdown.load_document $(this).val()
 
     $(document).on 'change', '.font-size', (e) ->
-      editor.set_font_size $(this).val()
+      maxdown.set_font_size $(this).val()
 
     $(document).on 'change', '.theme', (e) ->
-      editor.set_theme $(this).val()
+      maxdown.set_theme $(this).val()
+
+  rename_document: (new_title) ->
+    doc = JSON.parse(localStorage.getItem(@current_doc))
+    doc.title = new_title
+    localStorage.setItem(doc.id, JSON.stringify(doc))
+    $('.documents .document[data-docid=' + doc.id + ']').html new_title + '.md'
 
   new_document: ->
     # Clear editor
     @cm.setValue(@default_value)
     @cm.clearHistory()
+    @save_document()
 
   load_document: (id) ->
-    @cm.setValue(JSON.parse(localStorage.getItem(id)).content)
+    doc = JSON.parse(localStorage.getItem(id))
+    $(".navbar .title").html doc.title
+    @cm.setValue(doc.content)
+    @current_doc = doc.id
 
   set_font_size: (size) ->
     $('.CodeMirror').css "font-size", size + "px"
@@ -140,11 +164,11 @@ editor =
 
     # Save file object to localStorage
     localStorage.setItem(doc_id, JSON.stringify(doc))
-    alert 'File successfully saved.'
+    console.log 'New document created. (Doc-ID: ' + doc_id + ')'
 
     # Update documents list
-    $('.actions .documents').append('<option value="' + doc.id + '">' + doc.title + '</option>')
-    $('.actions .documents').val(doc.id)
+    $('.documents').prepend('<div class="documents" data-docid="' + doc.id + '">' + doc.title + '.md</div>')
+    @current_doc = doc_id
 
   generate_uuid: ->
     chars = '0123456789abcdef'.split('')
