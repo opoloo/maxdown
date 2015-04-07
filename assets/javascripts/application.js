@@ -202,7 +202,8 @@
       };
       localStorage.setItem(doc_id, JSON.stringify(doc));
       console.log('New document created. (Doc-ID: ' + doc_id + ')');
-      $('.documents').prepend('<div class="document" data-docid="' + doc.id + '">' + doc.title + '.md</div>');
+      $('.documents .document').removeClass('active');
+      $('.documents').prepend('<div class="document active" data-docid="' + doc.id + '">' + doc.title + '.md</div>');
       return this.current_doc = doc_id;
     },
     generate_uuid: function() {

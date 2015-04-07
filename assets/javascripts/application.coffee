@@ -190,7 +190,7 @@ maxdown =
       ]
     sortable.sort (a, b) ->
       a[1] - b[1]
-    # console.log sortable.reverse()
+    # sortable.reverse()
 
     # Parse each file and insert it into file-selection
     $(".documents").html("")
@@ -217,7 +217,8 @@ maxdown =
     console.log 'New document created. (Doc-ID: ' + doc_id + ')'
 
     # Update documents list
-    $('.documents').prepend('<div class="document" data-docid="' + doc.id + '">' + doc.title + '.md</div>')
+    $('.documents .document').removeClass 'active'
+    $('.documents').prepend('<div class="document active" data-docid="' + doc.id + '">' + doc.title + '.md</div>')
 
     # Update current doc ID
     @current_doc = doc_id
