@@ -1,0 +1,28 @@
+.CodeMirror.cm-s-maxdown-dark {
+  font-size: 18px;
+  font-family: 'Fira Mono', sans-serif;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  height: auto;
+}
+
+.cm-header-1 {
+  font-size: 1.333em;
+  opacity: 0.4;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.cm-header-2 {
+  font-size: 1.111em;
+  opacity: 0.4;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.cm-header-3 {
+  font-size: 1em;
+  opacity: 0.4;
+  line-height: 1.6;
+  font-weight: 400;
+}

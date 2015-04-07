@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0, user-scalable = no">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <title>Maxdown | Markdown Editor</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css">
+    <link rel="stylesheet" href="assets/stylesheets/application.css" media="all" type="text/css" />
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="codemirror/theme/maxdown-dark.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="codemirror/theme/maxdown-light.css" type="text/css" media="all" />
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="codemirror/addon/mode/overlay.js"></script>
+    <script type="text/javascript" src="codemirror/mode/markdown/markdown.js"></script>
+    <script type="text/javascript" src="codemirror/mode/gfm/gfm.js"></script>
+    <script type="text/javascript" src="assets/javascripts/application.js"></script>
+  </head>
+  <body class="maxdown-light">
+
+    <nav class="navbar">
+      <div class="title">Untitled Document</div>
+      <div class="actions">
+        <div class="btn-theme maxdown-light"></div>
+      </div>
+
+      <div class="btn-menu">
+        <div class="stripes"></div>
+      </div>
+    </nav>
+    <div class="navbar-spacer"></div>
+
+    <sidebar class="main-nav">
+      <div class="btn-new-document">+ New File</div>
+      <div class="documents"></div>
+    </sidebar>
+
+    <div class="editor"></div>
+
+  </body>
+</html>
