@@ -34,18 +34,31 @@
         return maxdown.load_document($(this).data('docid'));
       });
       $(document).on("click", ".navbar .title", function(e) {
-        return $(this).attr("contenteditable", "true");
+        if (maxdown.current_doc !== null) {
+          return $("input", $(this)).show().focus();
+        }
       });
-      return $(document).on("focusout", ".navbar .title", function(e) {
-        maxdown.rename_document($(this).text());
-        return console.log('Renamed document (Doc-ID: ' + maxdown.current_doc + ')');
+      $(document).on("blur", ".title input", function(e) {
+        maxdown.rename_document($(this).val());
+        return $(this).hide();
+      });
+      return $(document).on("keydown", ".title input", function(e) {
+        var key;
+        key = e.keyCode || e.which;
+        if (key === 13) {
+          maxdown.rename_document($(this).val());
+          return $(this).hide();
+        }
       });
     }
   };
 
   maxdown = {
-    version: '0.2.1',
+    version: '0.2.1 (7. April 2015)',
     cm: '',
+    autosave_interval_id: null,
+    autosave_interval: 5000,
+    is_saved: true,
     current_doc: null,
     default_title: 'UntitledDocument',
     default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://google.com/image.png)',
@@ -57,11 +70,12 @@
       console.log(' * Maxdown - Markdown Editor');
       console.log(' * Version: ' + this.version);
       console.log(' * Author: Max Boll');
+      console.log(' * Website: http://opoloo.com');
       console.log(' * License: MIT');
       console.log(' */');
-      this.bind_events();
-      this.load_documents();
-      return this.cm = CodeMirror($(selector)[0], {
+      $(".title span").html('Maxdown - Markdown Editor');
+      $(".title input").val('Maxdown - Markdown Editor');
+      this.cm = CodeMirror($(selector)[0], {
         value: this.default_value,
         mode: {
           name: 'gfm',
@@ -71,6 +85,11 @@
         tabSize: 2,
         theme: t
       });
+      this.bind_events();
+      this.load_documents();
+      return this.autosave_interval_id = setInterval(function() {
+        return maxdown.autosave();
+      }, maxdown.autosave_interval);
     },
     bind_events: function() {
       $(document).on('change', '.documents', function(e) {
@@ -79,16 +98,41 @@
       $(document).on('change', '.font-size', function(e) {
         return maxdown.set_font_size($(this).val());
       });
-      return $(document).on('change', '.theme', function(e) {
+      $(document).on('change', '.theme', function(e) {
         return maxdown.set_theme($(this).val());
       });
+      return this.cm.on("change", function(cm, change) {
+        maxdown.is_saved = false;
+        $(".save-info").html('Not saved...');
+        return window.onbeforeunload = function() {
+          return "You have unsaved changes in your document.";
+        };
+      });
+    },
+    autosave: function() {
+      var doc;
+      if (this.current_doc !== null && this.is_saved !== true) {
+        doc = JSON.parse(localStorage.getItem(this.current_doc));
+        doc.updated_at = Date.now();
+        if (doc.content !== this.cm.getValue()) {
+          $(".save-info").html('Saving...');
+          doc.content = this.cm.getValue();
+          localStorage.setItem(doc.id, JSON.stringify(doc));
+          console.log('Document overwritten (Doc-ID: ' + this.current_doc + ')');
+          this.is_saved = true;
+          $(".save-info").html('Saved!');
+          return window.onbeforeunload = void 0;
+        }
+      }
     },
     rename_document: function(new_title) {
       var doc;
       doc = JSON.parse(localStorage.getItem(this.current_doc));
       doc.title = new_title;
       localStorage.setItem(doc.id, JSON.stringify(doc));
-      return $('.documents .document[data-docid=' + doc.id + ']').html(new_title + '.md');
+      $('.documents .document[data-docid=' + doc.id + ']').html(new_title + '.md');
+      $('.title span').html(new_title);
+      return console.log('Renamed document (Doc-ID: ' + maxdown.current_doc + ')');
     },
     new_document: function() {
       this.cm.setValue(this.default_value);
@@ -98,9 +142,12 @@
     load_document: function(id) {
       var doc;
       doc = JSON.parse(localStorage.getItem(id));
-      $(".navbar .title").html(doc.title);
+      $(".title span").html(doc.title);
+      $(".title input").val(doc.title);
       this.cm.setValue(doc.content);
-      return this.current_doc = doc.id;
+      this.current_doc = doc.id;
+      this.is_saved = true;
+      return $(".save-info").html('Saved!');
     },
     set_font_size: function(size) {
       return $('.CodeMirror').css("font-size", size + "px");
@@ -155,7 +202,7 @@
       };
       localStorage.setItem(doc_id, JSON.stringify(doc));
       console.log('New document created. (Doc-ID: ' + doc_id + ')');
-      $('.documents').prepend('<div class="documents" data-docid="' + doc.id + '">' + doc.title + '.md</div>');
+      $('.documents').prepend('<div class="document" data-docid="' + doc.id + '">' + doc.title + '.md</div>');
       return this.current_doc = doc_id;
     },
     generate_uuid: function() {

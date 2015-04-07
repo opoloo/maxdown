@@ -10,11 +10,13 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 - v0.2.1 (7. April 2015)
   - Adding new documents is now possible
-  - New documents will be saved automaticaly
-  - Added markdown cheat-sheet
-  - Added simple renaming method (no final implementation)
-- v0.2.0 (31. March 2015)
+  - New documents will be saved automatically
+  - Added markdown cheat-sheet on "start screen"
+  - Added document renaming
+  - Added warning before leaving page without saving
+  - Added auto-save (interval: 5s)
+- v0.2.0 (26. March 2015)
   - New layout
   - Editor Javascript adjustment
-- v0.1.0
+- v0.1.0 (11. March 2015)
   - deprecated

@@ -97,6 +97,20 @@ body {
     padding: 0 20px;
     top: 0;
     left: 0;
+    span {
+      position: relative;
+      z-index: 0;
+    }
+    input {
+      position: absolute;
+      font-size: 1em;
+      font-family: 'Fira Mono', sans-serif;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      display: none;
+    }
   }
   .actions {
     position: absolute;
@@ -203,4 +217,12 @@ body {
   max-width: 740px;
   padding: 20px;
   margin: 0 auto;
+}
+
+.save-info {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  color: #999;
+  font-size: 0.75em;
 }
