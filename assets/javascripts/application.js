@@ -15,7 +15,7 @@
       $(document).on("click", ".btn-menu", function(e) {
         e.preventDefault();
         $(this).toggleClass("active");
-        $(".main-nav").toggleClass("active");
+        $(".main-nav").fadeToggle("fast");
         return $(".actions, .title").fadeToggle();
       });
       $(document).on("click", ".btn-theme", function(e) {
@@ -42,12 +42,26 @@
         maxdown.rename_document($(this).val());
         return $(this).hide();
       });
-      return $(document).on("keydown", ".title input", function(e) {
+      $(document).on("keydown", ".title input", function(e) {
         var key;
         key = e.keyCode || e.which;
         if (key === 13) {
           maxdown.rename_document($(this).val());
           return $(this).hide();
+        }
+      });
+      $(document).on("click", ".headline", function(e) {
+        e.preventDefault();
+        return $("html,body").animate({
+          scrollTop: $(".md-header-" + $(this).data("headline")).offset().top - $(".navbar").height() + "px"
+        }, 500);
+      });
+      return $(document).on("click", ".btn-delete-document", function(e) {
+        var doc_id;
+        e.preventDefault();
+        if (confirm("Are you sure?")) {
+          doc_id = $(this).parent().data("docid");
+          return maxdown.delete_document(doc_id);
         }
       });
     }
@@ -124,15 +138,25 @@
       var doc;
       doc = JSON.parse(localStorage.getItem(this.current_doc));
       doc.title = new_title;
+      doc.updated_at = Date.now();
       localStorage.setItem(doc.id, JSON.stringify(doc));
-      $('.documents .document[data-docid=' + doc.id + ']').html(new_title + '.md');
-      $('.title span').html(new_title);
+      this.load_documents();
       return console.log('Renamed document (Doc-ID: ' + maxdown.current_doc + ')');
     },
     new_document: function() {
       this.cm.setValue("# UntitledDocument\n\nWelcome to your new document. Start writing your awesome story now.");
       this.cm.clearHistory();
       return this.save_document();
+    },
+    delete_document: function(id) {
+      if (this.current_doc === id) {
+        this.cm.setValue(this.default_value);
+        $(".title span").html('Maxdown - Markdown Editor');
+        $(".title input").val('Maxdown - Markdown Editor');
+        this.current_doc = null;
+      }
+      localStorage.removeItem(id);
+      return this.load_documents();
     },
     load_document: function(id) {
       var doc;
@@ -142,6 +166,7 @@
       this.cm.setValue(doc.content);
       this.current_doc = doc.id;
       this.get_headlines(id);
+      $("html,body").scrollTop(0);
       this.is_saved = true;
       return $(".save-info").html(this.msg_saved);
     },
@@ -150,6 +175,7 @@
       return $.each($(".cm-header"), function(key, val) {
         var size;
         if (!$(this).hasClass("cm-formatting")) {
+          $(this).addClass("md-header-" + key);
           size = "headline-1";
           if ($(this).hasClass("cm-header-1")) {
             size = "headline-1";
@@ -160,7 +186,7 @@
           if ($(this).hasClass("cm-header-3")) {
             size = "headline-3";
           }
-          return $(".documents .document[data-docid='" + id + "'] .headlines").append("<div class='headline " + size + "'>" + $(this).text() + "</div>");
+          return $(".documents .document[data-docid='" + id + "'] .headlines").append("<div class='headline " + size + "' data-headline='" + key + "'>" + $(this).text() + "</div>");
         }
       });
     },
@@ -199,11 +225,14 @@
       $(".documents").html("");
       for (doc in documents) {
         doc = documents[doc];
-        $(".documents").append('<div class="document" data-docid="' + doc.id + '"><span>' + doc.title + '.md</span><div class="headlines"></div></div>');
+        $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document">[x]</div><span>' + doc.title + '.md</span><div class="headlines"></div></div>');
       }
       if (this.current_doc !== null) {
         $(".documents .document[data-docid='" + this.current_doc + "']").addClass('active');
-        return this.get_headlines(this.current_doc);
+        this.get_headlines(this.current_doc);
+        doc = JSON.parse(localStorage.getItem(this.current_doc));
+        $('.title span').html(doc.title);
+        return $('.title input').val(doc.title);
       }
     },
     save_document: function() {
@@ -219,11 +248,8 @@
       };
       localStorage.setItem(doc_id, JSON.stringify(doc));
       console.log('New document created. (Doc-ID: ' + doc_id + ')');
-      $('.documents .document').removeClass('active');
-      $('.documents').prepend('<div class="document active" data-docid="' + doc.id + '">' + doc.title + '.md</div>');
-      $('.title span').html(doc.title);
-      $('.title input').val(doc.title);
-      return this.current_doc = doc_id;
+      this.current_doc = doc_id;
+      return this.load_documents();
     },
     generate_uuid: function() {
       var chars, i, r, rnd, uuid;

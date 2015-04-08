@@ -12,14 +12,14 @@ app =
     # Toggle Sidebar Menu
     $(document).on "click", ".btn-menu", (e) ->
       e.preventDefault()
-      $(this).toggleClass("active")
-      $(".main-nav").toggleClass("active")
+      $(this).toggleClass "active"
+      $(".main-nav").fadeToggle "fast"
       $(".actions, .title").fadeToggle()
 
     # Toggle theme
     $(document).on "click", ".btn-theme", (e) ->
       e.preventDefault()
-      $(this).toggleClass("maxdown-light maxdown-dark")
+      $(this).toggleClass "maxdown-light maxdown-dark"
       maxdown.toggle_theme()
 
     # Create new document button
@@ -50,6 +50,21 @@ app =
       if key is 13
         maxdown.rename_document $(this).val()
         $(this).hide()
+
+    # Handle headline clicks (anchor scrolling)
+    $(document).on "click", ".headline", (e) ->
+      e.preventDefault()
+      # console.log $(".md-header-" + $(this).data("headline")).offset().top + "px"
+      $("html,body").animate
+        scrollTop: $(".md-header-" + $(this).data("headline")).offset().top - $(".navbar").height() + "px"
+      , 500
+
+    # Handle document delete button
+    $(document).on "click", ".btn-delete-document", (e) ->
+      e.preventDefault()
+      if confirm("Are you sure?")
+        doc_id = $(this).parent().data "docid"
+        maxdown.delete_document doc_id
 
 
 # ------------------------------ #
@@ -125,13 +140,17 @@ maxdown =
   rename_document: (new_title) ->
     # Get current document object
     doc = JSON.parse(localStorage.getItem(@current_doc))
+
     # Rename title
     doc.title = new_title
+    doc.updated_at = Date.now()
+
     # Overwrite document object
     localStorage.setItem(doc.id, JSON.stringify(doc))
+
     # Show new title
-    $('.documents .document[data-docid=' + doc.id + ']').html new_title + '.md'
-    $('.title span').html new_title
+    @load_documents()
+
     console.log 'Renamed document (Doc-ID: ' + maxdown.current_doc + ')'
 
   new_document: ->
@@ -139,6 +158,15 @@ maxdown =
     @cm.setValue "# UntitledDocument\n\nWelcome to your new document. Start writing your awesome story now."
     @cm.clearHistory()
     @save_document()
+
+  delete_document: (id) ->
+    if @current_doc is id
+      @cm.setValue @default_value
+      $(".title span").html 'Maxdown - Markdown Editor'
+      $(".title input").val 'Maxdown - Markdown Editor'
+      @current_doc = null
+    localStorage.removeItem id
+    @load_documents()
 
   load_document: (id) ->
     doc = JSON.parse(localStorage.getItem(id))
@@ -150,6 +178,9 @@ maxdown =
     # Get headline
     @get_headlines(id)
 
+    # Go back to top
+    $("html,body").scrollTop(0)
+
     # Fix save info bug
     @is_saved = true
     $(".save-info").html @msg_saved
@@ -158,6 +189,7 @@ maxdown =
     $(".documents .document[data-docid='" + id + "'] .headlines").html("")
     $.each $(".cm-header"), (key, val) ->
       if !$(this).hasClass("cm-formatting")
+        $(this).addClass "md-header-" + key
         size = "headline-1"
         if $(this).hasClass("cm-header-1")
           size = "headline-1"
@@ -165,7 +197,7 @@ maxdown =
           size = "headline-2"
         if $(this).hasClass("cm-header-3")
           size = "headline-3"
-        $(".documents .document[data-docid='" + id + "'] .headlines").append "<div class='headline " + size + "'>" + $(this).text() + "</div>"
+        $(".documents .document[data-docid='" + id + "'] .headlines").append "<div class='headline " + size + "' data-headline='" + key + "'>" + $(this).text() + "</div>"
 
   set_font_size: (size) ->
     $('.CodeMirror').css "font-size", size + "px"
@@ -203,11 +235,21 @@ maxdown =
     $(".documents").html("")
     for doc of documents
       doc = documents[doc]
-      $(".documents").append('<div class="document" data-docid="' + doc.id + '"><span>' + doc.title + '.md</span><div class="headlines"></div></div>')
+      $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document">[x]</div><span>' + doc.title + '.md</span><div class="headlines"></div></div>')
 
     if @current_doc != null
+      # Update active document
       $(".documents .document[data-docid='" + @current_doc + "']").addClass 'active'
+
+      # Update headlines of active document
       @get_headlines(@current_doc)
+
+      # Get current doc info
+      doc = JSON.parse(localStorage.getItem(@current_doc))
+
+      # Set title
+      $('.title span').html doc.title
+      $('.title input').val doc.title
 
   save_document: ->
     # Set document title
@@ -228,14 +270,11 @@ maxdown =
     localStorage.setItem(doc_id, JSON.stringify(doc))
     console.log 'New document created. (Doc-ID: ' + doc_id + ')'
 
-    # Update documents list
-    $('.documents .document').removeClass 'active'
-    $('.documents').prepend('<div class="document active" data-docid="' + doc.id + '">' + doc.title + '.md</div>')
-    $('.title span').html doc.title
-    $('.title input').val doc.title
-
     # Update current doc ID
     @current_doc = doc_id
+
+    # Update documents list
+    @load_documents()
 
   generate_uuid: ->
     chars = '0123456789abcdef'.split('')
