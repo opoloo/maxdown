@@ -56,14 +56,17 @@ app =
 
 
 maxdown =
-  version: '0.2.1 (7. April 2015)'
+  version: '0.2.2 (8. April 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
   is_saved: true
+  msg_saved: "Saved!"
+  msg_saving: "Saving..."
+  msg_not_saved: "<span style='color: #f00;'>Not Saved...</span>"
   current_doc: null
   default_title: 'UntitledDocument'
-  default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://google.com/image.png)'
+  default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://placehold.it/350x150)'
 
   init: (selector, t = 'maxdown-light') ->
     console.log '/*'
@@ -95,18 +98,9 @@ maxdown =
     , maxdown.autosave_interval)
 
   bind_events: ->
-    $(document).on 'change', '.documents', (e) ->
-      maxdown.load_document $(this).val()
-
-    $(document).on 'change', '.font-size', (e) ->
-      maxdown.set_font_size $(this).val()
-
-    $(document).on 'change', '.theme', (e) ->
-      maxdown.set_theme $(this).val()
-
     @cm.on "change", (cm, change) ->
       maxdown.is_saved = false
-      $(".save-info").html 'Not saved...'
+      $(".save-info").html maxdown.msg_not_saved
       window.onbeforeunload = ->
         return "You have unsaved changes in your document."
 
@@ -116,15 +110,17 @@ maxdown =
       doc = JSON.parse(localStorage.getItem(@current_doc))
       # Update document
       doc.updated_at = Date.now()
+      # Only update document if content has changed
       if doc.content != @cm.getValue()
-        $(".save-info").html 'Saving...'
+        $(".save-info").html @msg_saving
         doc.content = @cm.getValue()
         # Overwrite document object
         localStorage.setItem(doc.id, JSON.stringify(doc))
         console.log 'Document overwritten (Doc-ID: ' + @current_doc + ')'
         @is_saved = true
-        $(".save-info").html 'Saved!'
+        $(".save-info").html @msg_saved
         window.onbeforeunload = undefined
+        @load_documents()
 
   rename_document: (new_title) ->
     # Get current document object
@@ -140,7 +136,7 @@ maxdown =
 
   new_document: ->
     # Clear editor
-    @cm.setValue(@default_value)
+    @cm.setValue "# UntitledDocument\n\nWelcome to your new document. Start writing your awesome story now."
     @cm.clearHistory()
     @save_document()
 
@@ -150,9 +146,26 @@ maxdown =
     $(".title input").val doc.title
     @cm.setValue(doc.content)
     @current_doc = doc.id
-    # Save indicator fix
+
+    # Get headline
+    @get_headlines(id)
+
+    # Fix save info bug
     @is_saved = true
-    $(".save-info").html 'Saved!'
+    $(".save-info").html @msg_saved
+
+  get_headlines: (id) ->
+    $(".documents .document[data-docid='" + id + "'] .headlines").html("")
+    $.each $(".cm-header"), (key, val) ->
+      if !$(this).hasClass("cm-formatting")
+        size = "headline-1"
+        if $(this).hasClass("cm-header-1")
+          size = "headline-1"
+        if $(this).hasClass("cm-header-2")
+          size = "headline-2"
+        if $(this).hasClass("cm-header-3")
+          size = "headline-3"
+        $(".documents .document[data-docid='" + id + "'] .headlines").append "<div class='headline " + size + "'>" + $(this).text() + "</div>"
 
   set_font_size: (size) ->
     $('.CodeMirror').css "font-size", size + "px"
@@ -181,21 +194,20 @@ maxdown =
       documents.push JSON.parse(localStorage.getItem(keys[i]))
       i++
 
-    # Sort documents (not implemented yet)
-    sortable = []
-    for doc of documents
-      sortable.push [
-        doc
-        documents[doc].updated_at
-      ]
-    sortable.sort (a, b) ->
-      a[1] - b[1]
-    # sortable.reverse()
+    # Sort documents (updated_at DESC)
+    documents.sort (a, b) ->
+      a.updated_at - b.updated_at
+    documents.reverse()
 
-    # Parse each file and insert it into file-selection
+    # Add documents to document-list
     $(".documents").html("")
-    $.each documents, (key, doc) ->
-      $(".documents").append('<div class="document" data-docid="' + documents[key].id + '">' + documents[key].title + '.md</div>')
+    for doc of documents
+      doc = documents[doc]
+      $(".documents").append('<div class="document" data-docid="' + doc.id + '"><span>' + doc.title + '.md</span><div class="headlines"></div></div>')
+
+    if @current_doc != null
+      $(".documents .document[data-docid='" + @current_doc + "']").addClass 'active'
+      @get_headlines(@current_doc)
 
   save_document: ->
     # Set document title
@@ -219,6 +231,8 @@ maxdown =
     # Update documents list
     $('.documents .document').removeClass 'active'
     $('.documents').prepend('<div class="document active" data-docid="' + doc.id + '">' + doc.title + '.md</div>')
+    $('.title span').html doc.title
+    $('.title input').val doc.title
 
     # Update current doc ID
     @current_doc = doc_id

@@ -8,6 +8,10 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 ### Changelog
 
+- v0.2.2 (8. April 2015)
+  - Autosave system tweaks
+  - Document list now ordered by "most recent update" DESC
+  - Current document will move to the top of the document list (only when edited/saved)
 - v0.2.1 (7. April 2015)
   - Adding new documents is now possible
   - New documents will be saved automatically

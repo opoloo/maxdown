@@ -54,14 +54,17 @@
   };
 
   maxdown = {
-    version: '0.2.1 (7. April 2015)',
+    version: '0.2.2 (8. April 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
     is_saved: true,
+    msg_saved: "Saved!",
+    msg_saving: "Saving...",
+    msg_not_saved: "<span style='color: #f00;'>Not Saved...</span>",
     current_doc: null,
     default_title: 'UntitledDocument',
-    default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://google.com/image.png)',
+    default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://placehold.it/350x150)',
     init: function(selector, t) {
       if (t == null) {
         t = 'maxdown-light';
@@ -92,18 +95,9 @@
       }, maxdown.autosave_interval);
     },
     bind_events: function() {
-      $(document).on('change', '.documents', function(e) {
-        return maxdown.load_document($(this).val());
-      });
-      $(document).on('change', '.font-size', function(e) {
-        return maxdown.set_font_size($(this).val());
-      });
-      $(document).on('change', '.theme', function(e) {
-        return maxdown.set_theme($(this).val());
-      });
       return this.cm.on("change", function(cm, change) {
         maxdown.is_saved = false;
-        $(".save-info").html('Not saved...');
+        $(".save-info").html(maxdown.msg_not_saved);
         return window.onbeforeunload = function() {
           return "You have unsaved changes in your document.";
         };
@@ -115,13 +109,14 @@
         doc = JSON.parse(localStorage.getItem(this.current_doc));
         doc.updated_at = Date.now();
         if (doc.content !== this.cm.getValue()) {
-          $(".save-info").html('Saving...');
+          $(".save-info").html(this.msg_saving);
           doc.content = this.cm.getValue();
           localStorage.setItem(doc.id, JSON.stringify(doc));
           console.log('Document overwritten (Doc-ID: ' + this.current_doc + ')');
           this.is_saved = true;
-          $(".save-info").html('Saved!');
-          return window.onbeforeunload = void 0;
+          $(".save-info").html(this.msg_saved);
+          window.onbeforeunload = void 0;
+          return this.load_documents();
         }
       }
     },
@@ -135,7 +130,7 @@
       return console.log('Renamed document (Doc-ID: ' + maxdown.current_doc + ')');
     },
     new_document: function() {
-      this.cm.setValue(this.default_value);
+      this.cm.setValue("# UntitledDocument\n\nWelcome to your new document. Start writing your awesome story now.");
       this.cm.clearHistory();
       return this.save_document();
     },
@@ -146,8 +141,28 @@
       $(".title input").val(doc.title);
       this.cm.setValue(doc.content);
       this.current_doc = doc.id;
+      this.get_headlines(id);
       this.is_saved = true;
-      return $(".save-info").html('Saved!');
+      return $(".save-info").html(this.msg_saved);
+    },
+    get_headlines: function(id) {
+      $(".documents .document[data-docid='" + id + "'] .headlines").html("");
+      return $.each($(".cm-header"), function(key, val) {
+        var size;
+        if (!$(this).hasClass("cm-formatting")) {
+          size = "headline-1";
+          if ($(this).hasClass("cm-header-1")) {
+            size = "headline-1";
+          }
+          if ($(this).hasClass("cm-header-2")) {
+            size = "headline-2";
+          }
+          if ($(this).hasClass("cm-header-3")) {
+            size = "headline-3";
+          }
+          return $(".documents .document[data-docid='" + id + "'] .headlines").append("<div class='headline " + size + "'>" + $(this).text() + "</div>");
+        }
+      });
     },
     set_font_size: function(size) {
       return $('.CodeMirror').css("font-size", size + "px");
@@ -169,7 +184,7 @@
       return $('body, #editor').addClass(theme);
     },
     load_documents: function() {
-      var doc, documents, i, keys, sortable;
+      var doc, documents, i, keys;
       documents = [];
       keys = Object.keys(localStorage);
       i = 0;
@@ -177,17 +192,19 @@
         documents.push(JSON.parse(localStorage.getItem(keys[i])));
         i++;
       }
-      sortable = [];
-      for (doc in documents) {
-        sortable.push([doc, documents[doc].updated_at]);
-      }
-      sortable.sort(function(a, b) {
-        return a[1] - b[1];
+      documents.sort(function(a, b) {
+        return a.updated_at - b.updated_at;
       });
+      documents.reverse();
       $(".documents").html("");
-      return $.each(documents, function(key, doc) {
-        return $(".documents").append('<div class="document" data-docid="' + documents[key].id + '">' + documents[key].title + '.md</div>');
-      });
+      for (doc in documents) {
+        doc = documents[doc];
+        $(".documents").append('<div class="document" data-docid="' + doc.id + '"><span>' + doc.title + '.md</span><div class="headlines"></div></div>');
+      }
+      if (this.current_doc !== null) {
+        $(".documents .document[data-docid='" + this.current_doc + "']").addClass('active');
+        return this.get_headlines(this.current_doc);
+      }
     },
     save_document: function() {
       var doc, doc_id, docname;
@@ -204,6 +221,8 @@
       console.log('New document created. (Doc-ID: ' + doc_id + ')');
       $('.documents .document').removeClass('active');
       $('.documents').prepend('<div class="document active" data-docid="' + doc.id + '">' + doc.title + '.md</div>');
+      $('.title span').html(doc.title);
+      $('.title input').val(doc.title);
       return this.current_doc = doc_id;
     },
     generate_uuid: function() {

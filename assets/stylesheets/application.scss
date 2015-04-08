@@ -204,9 +204,40 @@ body {
   }
   .documents {
     .document {
-      cursor: pointer;
+      span {
+        cursor: pointer;
+        display: block;
+      }
+      .headlines {
+        display: none;
+        font-size: .75em;
+        color: #999;
+        padding-left: 1em;
+        .headline {
+          &.headline-1 {
+            &:before {
+              content: "#";
+            }
+          }
+          &.headline-2 {
+            &:before {
+              content: "##";
+            }
+          }
+          &.headline-3 {
+            &:before {
+              content: "###";
+            }
+          }
+        }
+      }
       &.active {
-        font-weight: bold;
+        span {
+          font-weight: bold;
+        }
+        .headlines {
+          display: block;
+        }
       }
     }
   }
