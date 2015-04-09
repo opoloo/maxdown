@@ -27,11 +27,11 @@
         e.preventDefault();
         return maxdown.new_document();
       });
-      $(document).on("click", ".document", function(e) {
+      $(document).on("click", ".document span", function(e) {
         e.preventDefault();
         $('.documents .document').removeClass('active');
-        $(this).addClass('active');
-        return maxdown.load_document($(this).data('docid'));
+        $(this).parent().addClass('active');
+        return maxdown.load_document($(this).parent().data('docid'));
       });
       $(document).on("click", ".navbar .title", function(e) {
         if (maxdown.current_doc !== null) {
@@ -66,7 +66,7 @@
       });
       return $(document).on("click", ".documents .document.active > span", function(e) {
         e.preventDefault();
-        return $("input", $(this).parent()).show();
+        return $("input", $(this).parent()).show().focus();
       });
     }
   };
@@ -152,13 +152,11 @@
     },
     delete_document: function(id) {
       if (this.current_doc === id) {
-        this.cm.setValue(this.default_value);
-        $(".title span").html('Maxdown - Markdown Editor');
-        $(".title input").val('Maxdown - Markdown Editor');
         this.current_doc = null;
       }
       localStorage.removeItem(id);
-      return this.load_documents();
+      this.load_documents();
+      return console.log("Deleted document (Doc-ID: " + id + ")");
     },
     load_document: function(id) {
       var doc;
@@ -237,7 +235,8 @@
         return $('.title input').val(doc.title);
       } else {
         $(".title span").html('Maxdown - Markdown Editor');
-        return $(".title input").val('Maxdown - Markdown Editor');
+        $(".title input").val('Maxdown - Markdown Editor');
+        return this.cm.setValue(this.default_value);
       }
     },
     save_document: function() {

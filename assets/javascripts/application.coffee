@@ -28,11 +28,11 @@ app =
       maxdown.new_document()
 
     # Handle document buttons
-    $(document).on "click", ".document", (e) ->
+    $(document).on "click", ".document span", (e) ->
       e.preventDefault()
       $('.documents .document').removeClass 'active'
-      $(this).addClass 'active'
-      maxdown.load_document $(this).data('docid')
+      $(this).parent().addClass 'active'
+      maxdown.load_document $(this).parent().data('docid')
 
     # Handle title renaming
     $(document).on "click", ".navbar .title", (e) ->
@@ -68,7 +68,7 @@ app =
     # Handle active document click (renaming)
     $(document).on "click", ".documents .document.active > span", (e) ->
       e.preventDefault()
-      $("input", $(this).parent()).show()
+      $("input", $(this).parent()).show().focus()
 
 
 # ------------------------------ #
@@ -162,12 +162,10 @@ maxdown =
 
   delete_document: (id) ->
     if @current_doc is id
-      @cm.setValue @default_value
-      $(".title span").html 'Maxdown - Markdown Editor'
-      $(".title input").val 'Maxdown - Markdown Editor'
       @current_doc = null
     localStorage.removeItem id
     @load_documents()
+    console.log "Deleted document (Doc-ID: " + id + ")"
 
   load_document: (id) ->
     doc = JSON.parse(localStorage.getItem(id))
@@ -254,6 +252,7 @@ maxdown =
     else
       $(".title span").html 'Maxdown - Markdown Editor'
       $(".title input").val 'Maxdown - Markdown Editor'
+      @cm.setValue @default_value
 
   save_document: ->
     # Set document title
