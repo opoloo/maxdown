@@ -103,7 +103,7 @@ body {
       z-index: 1;
       width: 100%;
       height: 100%;
-      background-color: #fff;
+      background-color: #dfd;
       display: none;
     }
   }
@@ -207,6 +207,19 @@ body {
         font-size: .75em;
         color: #999;
         cursor: pointer;
+        z-index: 0;
+      }
+      input {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #dfd;
+        font-size: 1em;
+        font-family: 'Fira Mono', sans-serif;
+        font-weight: bold;
+        display: none;
       }
       span {
         cursor: pointer;

@@ -38,11 +38,11 @@
           return $("input", $(this)).show().focus();
         }
       });
-      $(document).on("blur", ".title input", function(e) {
+      $(document).on("blur", ".title input, .document.active input", function(e) {
         maxdown.rename_document($(this).val());
         return $(this).hide();
       });
-      $(document).on("keydown", ".title input", function(e) {
+      $(document).on("keydown", ".title input, .document.active input", function(e) {
         var key;
         key = e.keyCode || e.which;
         if (key === 13) {
@@ -56,7 +56,7 @@
           scrollTop: $(".md-header-" + $(this).data("headline")).offset().top - $(".navbar").height() + "px"
         }, 500);
       });
-      return $(document).on("click", ".btn-delete-document", function(e) {
+      $(document).on("click", ".btn-delete-document", function(e) {
         var doc_id;
         e.preventDefault();
         if (confirm("Are you sure?")) {
@@ -64,11 +64,15 @@
           return maxdown.delete_document(doc_id);
         }
       });
+      return $(document).on("click", ".documents .document.active > span", function(e) {
+        e.preventDefault();
+        return $("input", $(this).parent()).show();
+      });
     }
   };
 
   maxdown = {
-    version: '0.2.2 (8. April 2015)',
+    version: '0.2.3 (9. April 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
@@ -90,8 +94,6 @@
       console.log(' * Website: http://opoloo.com');
       console.log(' * License: MIT');
       console.log(' */');
-      $(".title span").html('Maxdown - Markdown Editor');
-      $(".title input").val('Maxdown - Markdown Editor');
       this.cm = CodeMirror($(selector)[0], {
         value: this.default_value,
         mode: {
@@ -225,7 +227,7 @@
       $(".documents").html("");
       for (doc in documents) {
         doc = documents[doc];
-        $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document">[x]</div><span>' + doc.title + '.md</span><div class="headlines"></div></div>');
+        $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document">[x]</div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>');
       }
       if (this.current_doc !== null) {
         $(".documents .document[data-docid='" + this.current_doc + "']").addClass('active');
@@ -233,6 +235,9 @@
         doc = JSON.parse(localStorage.getItem(this.current_doc));
         $('.title span').html(doc.title);
         return $('.title input').val(doc.title);
+      } else {
+        $(".title span").html('Maxdown - Markdown Editor');
+        return $(".title input").val('Maxdown - Markdown Editor');
       }
     },
     save_document: function() {

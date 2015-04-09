@@ -2,7 +2,7 @@
 
 Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.net)-engine. You can find a [preview here](http://opoloo.github.io/maxdown).
 
-![current version](https://img.shields.io/badge/current_version-0.2.1-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.2.2_beta-brightgreen.svg)
 
 ![status](https://img.shields.io/badge/status-stable-brightgreen.svg)
 
@@ -17,6 +17,9 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 ### Changelog
 
+- v0.2.3 (9. April 2015)
+  - Improved title handling
+  - Renaming documents is now possible inside the documents list (click active document once again)
 - v0.2.2 (8. April 2015)
   - Autosave system tweaks
   - Document list now ordered by "most recent update" DESC
@@ -43,3 +46,4 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 ### Known bugs
 
 - Losing focus of current document when deleting another one
+- No "unsafed changes warning" when switching documents

@@ -40,12 +40,12 @@ app =
         $("input", $(this)).show().focus()
 
     # Handle title saving
-    $(document).on "blur", ".title input", (e) ->
+    $(document).on "blur", ".title input, .document.active input", (e) ->
       maxdown.rename_document $(this).val()
       $(this).hide()
 
     # Handle key inputs
-    $(document).on "keydown", ".title input", (e) ->
+    $(document).on "keydown", ".title input, .document.active input", (e) ->
       key = e.keyCode || e.which
       if key is 13
         maxdown.rename_document $(this).val()
@@ -54,7 +54,6 @@ app =
     # Handle headline clicks (anchor scrolling)
     $(document).on "click", ".headline", (e) ->
       e.preventDefault()
-      # console.log $(".md-header-" + $(this).data("headline")).offset().top + "px"
       $("html,body").animate
         scrollTop: $(".md-header-" + $(this).data("headline")).offset().top - $(".navbar").height() + "px"
       , 500
@@ -66,12 +65,17 @@ app =
         doc_id = $(this).parent().data "docid"
         maxdown.delete_document doc_id
 
+    # Handle active document click (renaming)
+    $(document).on "click", ".documents .document.active > span", (e) ->
+      e.preventDefault()
+      $("input", $(this).parent()).show()
+
 
 # ------------------------------ #
 
 
 maxdown =
-  version: '0.2.2 (8. April 2015)'
+  version: '0.2.3 (9. April 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
@@ -91,9 +95,6 @@ maxdown =
     console.log ' * Website: http://opoloo.com'
     console.log ' * License: MIT'
     console.log ' */'
-
-    $(".title span").html 'Maxdown - Markdown Editor'
-    $(".title input").val 'Maxdown - Markdown Editor'
 
     @cm = CodeMirror($(selector)[0],
       value: @default_value
@@ -235,7 +236,7 @@ maxdown =
     $(".documents").html("")
     for doc of documents
       doc = documents[doc]
-      $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document">[x]</div><span>' + doc.title + '.md</span><div class="headlines"></div></div>')
+      $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document">[x]</div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>')
 
     if @current_doc != null
       # Update active document
@@ -250,6 +251,9 @@ maxdown =
       # Set title
       $('.title span').html doc.title
       $('.title input').val doc.title
+    else
+      $(".title span").html 'Maxdown - Markdown Editor'
+      $(".title input").val 'Maxdown - Markdown Editor'
 
   save_document: ->
     # Set document title
