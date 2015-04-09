@@ -52,8 +52,8 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 ### Known bugs
 
-- Losing focus of current document when deleting another one
 - No "unsafed changes warning" when switching documents
 - `is_saved` will be set to `false` when switching documents
+- When adding super-importance, the last of the three asterisks is not bold
 
 [See all issues](https://github.com/opoloo/maxdown/issues)
