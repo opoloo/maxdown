@@ -1,6 +1,11 @@
 # MaxDown - Markdown Editor
 
-Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.net)-engine. You can find a [preview here](http://opoloo.github.io/maxdown).
+Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.net)-engine. Simple design for easy writing without distraction. Markdown will be highlighted as you type. The whole project is open-source. Feel free to contribute in any way you like.
+
+- [Online demo](http://opoloo.github.io/maxdown)
+- [Download latest release](https://github.com/opoloo/maxdown/releases)
+- [Open new issue](https://github.com/opoloo/maxdown/issues/new)
+- ~~[Official website](#)~~ (coming soon)
 
 ![current version](https://img.shields.io/badge/current_version-0.2.3-brightgreen.svg)
 
