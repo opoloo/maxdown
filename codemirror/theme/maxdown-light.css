@@ -26,3 +26,28 @@
   line-height: 1.6;
   font-weight: 400;
 }
+
+.cm-quote {
+  font-size: 1em;
+  opacity: 1;
+  line-height: 1.6;
+}
+
+.cm-hr {
+  opacity: 0.2;
+}
+.cm-hr:after {
+  content: "";
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  background-color: #000;
+  opacity: 0.1;
+  height: 2px;
+  top: 50%;
+  margin-top: -1px;
+}
+
+.cm-formatting {
+  opacity: 0.2;
+}
