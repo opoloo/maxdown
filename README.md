@@ -26,6 +26,7 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 - v0.2.4 (14. April 2015)
   - Improved renaming function (checking for empty value)
+  - Made sidebar scrollable
 - v0.2.3 (9. April 2015)
   - Improved title handling
   - Renaming documents is now possible inside the documents list (click active document once again)
