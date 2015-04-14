@@ -75,7 +75,7 @@ app =
 
 
 maxdown =
-  version: '0.2.3 (9. April 2015)'
+  version: '0.2.4 (14. April 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
@@ -142,12 +142,14 @@ maxdown =
     # Get current document object
     doc = JSON.parse(localStorage.getItem(@current_doc))
 
-    # Rename title
-    doc.title = new_title
-    doc.updated_at = Date.now()
+    # Check if new title is provided
+    unless new_title == ""
+      # Rename title
+      doc.title = new_title
+      doc.updated_at = Date.now()
 
-    # Overwrite document object
-    localStorage.setItem(doc.id, JSON.stringify(doc))
+      # Overwrite document object
+      localStorage.setItem(doc.id, JSON.stringify(doc))
 
     # Show new title
     @load_documents()

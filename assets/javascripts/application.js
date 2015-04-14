@@ -72,7 +72,7 @@
   };
 
   maxdown = {
-    version: '0.2.3 (9. April 2015)',
+    version: '0.2.4 (14. April 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
@@ -139,9 +139,11 @@
     rename_document: function(new_title) {
       var doc;
       doc = JSON.parse(localStorage.getItem(this.current_doc));
-      doc.title = new_title;
-      doc.updated_at = Date.now();
-      localStorage.setItem(doc.id, JSON.stringify(doc));
+      if (new_title !== "") {
+        doc.title = new_title;
+        doc.updated_at = Date.now();
+        localStorage.setItem(doc.id, JSON.stringify(doc));
+      }
       this.load_documents();
       return console.log('Renamed document (Doc-ID: ' + maxdown.current_doc + ')');
     },

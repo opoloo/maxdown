@@ -7,9 +7,9 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 - [Open new issue](https://github.com/opoloo/maxdown/issues/new)
 - ~~[Official website](#)~~ (coming soon)
 
-![current version](https://img.shields.io/badge/current_version-0.2.3-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.2.4-brightgreen.svg)
 
-![latest update](https://img.shields.io/badge/latest_update-09._April_2015-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-14._April_2015-brightgreen.svg)
 
 ![status](https://img.shields.io/badge/status-stable--beta-yellow.svg)
 
@@ -24,6 +24,8 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 ### Changelog
 
+- v0.2.4 (14. April 2015)
+  - Improved renaming function (checking for empty value)
 - v0.2.3 (9. April 2015)
   - Improved title handling
   - Renaming documents is now possible inside the documents list (click active document once again)
