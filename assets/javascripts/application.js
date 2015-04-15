@@ -69,6 +69,12 @@
           return maxdown.delete_document(doc_id);
         }
       });
+      $(document).on("click", ".btn-delete-all", function(e) {
+        e.preventDefault();
+        if (confirm("Are you sure? All documents will be deleted!")) {
+          return maxdown.delete_all_documents();
+        }
+      });
       return $(document).on("click", ".documents .document.active > span", function(e) {
         e.preventDefault();
         return $("input", $(this).parent()).show().focus().select();
@@ -162,6 +168,12 @@
       localStorage.removeItem(id);
       this.load_documents();
       return console.log("Deleted document (Doc-ID: " + id + ")");
+    },
+    delete_all_documents: function() {
+      this.current_doc = null;
+      localStorage.clear();
+      this.load_documents();
+      return console.log("Deleted all documents");
     },
     load_document: function(id) {
       var doc;

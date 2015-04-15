@@ -71,6 +71,12 @@ app =
         doc_id = $(this).parent().data "docid"
         maxdown.delete_document doc_id
 
+    # Handle delete all button
+    $(document).on "click", ".btn-delete-all", (e) ->
+      e.preventDefault()
+      if confirm("Are you sure? All documents will be deleted!")
+        maxdown.delete_all_documents()
+
     # Handle active document click (renaming)
     $(document).on "click", ".documents .document.active > span", (e) ->
       e.preventDefault()
@@ -171,6 +177,12 @@ maxdown =
     localStorage.removeItem id
     @load_documents()
     console.log "Deleted document (Doc-ID: " + id + ")"
+
+  delete_all_documents: ->
+    @current_doc = null
+    localStorage.clear()
+    @load_documents()
+    console.log "Deleted all documents"
 
   load_document: (id) ->
     doc = JSON.parse(localStorage.getItem(id))

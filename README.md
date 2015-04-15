@@ -32,6 +32,7 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
   - Added FontAwesome (Iconfont)
   - Custom scrollbar styling for documents list
   - Improved saving-animation
+  - Added delete all button
 - v0.2.4 (14. April 2015)
   - Improved renaming function (checking for empty value)
   - Made sidebar scrollable

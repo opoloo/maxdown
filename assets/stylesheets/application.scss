@@ -160,8 +160,8 @@ body {
 
 .btn-theme {
   cursor: pointer;
-  width: 18px;
-  height: 18px;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   &.maxdown-light {
     border: 2px solid #000;
@@ -254,6 +254,7 @@ body {
     line-height: 48px;
     > div {
       display: inline-block;
+      cursor: pointer;
     }
   }
   .documents {
