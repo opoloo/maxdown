@@ -30,9 +30,16 @@ app =
     # Handle document buttons
     $(document).on "click", ".document span", (e) ->
       e.preventDefault()
-      $('.documents .document').removeClass 'active'
-      $(this).parent().addClass 'active'
-      maxdown.load_document $(this).parent().data('docid')
+      # Check if current document is saved
+      if maxdown.current_doc != null && maxdown.is_saved == false
+        if confirm "You have unsaved changes in your document. Would you like to switch the document anyway?"
+          $('.documents .document').removeClass 'active'
+          $(this).parent().addClass 'active'
+          maxdown.load_document $(this).parent().data('docid')
+      else
+        $('.documents .document').removeClass 'active'
+        $(this).parent().addClass 'active'
+        maxdown.load_document $(this).parent().data('docid')
 
     # Handle title saving
     $(document).on "blur", ".document.active input", (e) ->

@@ -29,9 +29,17 @@
       });
       $(document).on("click", ".document span", function(e) {
         e.preventDefault();
-        $('.documents .document').removeClass('active');
-        $(this).parent().addClass('active');
-        return maxdown.load_document($(this).parent().data('docid'));
+        if (maxdown.current_doc !== null && maxdown.is_saved === false) {
+          if (confirm("You have unsaved changes in your document. Would you like to switch the document anyway?")) {
+            $('.documents .document').removeClass('active');
+            $(this).parent().addClass('active');
+            return maxdown.load_document($(this).parent().data('docid'));
+          }
+        } else {
+          $('.documents .document').removeClass('active');
+          $(this).parent().addClass('active');
+          return maxdown.load_document($(this).parent().data('docid'));
+        }
       });
       $(document).on("blur", ".document.active input", function(e) {
         maxdown.rename_document($(this).val());
