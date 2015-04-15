@@ -227,9 +227,9 @@ body {
   height: 100%;
   position: fixed;
   z-index: 90;
-  padding: 48px 20px 20px 20px;
   top: 0;
   right: 0;
+  display: none;
   &.active {
     .main-nav-toggle {
 
@@ -239,7 +239,7 @@ body {
     display: none;
   }
   .btn-new-document {
-    margin-bottom: 1em;
+    line-height: 48px;
     cursor: pointer;
     span {
       font-weight: bold;
@@ -247,16 +247,24 @@ body {
     }
   }
   .actions {
-    padding-bottom: 1em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0px;
+    line-height: 48px;
+    > div {
+      display: inline-block;
+    }
   }
   .documents {
     overflow-y: scroll;
     position: absolute;
-    top: 127px;
-    left: 20px;
-    right: 20px;
-    bottom: 0;
+    top: 48px;
+    left: 0px;
+    right: 0px;
+    bottom: 48px;
     border-top: 2px dotted #ddd;
+    border-bottom: 2px dotted #ddd;
     padding-top: 1em;
     padding-bottom: 1em;
     &::-webkit-scrollbar {
@@ -338,7 +346,7 @@ body {
 .editor {
   width: 100%;
   max-width: 740px;
-  padding: 20px;
+  padding: 60px 20px;
   margin: 0 auto;
 }
 

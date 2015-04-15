@@ -14,7 +14,7 @@ app =
       e.preventDefault()
       $(this).toggleClass "active"
       $(".main-nav").toggleClass "active"
-      $(".main-nav-toggle").fadeToggle "fast"
+      $(".main-nav").fadeToggle "fast"
 
     # Toggle theme
     $(document).on "click", ".btn-theme", (e) ->
@@ -54,6 +54,10 @@ app =
     # Handle headline clicks (anchor scrolling)
     $(document).on "click", ".headline", (e) ->
       e.preventDefault()
+      # Close sidebar
+      $(".main-nav, .btn-menu").toggleClass 'active'
+      $(".main-nav").fadeOut 'fast'
+      # Scroll to headline
       $("html,body").animate
         scrollTop: $(".md-header-" + $(this).data("headline")).offset().top - $(".navbar").height() + "px"
       , 500

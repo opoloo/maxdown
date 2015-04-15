@@ -16,7 +16,7 @@
         e.preventDefault();
         $(this).toggleClass("active");
         $(".main-nav").toggleClass("active");
-        return $(".main-nav-toggle").fadeToggle("fast");
+        return $(".main-nav").fadeToggle("fast");
       });
       $(document).on("click", ".btn-theme", function(e) {
         e.preventDefault();
@@ -52,6 +52,8 @@
       });
       $(document).on("click", ".headline", function(e) {
         e.preventDefault();
+        $(".main-nav, .btn-menu").toggleClass('active');
+        $(".main-nav").fadeOut('fast');
         return $("html,body").animate({
           scrollTop: $(".md-header-" + $(this).data("headline")).offset().top - $(".navbar").height() + "px"
         }, 500);
