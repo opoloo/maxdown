@@ -33,16 +33,11 @@
         $(this).parent().addClass('active');
         return maxdown.load_document($(this).parent().data('docid'));
       });
-      $(document).on("click", ".navbar .title", function(e) {
-        if (maxdown.current_doc !== null) {
-          return $("input", $(this)).show().focus();
-        }
-      });
-      $(document).on("blur", ".title input, .document.active input", function(e) {
+      $(document).on("blur", ".document.active input", function(e) {
         maxdown.rename_document($(this).val());
         return $(this).hide();
       });
-      $(document).on("keydown", ".title input, .document.active input", function(e) {
+      $(document).on("keydown", ".document.active input", function(e) {
         var key;
         key = e.keyCode || e.which;
         if (key === 13) {
@@ -68,7 +63,7 @@
       });
       return $(document).on("click", ".documents .document.active > span", function(e) {
         e.preventDefault();
-        return $("input", $(this).parent()).show().focus();
+        return $("input", $(this).parent()).show().focus().select();
       });
     }
   };

@@ -34,18 +34,13 @@ app =
       $(this).parent().addClass 'active'
       maxdown.load_document $(this).parent().data('docid')
 
-    # Handle title renaming
-    $(document).on "click", ".navbar .title", (e) ->
-      unless maxdown.current_doc is null
-        $("input", $(this)).show().focus()
-
     # Handle title saving
-    $(document).on "blur", ".title input, .document.active input", (e) ->
+    $(document).on "blur", ".document.active input", (e) ->
       maxdown.rename_document $(this).val()
       $(this).hide()
 
     # Handle key inputs
-    $(document).on "keydown", ".title input, .document.active input", (e) ->
+    $(document).on "keydown", ".document.active input", (e) ->
       key = e.keyCode || e.which
       if key is 13
         maxdown.rename_document $(this).val()
@@ -72,7 +67,7 @@ app =
     # Handle active document click (renaming)
     $(document).on "click", ".documents .document.active > span", (e) ->
       e.preventDefault()
-      $("input", $(this).parent()).show().focus()
+      $("input", $(this).parent()).show().focus().select()
 
 
 # ------------------------------ #
