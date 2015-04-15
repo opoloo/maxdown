@@ -7,9 +7,9 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 - [Open new issue](https://github.com/opoloo/maxdown/issues/new)
 - ~~[Official website](#)~~ (coming soon)
 
-![current version](https://img.shields.io/badge/current_version-0.2.4-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.2.5-brightgreen.svg)
 
-![latest update](https://img.shields.io/badge/latest_update-14._April_2015-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-15._April_2015-brightgreen.svg)
 
 ![status](https://img.shields.io/badge/status-stable--beta-yellow.svg)
 
@@ -24,6 +24,14 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 ### Changelog
 
+- v0.2.5 (15. April 2015)
+  - Colorized cursor + selected text
+  - Fixed autosave bug
+  - Removed top navbar
+  - Re-Arranged Sidebar
+  - Added FontAwesome (Iconfont)
+  - Custom scrollbar styling for documents list
+  - Improved saving-animation
 - v0.2.4 (14. April 2015)
   - Improved renaming function (checking for empty value)
   - Made sidebar scrollable

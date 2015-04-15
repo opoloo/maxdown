@@ -1,4 +1,10 @@
 @import url(../fonts/fira-mono/fira-mono.css);
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
 
 @mixin vendor($a, $v) {
   -webkit-#{$a}: $v;
@@ -6,6 +12,12 @@
   -ms-#{$a}: $v;
   -o-#{$a}: $v;
   #{$a}: $v;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes $name { @content };
+  @-moz-keyframes $name { @content };
+  @keyframes $name { @content };
 }
 
 @mixin clearfix() {
@@ -32,47 +44,77 @@ body {
   &.maxdown-light {
     background-color: #fff;
     color: #000;
-    .navbar {
-      background-color: #fff;
-      .btn-menu {
-        .stripes {
+    .btn-menu {
+      .stripes {
+        background-color: #000;
+        &:before, &:after {
           background-color: #000;
-          &:before, &:after {
-            background-color: #000;
-          }
         }
-        &.active {
-          .stripes {
-            background-color: #fff;
-          }
+      }
+      &.active {
+        .stripes {
+          background-color: #fff;
         }
       }
     }
     .main-nav {
-      background-color: #fff;
+      .documents {
+        &::-webkit-scrollbar {
+          background-color: #fff;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(#000, .1);
+        }
+        .document {
+          .btn-delete-document {
+            color: #ddd;
+            &:hover {
+              color: #000;
+            }
+          }
+        }
+      }
+      &.active {
+        background-color: #fff;
+      }
     }
   }
   &.maxdown-dark {
     background-color: #1a1a1a;
     color: #fff;
-    .navbar {
-      background-color: #1a1a1a;
-      .btn-menu {
-        .stripes {
+    .btn-menu {
+      .stripes {
+        background-color: #fff;
+        &:before, &:after {
           background-color: #fff;
-          &:before, &:after {
-            background-color: #fff;
-          }
         }
-        &.active {
-          .stripes {
-            background-color: #1a1a1a;
-          }
+      }
+      &.active {
+        .stripes {
+          background-color: #1a1a1a;
         }
       }
     }
     .main-nav {
-      background-color: #1a1a1a;
+      .documents {
+        &::-webkit-scrollbar {
+          background-color: #000;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(#fff, .25);
+        }
+        .document {
+          .btn-delete-document {
+            color: #666;
+            &:hover {
+              color: #fff;
+            }
+          }
+        }
+      }
+      &.active {
+        background-color: #1a1a1a;
+      }
     }
   }
 }
@@ -113,59 +155,61 @@ body {
     top: 0;
     left: 0;
     display: none;
-    .btn-theme {
-      margin-top: 15px;
-      cursor: pointer;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      &.maxdown-light {
-        border: 2px solid #000;
-      }
-      &.maxdown-dark {
-        border: 2px solid #fff;
-      }
+  }
+}
+
+.btn-theme {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  &.maxdown-light {
+    border: 2px solid #000;
+  }
+  &.maxdown-dark {
+    border: 2px solid #fff;
+  }
+}
+
+.btn-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 58px;
+  height: 48px;
+  cursor: pointer;
+  z-index: 100;
+  .stripes {
+    width: 18px;
+    height: 2px;
+    position: absolute;
+    background-color: #000;
+    top: 50%;
+    left: 50%;
+    @include vendor(transform, translate3d(-50%, -50%, 0));
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: #000;
+      @include vendor(transition, transform .3s ease);
+    }
+    &:before {
+      @include vendor(transform, translateY(-250%) rotate(0deg));
+    }
+    &:after {
+      @include vendor(transform, translateY(250%) rotate(0deg));
     }
   }
-  .btn-menu {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 58px;
-    height: 48px;
-    cursor: pointer;
+  &.active {
     .stripes {
-      width: 18px;
-      height: 2px;
-      position: absolute;
-      background-color: #000;
-      top: 50%;
-      left: 50%;
-      @include vendor(transform, translate3d(-50%, -50%, 0));
-      &:before, &:after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background-color: #000;
-        @include vendor(transition, transform .3s ease);
-      }
+      background-color: #fff;
       &:before {
-        @include vendor(transform, translateY(-250%) rotate(0deg));
+        @include vendor(transform, translateY(0%) rotate(45deg));
       }
       &:after {
-        @include vendor(transform, translateY(250%) rotate(0deg));
-      }
-    }
-    &.active {
-      .stripes {
-        background-color: #fff;
-        &:before {
-          @include vendor(transform, translateY(0%) rotate(45deg));
-        }
-        &:after {
-          @include vendor(transform, translateY(0%) rotate(-45deg));
-        }
+        @include vendor(transform, translateY(0%) rotate(-45deg));
       }
     }
   }
@@ -181,34 +225,61 @@ body {
   width: 100%;
   max-width: 360px;
   height: 100%;
-  background-color: #fff;
   position: fixed;
   z-index: 90;
-  padding: 70px 20px 20px 20px;
+  padding: 48px 20px 20px 20px;
   top: 0;
   right: 0;
-  display: none;
-  overflow-y: scroll;
-  @include vendor(transition, transform .3s ease);
-  // @include vendor(transform, translate3d(100%, 0, 0));
   &.active {
-    @include vendor(transform, translate3d(0, 0, 0));
+    .main-nav-toggle {
+
+    }
+  }
+  .main-nav-toggle {
+    display: none;
   }
   .btn-new-document {
     margin-bottom: 1em;
     cursor: pointer;
+    span {
+      font-weight: bold;
+      color: #2ecc71;
+    }
+  }
+  .actions {
+    padding-bottom: 1em;
   }
   .documents {
+    overflow-y: scroll;
+    position: absolute;
+    top: 127px;
+    left: 20px;
+    right: 20px;
+    bottom: 0;
+    border-top: 2px dotted #ddd;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    &::-webkit-scrollbar {
+      background-color: #fff;
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(#000, .1);
+      border-radius: 2px;
+    }
     .document {
       position: relative;
       .btn-delete-document {
         position: absolute;
         top: 0;
-        right: 0;
-        font-size: .75em;
-        color: #999;
+        right: .5em;
+        font-size: 1em;
+        color: #ddd;
         cursor: pointer;
         z-index: 0;
+        &:hover {
+          color: #000;
+        }
       }
       input {
         position: absolute;
@@ -257,6 +328,9 @@ body {
           display: block;
         }
       }
+      &+.document {
+        margin-top: .5em;
+      }
     }
   }
 }
@@ -270,8 +344,18 @@ body {
 
 .save-info {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  color: #999;
-  font-size: 0.75em;
+  display: none;
+  top: 0;
+  left: 0;
+  text-align: center;
+  width: 58px;
+  line-height: 48px;
+  color: #2ecc71;
+  @include vendor(animation, spin 1s infinite linear);
 }
+
+@include keyframes("spin") {
+  to {
+    @include vendor(transform, rotate(360deg));
+  }
+};

@@ -13,8 +13,8 @@ app =
     $(document).on "click", ".btn-menu", (e) ->
       e.preventDefault()
       $(this).toggleClass "active"
-      $(".main-nav").fadeToggle "fast"
-      $(".actions, .title").fadeToggle()
+      $(".main-nav").toggleClass "active"
+      $(".main-nav-toggle").fadeToggle "fast"
 
     # Toggle theme
     $(document).on "click", ".btn-theme", (e) ->
@@ -75,14 +75,11 @@ app =
 
 
 maxdown =
-  version: '0.2.4 (14. April 2015)'
+  version: '0.2.5 (15. April 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
   is_saved: true
-  msg_saved: "Saved!"
-  msg_saving: "Saving..."
-  msg_not_saved: "<span style='color: #f00;'>Not Saved...</span>"
   current_doc: null
   default_title: 'UntitledDocument'
   default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n---\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://placehold.it/350x150)'
@@ -115,10 +112,10 @@ maxdown =
 
   bind_events: ->
     @cm.on "change", (cm, change) ->
-      maxdown.is_saved = false
-      $(".save-info").html maxdown.msg_not_saved
-      window.onbeforeunload = ->
-        return "You have unsaved changes in your document."
+      if maxdown.current_doc != null
+        maxdown.is_saved = false
+        window.onbeforeunload = ->
+          return "You have unsaved changes in your document."
 
   autosave: ->
     if @current_doc != null and @is_saved != true
@@ -128,15 +125,15 @@ maxdown =
       doc.updated_at = Date.now()
       # Only update document if content has changed
       if doc.content != @cm.getValue()
-        $(".save-info").html @msg_saving
+        $(".save-info").fadeIn()
         doc.content = @cm.getValue()
         # Overwrite document object
         localStorage.setItem(doc.id, JSON.stringify(doc))
         console.log 'Document overwritten (Doc-ID: ' + @current_doc + ')'
         @is_saved = true
-        $(".save-info").html @msg_saved
         window.onbeforeunload = undefined
         @load_documents()
+        $(".save-info").delay(500).fadeOut()
 
   rename_document: (new_title) ->
     # Get current document object
@@ -184,7 +181,7 @@ maxdown =
 
     # Fix save info bug
     @is_saved = true
-    $(".save-info").html @msg_saved
+    $(".save-info").hide()
 
   get_headlines: (id) ->
     $(".documents .document[data-docid='" + id + "'] .headlines").html("")
@@ -236,7 +233,7 @@ maxdown =
     $(".documents").html("")
     for doc of documents
       doc = documents[doc]
-      $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document">[x]</div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>')
+      $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document fontawesome-trash"></div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>')
 
     if @current_doc != null
       # Update active document

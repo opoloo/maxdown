@@ -15,8 +15,8 @@
       $(document).on("click", ".btn-menu", function(e) {
         e.preventDefault();
         $(this).toggleClass("active");
-        $(".main-nav").fadeToggle("fast");
-        return $(".actions, .title").fadeToggle();
+        $(".main-nav").toggleClass("active");
+        return $(".main-nav-toggle").fadeToggle("fast");
       });
       $(document).on("click", ".btn-theme", function(e) {
         e.preventDefault();
@@ -72,14 +72,11 @@
   };
 
   maxdown = {
-    version: '0.2.4 (14. April 2015)',
+    version: '0.2.5 (15. April 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
     is_saved: true,
-    msg_saved: "Saved!",
-    msg_saving: "Saving...",
-    msg_not_saved: "<span style='color: #f00;'>Not Saved...</span>",
     current_doc: null,
     default_title: 'UntitledDocument',
     default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n---\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://placehold.it/350x150)',
@@ -112,11 +109,12 @@
     },
     bind_events: function() {
       return this.cm.on("change", function(cm, change) {
-        maxdown.is_saved = false;
-        $(".save-info").html(maxdown.msg_not_saved);
-        return window.onbeforeunload = function() {
-          return "You have unsaved changes in your document.";
-        };
+        if (maxdown.current_doc !== null) {
+          maxdown.is_saved = false;
+          return window.onbeforeunload = function() {
+            return "You have unsaved changes in your document.";
+          };
+        }
       });
     },
     autosave: function() {
@@ -125,14 +123,14 @@
         doc = JSON.parse(localStorage.getItem(this.current_doc));
         doc.updated_at = Date.now();
         if (doc.content !== this.cm.getValue()) {
-          $(".save-info").html(this.msg_saving);
+          $(".save-info").fadeIn();
           doc.content = this.cm.getValue();
           localStorage.setItem(doc.id, JSON.stringify(doc));
           console.log('Document overwritten (Doc-ID: ' + this.current_doc + ')');
           this.is_saved = true;
-          $(".save-info").html(this.msg_saved);
           window.onbeforeunload = void 0;
-          return this.load_documents();
+          this.load_documents();
+          return $(".save-info").delay(500).fadeOut();
         }
       }
     },
@@ -170,7 +168,7 @@
       this.get_headlines(id);
       $("html,body").scrollTop(0);
       this.is_saved = true;
-      return $(".save-info").html(this.msg_saved);
+      return $(".save-info").hide();
     },
     get_headlines: function(id) {
       $(".documents .document[data-docid='" + id + "'] .headlines").html("");
@@ -227,7 +225,7 @@
       $(".documents").html("");
       for (doc in documents) {
         doc = documents[doc];
-        $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document">[x]</div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>');
+        $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document fontawesome-trash"></div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>');
       }
       if (this.current_doc !== null) {
         $(".documents .document[data-docid='" + this.current_doc + "']").addClass('active');
