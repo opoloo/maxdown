@@ -6,6 +6,15 @@
   height: auto;
 }
 
+.CodeMirror div.CodeMirror-cursor {
+  border-left: 2px solid #2ecc71;
+}
+
+.CodeMirror div.CodeMirror-selected {
+  background-color: #2ecc71;
+  opacity: 0.2;
+}
+
 .cm-header-1 {
   font-size: 1.333em;
   opacity: 0.4;
