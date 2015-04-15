@@ -75,9 +75,23 @@
           return maxdown.delete_all_documents();
         }
       });
-      return $(document).on("click", ".documents .document.active > span", function(e) {
+      $(document).on("click", ".documents .document.active > span", function(e) {
         e.preventDefault();
         return $("input", $(this).parent()).show().focus().select();
+      });
+      return $(document).on("click", ".btn-fullscreen", function(e) {
+        var i;
+        e.preventDefault();
+        i = document.querySelector("body");
+        if (i.requestFullscreen) {
+          return i.requestFullscreen();
+        } else if (i.webkitRequestFullscreen) {
+          return i.webkitRequestFullscreen();
+        } else if (i.mozRequestFullScreen) {
+          return i.mozRequestFullScreen();
+        } else if (i.msRequestFullscreen) {
+          return i.msRequestFullscreen();
+        }
       });
     }
   };

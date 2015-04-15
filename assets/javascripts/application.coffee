@@ -82,6 +82,19 @@ app =
       e.preventDefault()
       $("input", $(this).parent()).show().focus().select()
 
+    # Handle Fullscreen button
+    $(document).on "click", ".btn-fullscreen", (e) ->
+      e.preventDefault()
+      i = document.querySelector("body");
+      if i.requestFullscreen
+        i.requestFullscreen()
+      else if i.webkitRequestFullscreen
+        i.webkitRequestFullscreen()
+      else if i.mozRequestFullScreen
+        i.mozRequestFullScreen()
+      else if i.msRequestFullscreen
+        i.msRequestFullscreen()
+
 
 # ------------------------------ #
 
