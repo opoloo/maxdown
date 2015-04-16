@@ -2,6 +2,10 @@
 
 Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.net)-engine. Simple design for easy writing without distraction. Markdown will be highlighted as you type. The whole project is [open-source](LICENSE). Feel free to contribute in any way you like.
 
+- [Features](#features)
+- [Changelog](#changelog)
+- [Known Bugs](#known-bugs)
+- [Contribution](#contribution)
 - [Online demo](http://opoloo.github.io/maxdown)
 - [Download latest release](https://github.com/opoloo/maxdown/releases)
 - [Open new issue](https://github.com/opoloo/maxdown/issues/new)
@@ -13,21 +17,24 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 ![status](https://img.shields.io/badge/status-stable--beta-yellow.svg)
 
-### Features
+## Features
 
-- Writing (markdown highlighting)
+- Markdown Highlighting ([GFM-Style](https://help.github.com/articles/github-flavored-markdown/))
 - Saving documents to localStorage
 - Renaming documents
 - Switch themes (light/dark)
 - Jump to sections of your document using quick anchor links to headlines
+- Fullscreen mode for distraction free environment
+- Delete single/all documents from localStorage
 - Even more. I don't know. I'm just the developer :) Cheers. RTFM
 
-### Changelog
+## Changelog
 
 - v0.2.6 (16. April 2015)
   - Added fullscreen mode
   - Adjusted sidebar styling
   - New editor styles for links/images
+  - Increased saving animation duration
 - v0.2.5 (15. April 2015)
   - Colorized cursor + selected text
   - Fixed autosave bug
@@ -69,6 +76,10 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
   - deprecated
   - some stuff was integrated here. Who knows.
 
-### Known bugs
+## Known bugs
 
 [Known bugs and other issues can be found here](https://github.com/opoloo/maxdown/issues)
+
+## Contribution
+
+Feel free to fork the code to contribute and/or open issues for bugs/suggestions/whatsoever. Thanks!
