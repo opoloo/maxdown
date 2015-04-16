@@ -17,7 +17,7 @@ app =
     # Toggle theme
     $(document).on "click", ".btn-theme", (e) ->
       e.preventDefault()
-      $(this).toggleClass "fontawesome-circle fontawesome-circle-blank"
+      $(this).toggleClass "icon-circle-spot icon-circle-blank"
       maxdown.toggle_theme()
 
     # Create new document button
@@ -128,6 +128,10 @@ maxdown =
       lineWrapping: true
       tabSize: 2
       theme: t
+      extraKeys:
+        'Ctrl+M': ->
+          console.log "Test"
+          maxdown.toggle_sidebar()
     )
 
     @bind_events()
@@ -158,6 +162,7 @@ maxdown =
       return false
 
   toggle_fullscreen: ->
+    $(".btn-fullscreen").toggleClass "icon-fullscreen icon-fullscreen-exit"
     if @is_fullscreen()
       if document.exitFullscreen
         document.exitFullscreen()
@@ -314,7 +319,7 @@ maxdown =
     $(".documents").html("")
     for doc of documents
       doc = documents[doc]
-      $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document fontawesome-trash"></div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>')
+      $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document icon-delete"></div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>')
 
     if @current_doc != null
       # Update active document

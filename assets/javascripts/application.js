@@ -18,7 +18,7 @@
       });
       $(document).on("click", ".btn-theme", function(e) {
         e.preventDefault();
-        $(this).toggleClass("fontawesome-circle fontawesome-circle-blank");
+        $(this).toggleClass("icon-circle-spot icon-circle-blank");
         return maxdown.toggle_theme();
       });
       $(document).on("click", ".btn-new-document", function(e) {
@@ -121,7 +121,13 @@
         },
         lineWrapping: true,
         tabSize: 2,
-        theme: t
+        theme: t,
+        extraKeys: {
+          'Ctrl+M': function() {
+            console.log("Test");
+            return maxdown.toggle_sidebar();
+          }
+        }
       });
       this.bind_events();
       this.load_documents();
@@ -151,6 +157,7 @@
     },
     toggle_fullscreen: function() {
       var i;
+      $(".btn-fullscreen").toggleClass("icon-fullscreen icon-fullscreen-exit");
       if (this.is_fullscreen()) {
         if (document.exitFullscreen) {
           document.exitFullscreen();
@@ -302,7 +309,7 @@
       $(".documents").html("");
       for (doc in documents) {
         doc = documents[doc];
-        $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document fontawesome-trash"></div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>');
+        $(".documents").append('<div class="document" data-docid="' + doc.id + '"><div class="btn-delete-document icon-delete"></div><input type="text" value="' + doc.title + '" /><span>' + doc.title + '.md</span><div class="headlines"></div></div>');
       }
       if (this.current_doc !== null) {
         $(".documents .document[data-docid='" + this.current_doc + "']").addClass('active');

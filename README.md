@@ -32,11 +32,14 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 - v0.2.6 (16. April 2015)
   - Added fullscreen mode
-  - Adjusted sidebar styling
   - New editor styles for links/images
   - Increased saving animation duration
   - Added mousetrap for keyboard shortcuts
   - Added keyboard shortcut for sidebar (CTRL+M)
+  - Added keyboard shortcut for new document (CTRL+ALT+N)
+  - Added keyboard shortcut for fullscreen (CTRL+ALT+F)
+  - Added new iconfont (replaced all icons)
+  - Sidebar style polish
 - v0.2.5 (15. April 2015)
   - Colorized cursor + selected text
   - Fixed autosave bug

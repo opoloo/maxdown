@@ -1,4 +1,5 @@
 @import url(../fonts/fira-mono/fira-mono.css);
+@import url(../fonts/iconfont/iconfont.css);
 @import url(http://weloveiconfonts.com/api/?family=fontawesome);
 
 /* fontawesome */
@@ -67,10 +68,7 @@ body {
         }
         .document {
           .btn-delete-document {
-            color: #ddd;
-            &:hover {
-              color: #000;
-            }
+            color: #000;
           }
         }
       }
@@ -105,10 +103,7 @@ body {
         }
         .document {
           .btn-delete-document {
-            color: #666;
-            &:hover {
-              color: #fff;
-            }
+            color: #fff;
           }
         }
       }
@@ -190,6 +185,9 @@ body {
   .btn-new-document {
     line-height: 48px;
     cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2em;
     span {
       font-weight: bold;
       color: #2ecc71;
@@ -198,12 +196,22 @@ body {
   .actions {
     position: absolute;
     bottom: 0;
-    left: 20px;
     right: 20px;
     line-height: 48px;
     > div {
-      display: inline-block;
+      display: block;
+      float: left;
       cursor: pointer;
+      background-color: transparent;
+      width: 48px;
+      height: 48px;
+      text-align: center;
+      line-height: 48px;
+      font-size: 1.5em;
+      &:hover {
+        background-color: #2ecc71;
+        color: #fff;
+      }
     }
   }
   .documents {
@@ -230,11 +238,12 @@ body {
         top: 0;
         right: .5em;
         font-size: 1em;
-        color: #ddd;
+        color: #000;
+        opacity: 0.2;
         cursor: pointer;
         z-index: 0;
         &:hover {
-          color: #000;
+          opacity: 1;
         }
       }
       input {
@@ -255,22 +264,32 @@ body {
       }
       .headlines {
         display: none;
-        font-size: .75em;
-        color: #999;
-        padding-left: 1em;
+        // font-size: .75em;
+        color: #000;
         .headline {
           cursor: pointer;
+          margin-top: 0.5em;
+          &:before {
+            position: absolute;
+            left: 0;
+          }
           &.headline-1 {
+            opacity: 0.5;
+            padding-left: 1em;
             &:before {
               content: "#";
             }
           }
           &.headline-2 {
+            opacity: 0.4;
+            padding-left: 1.611em;
             &:before {
               content: "##";
             }
           }
           &.headline-3 {
+            opacity: 0.3;
+            padding-left: 2.222em;
             &:before {
               content: "###";
             }
