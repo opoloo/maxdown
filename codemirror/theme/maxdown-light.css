@@ -1,8 +1,9 @@
 .CodeMirror.cm-s-maxdown-light {
-  font-size: 18px;
+  font-size: 22px;
   font-family: 'Fira Mono', sans-serif;
   background-color: #fff;
   color: #000;
+  line-height: 1.6;
   height: auto;
 }
 
@@ -51,7 +52,7 @@
   left: 40px;
   right: 40px;
   background-color: #000;
-  opacity: 0.1;
+  opacity: 0.2;
   height: 2px;
   top: 50%;
   margin-top: -1px;

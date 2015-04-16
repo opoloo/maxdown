@@ -1,4 +1,4 @@
-@import url(../fonts/fira-mono/fira-mono.css);
+@import url(../fonts/fira-mono/fira-mono.css); // 300, 400, 600
 @import url(../fonts/iconfont/iconfont.css);
 @import url(http://weloveiconfonts.com/api/?family=fontawesome);
 
@@ -118,7 +118,7 @@ body {
   position: fixed;
   top: 0;
   right: 0;
-  width: 58px;
+  width: 48px;
   height: 48px;
   cursor: pointer;
   z-index: 100;
@@ -186,8 +186,9 @@ body {
     line-height: 48px;
     cursor: pointer;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 1.2em;
+    font-family: 'Fira Sans', sans-serif;
     span {
       font-weight: bold;
       color: #2ecc71;
@@ -252,7 +253,8 @@ body {
         top: 0;
         left: 0;
         width: 100%;
-        background-color: #dfd;
+        background-color: #fff;
+        border-bottom: 2px solid #2ecc71;
         font-size: 1em;
         font-family: 'Fira Mono', sans-serif;
         font-weight: bold;
@@ -264,31 +266,32 @@ body {
       }
       .headlines {
         display: none;
-        // font-size: .75em;
+        font-size: 0.85em;
         color: #000;
+        margin-top: .5em;
         .headline {
           cursor: pointer;
-          margin-top: 0.5em;
+          padding: .5em 0;
           &:before {
             position: absolute;
             left: 0;
           }
           &.headline-1 {
-            opacity: 0.5;
+            opacity: 0.8;
             padding-left: 1em;
             &:before {
               content: "#";
             }
           }
           &.headline-2 {
-            opacity: 0.4;
+            opacity: 0.6;
             padding-left: 1.611em;
             &:before {
               content: "##";
             }
           }
           &.headline-3 {
-            opacity: 0.3;
+            opacity: 0.4;
             padding-left: 2.222em;
             &:before {
               content: "###";
