@@ -7,9 +7,9 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 - [Open new issue](https://github.com/opoloo/maxdown/issues/new)
 - ~~[Official website](#)~~ (coming soon)
 
-![current version](https://img.shields.io/badge/current_version-0.2.5-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.2.6-brightgreen.svg)
 
-![latest update](https://img.shields.io/badge/latest_update-15._April_2015-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-16._April_2015-brightgreen.svg)
 
 ![status](https://img.shields.io/badge/status-stable--beta-yellow.svg)
 
@@ -24,6 +24,10 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 ### Changelog
 
+- v0.2.6 (16. April 2015)
+  - Added fullscreen mode
+  - Adjusted sidebar styling
+  - New editor styles for links/images
 - v0.2.5 (15. April 2015)
   - Colorized cursor + selected text
   - Fixed autosave bug
@@ -67,8 +71,4 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 ### Known bugs
 
-- No "unsafed changes warning" when switching documents
-- `is_saved` will be set to `false` when switching documents
-- When adding super-importance, the last of the three asterisks is not bold
-
-[See all issues](https://github.com/opoloo/maxdown/issues)
+[Known bugs and other issues can be found here](https://github.com/opoloo/maxdown/issues)

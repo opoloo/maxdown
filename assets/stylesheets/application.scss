@@ -119,58 +119,6 @@ body {
   }
 }
 
-.navbar {
-  width: 100%;
-  height: 50px;
-  line-height: 48px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #fff;
-  padding: 0 20px;
-  z-index: 100;
-  .title {
-    position: absolute;
-    padding: 0 20px;
-    top: 0;
-    left: 0;
-    span {
-      position: relative;
-      z-index: 0;
-    }
-    input {
-      position: absolute;
-      font-size: 1em;
-      font-family: 'Fira Mono', sans-serif;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      background-color: #dfd;
-      display: none;
-    }
-  }
-  .actions {
-    position: absolute;
-    padding: 0 20px;
-    top: 0;
-    left: 0;
-    display: none;
-  }
-}
-
-.btn-theme {
-  cursor: pointer;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  &.maxdown-light {
-    border: 2px solid #000;
-  }
-  &.maxdown-dark {
-    border: 2px solid #fff;
-  }
-}
-
 .btn-menu {
   position: fixed;
   top: 0;
@@ -227,6 +175,7 @@ body {
   height: 100%;
   position: fixed;
   z-index: 90;
+  padding: 0 20px;
   top: 0;
   right: 0;
   display: none;
@@ -249,8 +198,8 @@ body {
   .actions {
     position: absolute;
     bottom: 0;
-    left: 0;
-    right: 0px;
+    left: 20px;
+    right: 20px;
     line-height: 48px;
     > div {
       display: inline-block;
@@ -261,11 +210,9 @@ body {
     overflow-y: scroll;
     position: absolute;
     top: 48px;
-    left: 0px;
-    right: 0px;
+    left: 20px;
+    right: 20px;
     bottom: 48px;
-    border-top: 2px dotted #ddd;
-    border-bottom: 2px dotted #ddd;
     padding-top: 1em;
     padding-bottom: 1em;
     &::-webkit-scrollbar {

@@ -19,7 +19,7 @@ app =
     # Toggle theme
     $(document).on "click", ".btn-theme", (e) ->
       e.preventDefault()
-      $(this).toggleClass "maxdown-light maxdown-dark"
+      $(this).toggleClass "fontawesome-circle fontawesome-circle-blank"
       maxdown.toggle_theme()
 
     # Create new document button
@@ -85,22 +85,14 @@ app =
     # Handle Fullscreen button
     $(document).on "click", ".btn-fullscreen", (e) ->
       e.preventDefault()
-      i = document.querySelector("body");
-      if i.requestFullscreen
-        i.requestFullscreen()
-      else if i.webkitRequestFullscreen
-        i.webkitRequestFullscreen()
-      else if i.mozRequestFullScreen
-        i.mozRequestFullScreen()
-      else if i.msRequestFullscreen
-        i.msRequestFullscreen()
+      maxdown.toggle_fullscreen()
 
 
 # ------------------------------ #
 
 
 maxdown =
-  version: '0.2.5 (15. April 2015)'
+  version: '0.2.6 (16. April 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
@@ -131,6 +123,12 @@ maxdown =
     @bind_events()
     @load_documents()
 
+    # Checks if fullscreen mode is rather supported or not
+    unless @fullscreen_possible
+      # If fullscreen mode is not supported, hide the icon
+      $(".actions .btn-fullscreen").hide()
+
+
     @autosave_interval_id = setInterval(->
       maxdown.autosave()
     , maxdown.autosave_interval)
@@ -141,6 +139,43 @@ maxdown =
         maxdown.is_saved = false
         window.onbeforeunload = ->
           return "You have unsaved changes in your document."
+
+  fullscreen_possible: ->
+    # Detects if fullscreen is supported/enabled in current browser
+    if document.fullscreenEnabled or document.webkitFullscreenEnabled or document.mozFullScreenEnabled or document.msFullscreenEnabled
+      return true
+    else
+      return false
+
+  toggle_fullscreen: ->
+    if @is_fullscreen()
+      if document.exitFullscreen
+        document.exitFullscreen()
+      else if document.webkitExitFullscreen
+        document.webkitExitFullscreen()
+      else if document.mozCancelFullScreen
+        document.mozCancelFullScreen()
+      else if document.msExitFullscreen
+        document.msExitFullscreen()
+      console.log 'Fullscreen-Mode disabled'
+    else
+      i = document.querySelector("html");
+      if i.requestFullscreen
+        i.requestFullscreen()
+      else if i.webkitRequestFullscreen
+        i.webkitRequestFullscreen()
+      else if i.mozRequestFullScreen
+        i.mozRequestFullScreen()
+      else if i.msRequestFullscreen
+        i.msRequestFullscreen()
+      console.log 'Fullscreen-Mode enabled'
+
+  is_fullscreen: ->
+    # Check if fullscreen mode is currently active
+    if document.fullscreenElement or document.webkitFullscreenElement or document.mozFullScreenElement or document.msFullscreenElement
+      return true
+    else
+      return false
 
   autosave: ->
     if @current_doc != null and @is_saved != true

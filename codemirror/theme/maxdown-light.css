@@ -57,6 +57,19 @@
   margin-top: -1px;
 }
 
+.cm-link {
+  text-decoration: none;
+  border-bottom: 2px solid #2ecc71;
+}
+
+.cm-formatting.cm-link {
+  border: none;
+}
+
+.cm-formatting-link-string + .cm-string {
+  opacity: 0.2;
+}
+
 .cm-formatting {
   opacity: 0.2;
 }

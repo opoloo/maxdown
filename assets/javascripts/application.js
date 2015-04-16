@@ -20,7 +20,7 @@
       });
       $(document).on("click", ".btn-theme", function(e) {
         e.preventDefault();
-        $(this).toggleClass("maxdown-light maxdown-dark");
+        $(this).toggleClass("fontawesome-circle fontawesome-circle-blank");
         return maxdown.toggle_theme();
       });
       $(document).on("click", ".btn-new-document", function(e) {
@@ -80,24 +80,14 @@
         return $("input", $(this).parent()).show().focus().select();
       });
       return $(document).on("click", ".btn-fullscreen", function(e) {
-        var i;
         e.preventDefault();
-        i = document.querySelector("body");
-        if (i.requestFullscreen) {
-          return i.requestFullscreen();
-        } else if (i.webkitRequestFullscreen) {
-          return i.webkitRequestFullscreen();
-        } else if (i.mozRequestFullScreen) {
-          return i.mozRequestFullScreen();
-        } else if (i.msRequestFullscreen) {
-          return i.msRequestFullscreen();
-        }
+        return maxdown.toggle_fullscreen();
       });
     }
   };
 
   maxdown = {
-    version: '0.2.5 (15. April 2015)',
+    version: '0.2.6 (16. April 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
@@ -128,6 +118,9 @@
       });
       this.bind_events();
       this.load_documents();
+      if (!this.fullscreen_possible) {
+        $(".actions .btn-fullscreen").hide();
+      }
       return this.autosave_interval_id = setInterval(function() {
         return maxdown.autosave();
       }, maxdown.autosave_interval);
@@ -141,6 +134,47 @@
           };
         }
       });
+    },
+    fullscreen_possible: function() {
+      if (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    toggle_fullscreen: function() {
+      var i;
+      if (this.is_fullscreen()) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+        return console.log('Fullscreen-Mode disabled');
+      } else {
+        i = document.querySelector("html");
+        if (i.requestFullscreen) {
+          i.requestFullscreen();
+        } else if (i.webkitRequestFullscreen) {
+          i.webkitRequestFullscreen();
+        } else if (i.mozRequestFullScreen) {
+          i.mozRequestFullScreen();
+        } else if (i.msRequestFullscreen) {
+          i.msRequestFullscreen();
+        }
+        return console.log('Fullscreen-Mode enabled');
+      }
+    },
+    is_fullscreen: function() {
+      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+        return true;
+      } else {
+        return false;
+      }
     },
     autosave: function() {
       var doc;
