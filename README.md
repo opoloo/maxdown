@@ -24,6 +24,8 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 - Jump to sections of your document using quick anchor links to headlines
 - Fullscreen mode for distraction free environment
 - Delete single/all documents from localStorage
+- Keyboard Shortcuts
+  - **CTRL+M** -> Toggle Sidebar
 - Even more. I don't know. I'm just the developer :) Cheers. RTFM
 
 ## Changelog
@@ -33,6 +35,8 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
   - Adjusted sidebar styling
   - New editor styles for links/images
   - Increased saving animation duration
+  - Added mousetrap for keyboard shortcuts
+  - Added keyboard shortcut for sidebar (CTRL+M)
 - v0.2.5 (15. April 2015)
   - Colorized cursor + selected text
   - Fixed autosave bug
@@ -81,3 +85,9 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 ## Contribution
 
 Feel free to fork the code to contribute and/or open issues for bugs/suggestions/whatsoever. Thanks!
+
+## Used software
+
+- [jQuery](http://jquery.com)
+- [CodeMirror](http://codemirror.net)
+- [Mousetrap](https://craig.is/killing/mice)

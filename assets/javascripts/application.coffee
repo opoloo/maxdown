@@ -12,9 +12,7 @@ app =
     # Toggle Sidebar Menu
     $(document).on "click", ".btn-menu", (e) ->
       e.preventDefault()
-      $(this).toggleClass "active"
-      $(".main-nav").toggleClass "active"
-      $(".main-nav").fadeToggle "fast"
+      maxdown.toggle_sidebar()
 
     # Toggle theme
     $(document).on "click", ".btn-theme", (e) ->
@@ -87,6 +85,18 @@ app =
       e.preventDefault()
       maxdown.toggle_fullscreen()
 
+    # Keyboard Shortcut Sidebar
+    Mousetrap.bind 'ctrl+m', ->
+      maxdown.toggle_sidebar()
+
+    # Keyboard Shortcut Fullscreen
+    Mousetrap.bind 'ctrl+alt+f', ->
+      maxdown.toggle_fullscreen()
+
+    # Keyboard Shortcut New Document
+    Mousetrap.bind 'ctrl+alt+n', ->
+      maxdown.new_document()
+
 
 # ------------------------------ #
 
@@ -99,7 +109,7 @@ maxdown =
   is_saved: true
   current_doc: null
   default_title: 'UntitledDocument'
-  default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n---\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://placehold.it/350x150)'
+  default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n---\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://placehold.it/350x150)\n\n---\n\n### Keyboard Shortcuts\n\n- **CTRL+M** -> Toggle sidebar\n- **CTRL+ALT+F** -> Toggle Fullscreen\n- **CTRL+ALT+N** -> New document'
 
   init: (selector, t = 'maxdown-light') ->
     console.log '/*'
@@ -176,6 +186,11 @@ maxdown =
       return true
     else
       return false
+
+  toggle_sidebar: ->
+    $(".btn-menu").toggleClass "active"
+    $(".main-nav").toggleClass "active"
+    $(".main-nav").fadeToggle "fast"
 
   autosave: ->
     if @current_doc != null and @is_saved != true

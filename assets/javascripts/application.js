@@ -14,9 +14,7 @@
     bind_events: function() {
       $(document).on("click", ".btn-menu", function(e) {
         e.preventDefault();
-        $(this).toggleClass("active");
-        $(".main-nav").toggleClass("active");
-        return $(".main-nav").fadeToggle("fast");
+        return maxdown.toggle_sidebar();
       });
       $(document).on("click", ".btn-theme", function(e) {
         e.preventDefault();
@@ -79,9 +77,18 @@
         e.preventDefault();
         return $("input", $(this).parent()).show().focus().select();
       });
-      return $(document).on("click", ".btn-fullscreen", function(e) {
+      $(document).on("click", ".btn-fullscreen", function(e) {
         e.preventDefault();
         return maxdown.toggle_fullscreen();
+      });
+      Mousetrap.bind('ctrl+m', function() {
+        return maxdown.toggle_sidebar();
+      });
+      Mousetrap.bind('ctrl+alt+f', function() {
+        return maxdown.toggle_fullscreen();
+      });
+      return Mousetrap.bind('ctrl+alt+n', function() {
+        return maxdown.new_document();
       });
     }
   };
@@ -94,7 +101,7 @@
     is_saved: true,
     current_doc: null,
     default_title: 'UntitledDocument',
-    default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n---\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://placehold.it/350x150)',
+    default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n---\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://placehold.it/350x150)\n\n---\n\n### Keyboard Shortcuts\n\n- **CTRL+M** -> Toggle sidebar\n- **CTRL+ALT+F** -> Toggle Fullscreen\n- **CTRL+ALT+N** -> New document',
     init: function(selector, t) {
       if (t == null) {
         t = 'maxdown-light';
@@ -175,6 +182,11 @@
       } else {
         return false;
       }
+    },
+    toggle_sidebar: function() {
+      $(".btn-menu").toggleClass("active");
+      $(".main-nav").toggleClass("active");
+      return $(".main-nav").fadeToggle("fast");
     },
     autosave: function() {
       var doc;
