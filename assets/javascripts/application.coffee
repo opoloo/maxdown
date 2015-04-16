@@ -237,6 +237,7 @@ maxdown =
     @cm.setValue ""
     @cm.clearHistory()
     @save_document()
+    @toggle_sidebar()
     @cm.focus()
 
   delete_document: (id) ->

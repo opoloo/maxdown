@@ -226,6 +226,7 @@
       this.cm.setValue("");
       this.cm.clearHistory();
       this.save_document();
+      this.toggle_sidebar();
       return this.cm.focus();
     },
     delete_document: function(id) {
