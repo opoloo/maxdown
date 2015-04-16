@@ -229,9 +229,10 @@ maxdown =
 
   new_document: ->
     # Clear editor
-    @cm.setValue "# UntitledDocument\n\nWelcome to your new document. Start writing your awesome story now."
+    @cm.setValue ""
     @cm.clearHistory()
     @save_document()
+    @cm.focus()
 
   delete_document: (id) ->
     if @current_doc is id

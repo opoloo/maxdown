@@ -216,9 +216,10 @@
       return console.log('Renamed document (Doc-ID: ' + maxdown.current_doc + ')');
     },
     new_document: function() {
-      this.cm.setValue("# UntitledDocument\n\nWelcome to your new document. Start writing your awesome story now.");
+      this.cm.setValue("");
       this.cm.clearHistory();
-      return this.save_document();
+      this.save_document();
+      return this.cm.focus();
     },
     delete_document: function(id) {
       if (this.current_doc === id) {
