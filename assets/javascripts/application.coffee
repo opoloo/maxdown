@@ -185,7 +185,7 @@ maxdown =
       doc.updated_at = Date.now()
       # Only update document if content has changed
       if doc.content != @cm.getValue()
-        $(".save-info").fadeIn()
+        $(".save-info").fadeIn().delay(2000).fadeOut()
         doc.content = @cm.getValue()
         # Overwrite document object
         localStorage.setItem(doc.id, JSON.stringify(doc))
@@ -193,7 +193,6 @@ maxdown =
         @is_saved = true
         window.onbeforeunload = undefined
         @load_documents()
-        $(".save-info").delay(500).fadeOut()
 
   rename_document: (new_title) ->
     # Get current document object

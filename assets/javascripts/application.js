@@ -182,14 +182,13 @@
         doc = JSON.parse(localStorage.getItem(this.current_doc));
         doc.updated_at = Date.now();
         if (doc.content !== this.cm.getValue()) {
-          $(".save-info").fadeIn();
+          $(".save-info").fadeIn().delay(2000).fadeOut();
           doc.content = this.cm.getValue();
           localStorage.setItem(doc.id, JSON.stringify(doc));
           console.log('Document overwritten (Doc-ID: ' + this.current_doc + ')');
           this.is_saved = true;
           window.onbeforeunload = void 0;
-          this.load_documents();
-          return $(".save-info").delay(500).fadeOut();
+          return this.load_documents();
         }
       }
     },

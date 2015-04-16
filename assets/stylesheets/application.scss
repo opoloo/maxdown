@@ -308,7 +308,9 @@ body {
   width: 58px;
   line-height: 48px;
   color: #2ecc71;
-  @include vendor(animation, spin 1s infinite linear);
+  &:before {
+    @include vendor(animation, spin 1s infinite linear);
+  }
 }
 
 @include keyframes("spin") {
