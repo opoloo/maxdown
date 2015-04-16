@@ -70,6 +70,9 @@ body {
           .btn-delete-document {
             color: #000;
           }
+          .headlines {
+            color: #000;
+          }
         }
       }
       &.active {
@@ -103,6 +106,9 @@ body {
         }
         .document {
           .btn-delete-document {
+            color: #fff;
+          }
+          .headlines {
             color: #fff;
           }
         }
