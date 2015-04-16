@@ -214,7 +214,7 @@
     rename_document: function(new_title) {
       var doc;
       doc = JSON.parse(localStorage.getItem(this.current_doc));
-      if (new_title !== "") {
+      if (new_title !== "" && new_title !== doc.title) {
         doc.title = new_title;
         doc.updated_at = Date.now();
         localStorage.setItem(doc.id, JSON.stringify(doc));
@@ -226,7 +226,9 @@
       this.cm.setValue("");
       this.cm.clearHistory();
       this.save_document();
-      this.toggle_sidebar();
+      if ($(".btn-menu").hasClass('active')) {
+        this.toggle_sidebar();
+      }
       return this.cm.focus();
     },
     delete_document: function(id) {

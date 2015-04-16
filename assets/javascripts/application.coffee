@@ -218,8 +218,8 @@ maxdown =
     # Get current document object
     doc = JSON.parse(localStorage.getItem(@current_doc))
 
-    # Check if new title is provided
-    unless new_title == ""
+    # Check if new title is provided and it's different
+    if new_title != "" && new_title != doc.title
       # Rename title
       doc.title = new_title
       doc.updated_at = Date.now()
@@ -237,7 +237,8 @@ maxdown =
     @cm.setValue ""
     @cm.clearHistory()
     @save_document()
-    @toggle_sidebar()
+    if $(".btn-menu").hasClass 'active'
+      @toggle_sidebar()
     @cm.focus()
 
   delete_document: (id) ->
