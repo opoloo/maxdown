@@ -30,7 +30,7 @@
   font-weight: 400;
 }
 
-.cm-header-3 {
+.cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6 {
   font-size: 1em;
   opacity: 0.4;
   line-height: 1.6;

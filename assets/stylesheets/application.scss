@@ -297,6 +297,27 @@ body {
               content: "###";
             }
           }
+          &.headline-4 {
+            opacity: 0.4;
+            padding-left: 2.833em;
+            &:before {
+              content: "####";
+            }
+          }
+          &.headline-5 {
+            opacity: 0.4;
+            padding-left: 3.444em;
+            &:before {
+              content: "#####";
+            }
+          }
+          &.headline-6 {
+            opacity: 0.4;
+            padding-left: 4.055em;
+            &:before {
+              content: "######";
+            }
+          }
         }
       }
       &.active {
@@ -308,7 +329,7 @@ body {
         }
       }
       &+.document {
-        margin-top: .5em;
+        margin-top: .8em;
       }
     }
   }

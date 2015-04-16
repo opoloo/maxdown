@@ -271,6 +271,15 @@
           if ($(this).hasClass("cm-header-3")) {
             size = "headline-3";
           }
+          if ($(this).hasClass("cm-header-4")) {
+            size = "headline-4";
+          }
+          if ($(this).hasClass("cm-header-5")) {
+            size = "headline-5";
+          }
+          if ($(this).hasClass("cm-header-6")) {
+            size = "headline-6";
+          }
           return $(".documents .document[data-docid='" + id + "'] .headlines").append("<div class='headline " + size + "' data-headline='" + key + "'>" + $(this).text() + "</div>");
         }
       });
