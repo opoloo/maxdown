@@ -90,6 +90,33 @@
       return Mousetrap.bind('ctrl+alt+n', function() {
         return maxdown.new_document();
       });
+    },
+    set_cookie: function(c_name, value, exdays) {
+      var c_value, exdate;
+      if (exdays == null) {
+        exdays = 365;
+      }
+      exdate = new Date;
+      exdate.setDate(exdate.getDate() + exdays);
+      c_value = escape(value) + (exdays === null ? '' : '; expires=' + exdate.toUTCString());
+      return document.cookie = c_name + '=' + c_value;
+    },
+    get_cookie: function(c_name) {
+      var ARRcookies, i, x, y;
+      i = void 0;
+      x = void 0;
+      y = void 0;
+      ARRcookies = document.cookie.split(';');
+      i = 0;
+      while (i < ARRcookies.length) {
+        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf('='));
+        y = ARRcookies[i].substr(ARRcookies[i].indexOf('=') + 1);
+        x = x.replace(/^\s+|\s+$/g, '');
+        if (x === c_name) {
+          return unescape(y);
+        }
+        i++;
+      }
     }
   };
 
@@ -131,6 +158,9 @@
       });
       this.bind_events();
       this.load_documents();
+      if (app.get_cookie("maxdown_theme") !== void 0) {
+        this.set_theme(app.get_cookie("maxdown_theme"));
+      }
       if (!this.fullscreen_possible) {
         $(".actions .btn-fullscreen").hide();
       }
@@ -298,18 +328,19 @@
     toggle_theme: function() {
       $("body").toggleClass("maxdown-light maxdown-dark");
       if (this.cm.getOption('theme') === 'maxdown-light') {
-        return this.cm.setOption('theme', 'maxdown-dark');
+        this.cm.setOption('theme', 'maxdown-dark');
+        return app.set_cookie("maxdown_theme", "maxdown-dark");
       } else {
         if (this.cm.getOption('theme') === 'maxdown-dark') {
-          return this.cm.setOption('theme', 'maxdown-light');
+          this.cm.setOption('theme', 'maxdown-light');
+          return app.set_cookie("maxdown_theme", "maxdown-light");
         }
       }
     },
     set_theme: function(theme) {
       this.cm.setOption('theme', theme);
-      $('body, #editor').removeClass("maxdown-light");
-      $('body, #editor').removeClass("maxdown-dark");
-      return $('body, #editor').addClass(theme);
+      $('body').removeClass("maxdown-light maxdown-dark");
+      return $('body').addClass(theme);
     },
     load_documents: function() {
       var doc, documents, i, keys;

@@ -35,6 +35,7 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 - v0.2.7 (20. April 2015)
   - Added favicon
   - Changing favicons while saving
+  - Remember theme
 - v0.2.6 (16. April 2015)
   - Added fullscreen mode
   - New editor styles for links/images

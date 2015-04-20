@@ -97,6 +97,26 @@ app =
     Mousetrap.bind 'ctrl+alt+n', ->
       maxdown.new_document()
 
+  set_cookie: (c_name, value, exdays = 365) ->
+    exdate = new Date
+    exdate.setDate exdate.getDate() + exdays
+    c_value = escape(value) + (if exdays == null then '' else '; expires=' + exdate.toUTCString())
+    document.cookie = c_name + '=' + c_value
+
+  get_cookie: (c_name) ->
+    i = undefined
+    x = undefined
+    y = undefined
+    ARRcookies = document.cookie.split(';')
+    i = 0
+    while i < ARRcookies.length
+      x = ARRcookies[i].substr(0, ARRcookies[i].indexOf('='))
+      y = ARRcookies[i].substr(ARRcookies[i].indexOf('=') + 1)
+      x = x.replace(/^\s+|\s+$/g, '')
+      if x == c_name
+        return unescape(y)
+      i++
+
 
 # ------------------------------ #
 
@@ -136,6 +156,9 @@ maxdown =
 
     @bind_events()
     @load_documents()
+
+    if app.get_cookie("maxdown_theme") != undefined
+      @set_theme app.get_cookie("maxdown_theme")
 
     # Checks if fullscreen mode is rather supported or not
     unless @fullscreen_possible
@@ -304,15 +327,16 @@ maxdown =
     $("body").toggleClass("maxdown-light maxdown-dark")
     if @cm.getOption('theme') is 'maxdown-light'
       @cm.setOption('theme', 'maxdown-dark')
+      app.set_cookie "maxdown_theme", "maxdown-dark"
     else
       if @cm.getOption('theme') is 'maxdown-dark'
         @cm.setOption('theme', 'maxdown-light')
+        app.set_cookie "maxdown_theme", "maxdown-light"
 
   set_theme: (theme) ->
     @cm.setOption 'theme', theme
-    $('body, #editor').removeClass("maxdown-light")
-    $('body, #editor').removeClass("maxdown-dark")
-    $('body, #editor').addClass(theme)
+    $('body').removeClass("maxdown-light maxdown-dark")
+    $('body').addClass(theme)
 
   load_documents: ->
     documents = []
