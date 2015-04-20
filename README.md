@@ -11,8 +11,8 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 - [Open new issue](https://github.com/opoloo/maxdown/issues/new)
 - ~~[Official website](#)~~ (coming soon)
 
-![current version](https://img.shields.io/badge/current_version-0.2.6-brightgreen.svg)
-![latest update](https://img.shields.io/badge/latest_update-16._April_2015-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.2.7-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-20._April_2015-brightgreen.svg)
 ![status](https://img.shields.io/badge/status-stable--beta-yellow.svg)
 
 ## Features
@@ -25,11 +25,16 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 - Fullscreen mode for distraction free environment
 - Delete single/all documents from localStorage
 - Keyboard Shortcuts
-  - **CTRL+M** -> Toggle Sidebar
+  - **CTRL+M** -> Toggle sidebar
+  - **CTRL+ALT+N** -> New document
+  - **CTRL+ALT+F** -> Toggle fullscreen
 - Even more. I don't know. I'm just the developer :) Cheers. RTFM
 
 ## Changelog
 
+- v0.2.7 (20. April 2015)
+  - Added favicon
+  - Changing favicons while saving
 - v0.2.6 (16. April 2015)
   - Added fullscreen mode
   - New editor styles for links/images

@@ -94,7 +94,7 @@
   };
 
   maxdown = {
-    version: '0.2.6 (16. April 2015)',
+    version: '0.2.7 (20. April 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
@@ -202,6 +202,12 @@
         doc.updated_at = Date.now();
         if (doc.content !== this.cm.getValue()) {
           $(".save-info").fadeIn().delay(2000).fadeOut();
+          $("head link[rel='shortcut icon']").attr("href", "favicon_save.ico");
+          $("head link[rel='icon']").attr("href", "favicon_save.ico");
+          setTimeout(function() {
+            $("head link[rel='shortcut icon']").attr("href", "favicon.ico");
+            return $("head link[rel='icon']").attr("href", "favicon.ico");
+          }, 2000);
           doc.content = this.cm.getValue();
           localStorage.setItem(doc.id, JSON.stringify(doc));
           console.log('Document overwritten (Doc-ID: ' + this.current_doc + ')');
