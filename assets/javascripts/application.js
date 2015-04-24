@@ -149,6 +149,7 @@
         lineWrapping: true,
         tabSize: 2,
         theme: t,
+        viewportMargin: Infinity,
         extraKeys: {
           'Ctrl+M': function() {
             console.log("Test");

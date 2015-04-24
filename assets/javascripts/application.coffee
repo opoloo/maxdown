@@ -148,6 +148,7 @@ maxdown =
       lineWrapping: true
       tabSize: 2
       theme: t
+      viewportMargin: Infinity
       extraKeys:
         'Ctrl+M': ->
           console.log "Test"
