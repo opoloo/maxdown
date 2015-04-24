@@ -122,7 +122,7 @@ app =
 
 
 maxdown =
-  version: '0.2.7 (20. April 2015)'
+  version: '0.2.8 (24. April 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
@@ -228,7 +228,7 @@ maxdown =
       doc.updated_at = Date.now()
       # Only update document if content has changed
       if doc.content != @cm.getValue()
-        $(".save-info").fadeIn().delay(2000).fadeOut()
+        # $(".save-info").fadeIn().delay(2000).fadeOut()
         $("head link[rel='shortcut icon']").attr("href", "favicon_save.ico")
         $("head link[rel='icon']").attr("href", "favicon_save.ico")
         setTimeout(->
@@ -298,7 +298,7 @@ maxdown =
 
     # Fix save info bug
     @is_saved = true
-    $(".save-info").hide()
+    # $(".save-info").hide()
 
   get_headlines: (id) ->
     $(".documents .document[data-docid='" + id + "'] .headlines").html("")

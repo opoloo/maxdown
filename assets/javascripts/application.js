@@ -121,7 +121,7 @@
   };
 
   maxdown = {
-    version: '0.2.7 (20. April 2015)',
+    version: '0.2.8 (24. April 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
@@ -231,7 +231,6 @@
         doc = JSON.parse(localStorage.getItem(this.current_doc));
         doc.updated_at = Date.now();
         if (doc.content !== this.cm.getValue()) {
-          $(".save-info").fadeIn().delay(2000).fadeOut();
           $("head link[rel='shortcut icon']").attr("href", "favicon_save.ico");
           $("head link[rel='icon']").attr("href", "favicon_save.ico");
           setTimeout(function() {
@@ -290,8 +289,7 @@
       this.current_doc = doc.id;
       this.get_headlines(id);
       $("html,body").scrollTop(0);
-      this.is_saved = true;
-      return $(".save-info").hide();
+      return this.is_saved = true;
     },
     get_headlines: function(id) {
       $(".documents .document[data-docid='" + id + "'] .headlines").html("");
