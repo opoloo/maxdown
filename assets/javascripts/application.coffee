@@ -7,6 +7,7 @@ $(document).ready ->
 app =
   init: ->
     @bind_events()
+    @beautify_scrollbars()
 
   bind_events: ->
     # Toggle Sidebar Menu
@@ -97,6 +98,10 @@ app =
     Mousetrap.bind 'ctrl+alt+n', ->
       maxdown.new_document()
 
+  beautify_scrollbars: ->
+    # To stuff here
+    $(".wrapper, .documents").perfectScrollbar()
+
   set_cookie: (c_name, value, exdays = 365) ->
     exdate = new Date
     exdate.setDate exdate.getDate() + exdays
@@ -122,7 +127,7 @@ app =
 
 
 maxdown =
-  version: '0.2.8 (24. April 2015)'
+  version: '0.2.9 (28. April 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
@@ -158,6 +163,7 @@ maxdown =
     @bind_events()
     @load_documents()
 
+    # Check if theme cookie is set
     if app.get_cookie("maxdown_theme") != undefined
       @set_theme app.get_cookie("maxdown_theme")
 

@@ -11,8 +11,8 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 - [Open new issue](https://github.com/opoloo/maxdown/issues/new)
 - ~~[Official website](#)~~ (coming soon)
 
-![current version](https://img.shields.io/badge/current_version-0.2.8-brightgreen.svg)
-![latest update](https://img.shields.io/badge/latest_update-24._April_2015-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.2.9-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-28._April_2015-brightgreen.svg)
 ![status](https://img.shields.io/badge/status-stable--beta-yellow.svg)
 
 ## Features
@@ -32,6 +32,9 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 
 ## Changelog
 
+- v0.2.9 (28. April 2015)
+  - Added perfect-scrollbar
+  - Customized body/documents scrollbars
 - v0.2.8 (24. April 2015)
   - Added new favicons (standard + saving icon)
   - Removed saving indicator
@@ -104,3 +107,4 @@ Feel free to fork the code to contribute and/or open issues for bugs/suggestions
 - [jQuery](http://jquery.com)
 - [CodeMirror](http://codemirror.net)
 - [Mousetrap](https://craig.is/killing/mice)
+- [perfect-scrollbar](https://github.com/noraesae/perfect-scrollbar)

@@ -9,7 +9,8 @@
 
   app = {
     init: function() {
-      return this.bind_events();
+      this.bind_events();
+      return this.beautify_scrollbars();
     },
     bind_events: function() {
       $(document).on("click", ".btn-menu", function(e) {
@@ -91,6 +92,9 @@
         return maxdown.new_document();
       });
     },
+    beautify_scrollbars: function() {
+      return $(".wrapper, .documents").perfectScrollbar();
+    },
     set_cookie: function(c_name, value, exdays) {
       var c_value, exdate;
       if (exdays == null) {
@@ -121,7 +125,7 @@
   };
 
   maxdown = {
-    version: '0.2.8 (24. April 2015)',
+    version: '0.2.9 (28. April 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
