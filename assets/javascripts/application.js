@@ -32,12 +32,14 @@
           if (confirm("You have unsaved changes in your document. Would you like to switch the document anyway?")) {
             $('.documents .document').removeClass('active');
             $(this).parent().addClass('active');
-            return maxdown.load_document($(this).parent().data('docid'));
+            maxdown.load_document($(this).parent().data('docid'));
+            return maxdown.cm.focus();
           }
         } else {
           $('.documents .document').removeClass('active');
           $(this).parent().addClass('active');
-          return maxdown.load_document($(this).parent().data('docid'));
+          maxdown.load_document($(this).parent().data('docid'));
+          return maxdown.cm.focus();
         }
       });
       $(document).on("blur", ".document.active input", function(e) {
@@ -53,11 +55,13 @@
         }
       });
       $(document).on("click", ".headline", function(e) {
+        var offset;
         e.preventDefault();
         $(".main-nav, .btn-menu").toggleClass('active');
         $(".main-nav").fadeOut('fast');
-        return $("html,body").animate({
-          scrollTop: $(".md-header-" + $(this).data("headline")).offset().top - $(".navbar").height() + "px"
+        offset = $(".md-header-" + $(this).data("headline")).offset().top + $(".wrapper").scrollTop();
+        return $(".wrapper").animate({
+          scrollTop: offset + "px"
         }, 500);
       });
       $(document).on("click", ".btn-delete-document", function(e) {
@@ -125,7 +129,7 @@
   };
 
   maxdown = {
-    version: '0.2.9 (28. April 2015)',
+    version: '0.2.10 (30. April 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,

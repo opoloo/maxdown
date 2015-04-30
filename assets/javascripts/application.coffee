@@ -35,10 +35,12 @@ app =
           $('.documents .document').removeClass 'active'
           $(this).parent().addClass 'active'
           maxdown.load_document $(this).parent().data('docid')
+          maxdown.cm.focus()
       else
         $('.documents .document').removeClass 'active'
         $(this).parent().addClass 'active'
         maxdown.load_document $(this).parent().data('docid')
+        maxdown.cm.focus()
 
     # Handle title saving
     $(document).on "blur", ".document.active input", (e) ->
@@ -59,9 +61,11 @@ app =
       $(".main-nav, .btn-menu").toggleClass 'active'
       $(".main-nav").fadeOut 'fast'
       # Scroll to headline
-      $("html,body").animate
-        scrollTop: $(".md-header-" + $(this).data("headline")).offset().top - $(".navbar").height() + "px"
+      offset = $(".md-header-" + $(this).data("headline")).offset().top + $(".wrapper").scrollTop()
+      $(".wrapper").animate
+        scrollTop: offset + "px"
       , 500
+      # $(".wrapper, .documents").perfectScrollbar('update')
 
     # Handle document delete button
     $(document).on "click", ".btn-delete-document", (e) ->
@@ -127,7 +131,7 @@ app =
 
 
 maxdown =
-  version: '0.2.9 (28. April 2015)'
+  version: '0.2.10 (30. April 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
