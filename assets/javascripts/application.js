@@ -158,6 +158,7 @@
         tabSize: 2,
         theme: t,
         viewportMargin: Infinity,
+        placeholder: "Start writing here...",
         extraKeys: {
           'Ctrl+M': function() {
             console.log("Test");

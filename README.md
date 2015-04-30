@@ -29,12 +29,14 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
   - **CTRL+ALT+N** -> New document
   - **CTRL+ALT+F** -> Toggle fullscreen
 - Even more. I don't know. I'm just the developer :) Cheers. RTFM
+- This list may not be up to date all the time...
 
 ## Changelog
 
 - v0.2.10 (30 April)
   - Set focus to document when selected from sidebar
   - Fixed headline scroll-to function
+  - Added placeholder if editor is empty
 - v0.2.9 (28. April 2015)
   - Added perfect-scrollbar
   - Customized body/documents scrollbars

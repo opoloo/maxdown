@@ -16,6 +16,10 @@
   opacity: 0.2;
 }
 
+.CodeMirror.cm-s-maxdown-dark .CodeMirror-placeholder {
+  opacity: 0.2;
+}
+
 .CodeMirror.cm-s-maxdown-dark .cm-header-1 {
   font-size: 1.333em;
   opacity: 0.4;
