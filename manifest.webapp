@@ -2,7 +2,7 @@
   "version": "0.2.11",
   "name": "Maxdown",
   "description": "Maxdown is a simple markdown editor, using the codemirror-engine. Simple design for easy writing without distraction. Markdown will be highlighted as you type. The whole project is open-source. Feel free to contribute in any way you like.",
-  "launch_path": "/index.html",
+  "launch_path": "/",
   "orientation": ["portrait-primary"],
   "fullscreen": "true",
   "icons": {
