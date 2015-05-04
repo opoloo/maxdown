@@ -6,9 +6,16 @@
   "orientation": ["portrait-primary"],
   "fullscreen": "true",
   "icons": {
-    "30": "/assets/images/icon-30.png",
-    "60": "/assets/images/icon-60.png",
-    "128": "/assets/images/icon-128.png"
+    "16": "/assets/images/icons/launcher_android_16.png",
+    "30": "/assets/images/icons/launcher_ff_30.png",
+    "32": "/assets/images/icons/launcher_android_32.png",
+    "48", "/assets/images/icons/launcher_android_48.png",
+    "60", "/assets/images/icons/launcher_ff_60.png",
+    "64", "/assets/images/icons/launcher_android_64.png",
+    "90", "/assets/images/icons/launcher_ff_90.png",
+    "120", "/assets/images/icons/launcher_ff_120.png",
+    "128", "/assets/images/icons/launcher_android_128.png",
+    "256", "/assets/images/icons/launcher_android_256.png"
   },
   "developer": {
     "name": "Opoloo GbR",
