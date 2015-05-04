@@ -115,9 +115,9 @@
       install_check = navigator.mozApps.checkInstalled(this.manifest_url);
       return install_check.onsuccess = function() {
         if (install_check.result) {
-          return $(".btn-install").show();
-        } else {
           return $(".btn-install").hide();
+        } else {
+          return $(".btn-install").show();
         }
       };
     },

@@ -121,11 +121,11 @@ app =
     install_check = navigator.mozApps.checkInstalled @manifest_url
     install_check.onsuccess = ->
       if install_check.result
-        # App is not installed
-        $(".btn-install").show()
-      else
         # App is installed
         $(".btn-install").hide()
+      else
+        # App is not installed
+        $(".btn-install").show()
 
   beautify_scrollbars: ->
     # To stuff here
