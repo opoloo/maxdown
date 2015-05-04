@@ -11,7 +11,8 @@
     manifest_url: location.href + 'manifest.webapp',
     init: function() {
       this.bind_events();
-      return this.beautify_scrollbars();
+      this.beautify_scrollbars();
+      return this.is_installed();
     },
     bind_events: function() {
       $(document).on("click", ".btn-menu", function(e) {

@@ -10,6 +10,7 @@ app =
   init: ->
     @bind_events()
     @beautify_scrollbars()
+    @is_installed()
 
   bind_events: ->
     # Toggle Sidebar Menu
