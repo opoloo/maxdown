@@ -234,6 +234,22 @@ body {
       color: #fff;
     }
   }
+  .btn-install {
+    position: absolute;
+    left: 68px;
+    bottom: 0;
+    width: 48px;
+    height: 48px;
+    font-size: 1.5em;
+    line-height: 48px;
+    text-align: center;
+    color: currentColor;
+    cursor: pointer;
+    &:hover {
+      background-color: #2ecc71;
+      color: #fff;
+    }
+  }
   .actions {
     position: absolute;
     bottom: 0;

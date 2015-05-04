@@ -5,6 +5,8 @@ $(document).ready ->
 # --------------- #
 
 app =
+  manifest_url: location.href + 'manifest.webapp'
+
   init: ->
     @bind_events()
     @beautify_scrollbars()
@@ -102,6 +104,28 @@ app =
     Mousetrap.bind 'ctrl+alt+n', ->
       maxdown.new_document()
 
+    # Handle install button
+    $(document).on "click", ".btn-install", (e) ->
+      e.preventDefault()
+      app.install()
+
+  install: ->
+    install_loc_find = navigator.mozApps.install @manifest_url
+    install_loc_find.onsuccess = (data) ->
+      # alert "Maxdown was successfully installed on your device."
+    install_loc_find.onerror = ->
+      alert "There was an error while installing Maxdown on your device: " + install_loc_find.error.name
+
+  is_installed: ->
+    install_check = navigator.mozApps.checkInstalled @manifest_url
+    install_check.onsuccess = ->
+      if install_check.result
+        # App is not installed
+        $(".btn-install").show()
+      else
+        # App is installed
+        $(".btn-install").hide()
+
   beautify_scrollbars: ->
     # To stuff here
     $(".wrapper, .documents").perfectScrollbar()
@@ -131,7 +155,7 @@ app =
 
 
 maxdown =
-  version: '0.2.10 (30. April 2015)'
+  version: '0.2.11 (4. May 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000

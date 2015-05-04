@@ -8,6 +8,7 @@
   });
 
   app = {
+    manifest_url: location.href + 'manifest.webapp',
     init: function() {
       this.bind_events();
       return this.beautify_scrollbars();
@@ -92,9 +93,32 @@
       Mousetrap.bind('ctrl+alt+f', function() {
         return maxdown.toggle_fullscreen();
       });
-      return Mousetrap.bind('ctrl+alt+n', function() {
+      Mousetrap.bind('ctrl+alt+n', function() {
         return maxdown.new_document();
       });
+      return $(document).on("click", ".btn-install", function(e) {
+        e.preventDefault();
+        return app.install();
+      });
+    },
+    install: function() {
+      var install_loc_find;
+      install_loc_find = navigator.mozApps.install(this.manifest_url);
+      install_loc_find.onsuccess = function(data) {};
+      return install_loc_find.onerror = function() {
+        return alert("There was an error while installing Maxdown on your device: " + install_loc_find.error.name);
+      };
+    },
+    is_installed: function() {
+      var install_check;
+      install_check = navigator.mozApps.checkInstalled(this.manifest_url);
+      return install_check.onsuccess = function() {
+        if (install_check.result) {
+          return $(".btn-install").show();
+        } else {
+          return $(".btn-install").hide();
+        }
+      };
     },
     beautify_scrollbars: function() {
       return $(".wrapper, .documents").perfectScrollbar();
@@ -129,7 +153,7 @@
   };
 
   maxdown = {
-    version: '0.2.10 (30. April 2015)',
+    version: '0.2.11 (4. May 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,

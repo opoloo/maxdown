@@ -1,0 +1,26 @@
+{
+  "version": "0.2.11",
+  "name": "Maxdown",
+  "description": "Maxdown is a simple markdown editor, using the codemirror-engine. Simple design for easy writing without distraction. Markdown will be highlighted as you type. The whole project is open-source. Feel free to contribute in any way you like.",
+  "launch_path": "/index.html",
+  "orientation": ["portrait-primary"],
+  "fullscreen": "true",
+  "icons": {
+    "30": "/assets/images/icon-30.png",
+    "60": "/assets/images/icon-60.png",
+    "128": "/assets/images/icon-128.png"
+  },
+  "developer": {
+    "name": "Opoloo GbR",
+    "url": "http://opoloo.com"
+  },
+  "locales": {
+    "de": {
+      "description": "Maxdown ist ein minimalistischer Markdown Editor mit sehr einfachem Design für eine ablenkungsfreie Schreibatmosphäre. Markdown wird während dem Tippen mittels der CodeMirror-Engine gehighlightet. Das gesamte Projekt ist Open Source.",
+      "developer": {
+        "url": "http://opoloo.de"
+      }
+    }
+  },
+  "default_locale": "en"
+}
