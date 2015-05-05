@@ -112,14 +112,16 @@
     },
     is_installed: function() {
       var install_check;
-      install_check = navigator.mozApps.checkInstalled(this.manifest_url);
-      return install_check.onsuccess = function() {
-        if (install_check.result) {
-          return $(".btn-install").hide();
-        } else {
-          return $(".btn-install").show();
-        }
-      };
+      if (navigator.mozApps) {
+        install_check = navigator.mozApps.checkInstalled(this.manifest_url);
+        return install_check.onsuccess = function() {
+          if (install_check.result) {
+            return $(".btn-install").hide();
+          } else {
+            return $(".btn-install").show();
+          }
+        };
+      }
     },
     beautify_scrollbars: function() {
       return $(".wrapper, .documents").perfectScrollbar();
@@ -154,7 +156,7 @@
   };
 
   maxdown = {
-    version: '0.2.11 (4. May 2015)',
+    version: '0.2.12 (5. May 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,

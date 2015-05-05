@@ -118,14 +118,15 @@ app =
       alert "There was an error while installing Maxdown on your device: " + install_loc_find.error.name
 
   is_installed: ->
-    install_check = navigator.mozApps.checkInstalled @manifest_url
-    install_check.onsuccess = ->
-      if install_check.result
-        # App is installed
-        $(".btn-install").hide()
-      else
-        # App is not installed
-        $(".btn-install").show()
+    if navigator.mozApps
+      install_check = navigator.mozApps.checkInstalled @manifest_url
+      install_check.onsuccess = ->
+        if install_check.result
+          # App is installed
+          $(".btn-install").hide()
+        else
+          # App is not installed
+          $(".btn-install").show()
 
   beautify_scrollbars: ->
     # To stuff here
@@ -156,7 +157,7 @@ app =
 
 
 maxdown =
-  version: '0.2.11 (4. May 2015)'
+  version: '0.2.12 (5. May 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
