@@ -185,9 +185,9 @@ maxdown =
       theme: t
       viewportMargin: Infinity
       placeholder: "Start writing here..."
-      extraKeys:
-        Space: ->
-          console.log "Test"
+      # extraKeys:
+      #   Space: ->
+      #     console.log "Test"
     )
 
     @bind_events()

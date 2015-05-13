@@ -182,12 +182,7 @@
         tabSize: 2,
         theme: t,
         viewportMargin: Infinity,
-        placeholder: "Start writing here...",
-        extraKeys: {
-          Space: function() {
-            return console.log("Test");
-          }
-        }
+        placeholder: "Start writing here..."
       });
       this.bind_events();
       this.load_documents();
