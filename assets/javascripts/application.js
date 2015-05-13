@@ -88,9 +88,6 @@
         e.preventDefault();
         return maxdown.toggle_fullscreen();
       });
-      Mousetrap.bind('ctrl+m', function() {
-        return maxdown.toggle_sidebar();
-      });
       Mousetrap.bind('ctrl+alt+f', function() {
         return maxdown.toggle_fullscreen();
       });
@@ -156,7 +153,7 @@
   };
 
   maxdown = {
-    version: '0.2.12 (5. May 2015)',
+    version: '0.2.13 (13. May 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
@@ -187,9 +184,8 @@
         viewportMargin: Infinity,
         placeholder: "Start writing here...",
         extraKeys: {
-          'Ctrl+M': function() {
-            console.log("Test");
-            return maxdown.toggle_sidebar();
+          Space: function() {
+            return console.log("Test");
           }
         }
       });
