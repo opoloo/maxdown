@@ -88,6 +88,9 @@
         e.preventDefault();
         return maxdown.toggle_fullscreen();
       });
+      Mousetrap.bind('ctrl+m', function() {
+        return maxdown.toggle_sidebar();
+      });
       Mousetrap.bind('ctrl+alt+f', function() {
         return maxdown.toggle_fullscreen();
       });

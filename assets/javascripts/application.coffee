@@ -94,8 +94,8 @@ app =
       maxdown.toggle_fullscreen()
 
     # Keyboard Shortcut Sidebar
-    # Mousetrap.bind 'ctrl+m', ->
-    #   maxdown.toggle_sidebar()
+    Mousetrap.bind 'ctrl+m', ->
+      maxdown.toggle_sidebar()
 
     # Keyboard Shortcut Fullscreen
     Mousetrap.bind 'ctrl+alt+f', ->
