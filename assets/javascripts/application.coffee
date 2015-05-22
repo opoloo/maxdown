@@ -11,6 +11,8 @@ app =
     @bind_events()
     @beautify_scrollbars()
     @is_installed()
+    navbar.init('.app-bar', '.manage')
+    tabs.init()
 
   bind_events: ->
     # Toggle Sidebar Menu
@@ -18,11 +20,20 @@ app =
       e.preventDefault()
       maxdown.toggle_sidebar()
 
+    # Toggle Manage section
+    $(document).on "click", ".btn-manage", (e) ->
+      $(".wrapper").fadeToggle("fast")
+
     # Toggle theme
     $(document).on "click", ".btn-theme", (e) ->
       e.preventDefault()
-      $(this).toggleClass "icon-circle-spot icon-circle-blank"
+      $(this).toggleClass "icon-radio-button-on icon-radio-button-off"
       maxdown.toggle_theme()
+
+    # Handle theme switches
+    $(document).on "change", ".theme-radio input", (e) ->
+      e.preventDefault()
+      maxdown.set_theme $(this).data('theme')
 
     # Create new document button
     $(document).on "click", ".btn-new-document", (e) ->
@@ -157,7 +168,7 @@ app =
 
 
 maxdown =
-  version: '0.2.13 (13. May 2015)'
+  version: '0.3.0 (22. May 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
@@ -174,6 +185,8 @@ maxdown =
     console.log ' * Website: http://opoloo.com'
     console.log ' * License: MIT'
     console.log ' */'
+
+    @get_version()
 
     @cm = CodeMirror($(selector)[0],
       value: @default_value
@@ -213,6 +226,12 @@ maxdown =
         maxdown.is_saved = false
         window.onbeforeunload = ->
           return "You have unsaved changes in your document."
+
+  get_version: ->
+    $(".current-version").html @version
+
+  get_remote_version: ->
+    # Todo: Get version of online stable version
 
   fullscreen_possible: ->
     # Detects if fullscreen is supported/enabled in current browser
@@ -361,7 +380,7 @@ maxdown =
     $('.CodeMirror').css "font-size", size + "px"
 
   toggle_theme: ->
-    $("body").toggleClass("maxdown-light maxdown-dark")
+    $(".write").toggleClass("maxdown-light maxdown-dark")
     if @cm.getOption('theme') is 'maxdown-light'
       @cm.setOption('theme', 'maxdown-dark')
       app.set_cookie "maxdown_theme", "maxdown-dark"
@@ -372,8 +391,10 @@ maxdown =
 
   set_theme: (theme) ->
     @cm.setOption 'theme', theme
-    $('body').removeClass("maxdown-light maxdown-dark")
-    $('body').addClass(theme)
+    $('.write').removeClass("maxdown-light maxdown-dark")
+    $('.write').addClass(theme)
+    $(".theme-radio input[data-theme='"+theme+"']").prop('checked', true)
+    app.set_cookie 'maxdown_theme', theme
 
   load_documents: ->
     documents = []
@@ -453,3 +474,73 @@ maxdown =
         uuid[i] = chars[if i == 19 then r & 0x3 | 0x8 else r & 0xf]
       i++
     uuid.join ''
+
+
+# 
+# Navbar
+# Handles sticky navbar
+#
+
+navbar =
+  c: ""                 # Container object
+  n: ""                 # Navbar object
+  n_height: 0           # Navbar height
+  n_top: 0              # Navbar offset top
+  d_height: 0           # Document height
+  w_height: 0           # Window height
+  w_scroll_current: 0   # Current scroll position
+  w_scroll_before: 0    # Most recent scroll position
+  w_scroll_diff: 0      # Difference between current and most recent scroll position
+
+  init: (selector, container) ->
+    @n = document.querySelector(selector)
+    @c = document.querySelector(container)
+    @bind_events()
+
+  bind_events: ->
+    # $(window).scroll (e) ->
+    @c.addEventListener 'scroll', (event) ->
+      navbar.scroll()
+
+  scroll: ->
+    @n_height = @n.offsetHeight
+    # @d_height = document.body.offsetHeight
+    @d_height = @c.scrollHeight
+    @w_height = window.innerHeight
+    # @w_scroll_current = window.pageYOffset
+    @w_scroll_current = @c.scrollTop
+    @w_scroll_diff = @w_scroll_before - @w_scroll_current
+    @n_top = parseInt(window.getComputedStyle(@n).getPropertyValue('top')) + @w_scroll_diff
+
+    if @w_scroll_current <= 0
+      @n.style.top = '0px'
+    else if @w_scroll_diff > 0
+      @n.style.top = (if @n_top > 0 then 0 else @n_top) + 'px'
+    else if @w_scroll_diff < 0
+      if @w_scroll_current + @w_height >= @d_height - @n_height
+        @n.style.top = (if (@n_top = @w_scroll_current + @w_height - @d_height) < 0 then @n_top else 0) + 'px'
+      else
+        @n.style.top = (if Math.abs(@n_top) > @n_height then -@n_height else @n_top) + 'px'
+
+    @w_scroll_before = @w_scroll_current
+
+#
+# Tab management
+#
+
+tabs =
+  init: ->
+    @bind_events()
+
+  bind_events: ->
+    $(document).on 'click', '.tab-link', (e) ->
+      e.preventDefault()
+      tabs.switch_tab $(this).data('tab')
+
+  switch_tab: (tab) ->
+    unless $(".tab.active").data("tab") is tab
+      $(".tab-link").removeClass 'tab-active'
+      $(".tab-link[data-tab='" + tab + "']").addClass 'tab-active'
+      $(".tab").removeClass 'active'
+      $(".tab[data-tab='" + tab + "']").addClass 'active'
+      $(".manage").scrollTop(0)

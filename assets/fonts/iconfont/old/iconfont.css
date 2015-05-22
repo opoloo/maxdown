@@ -1,0 +1,53 @@
+/*
+  Icon Font: fontcustom
+*/
+
+@font-face {
+  font-family: "fontcustom";
+  src: url("./iconfont.eot");
+  src: url("./iconfont.eot?#iefix") format("embedded-opentype"),
+       url("./iconfont.woff") format("woff"),
+       url("./iconfont.ttf") format("truetype"),
+       url("./iconfont.svg#fontcustom") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "fontcustom";
+    src: url("./iconfont.svg#fontcustom") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.icon-add:before,
+.icon-circle-blank:before,
+.icon-circle-spot:before,
+.icon-close:before,
+.icon-delete:before,
+.icon-fullscreen:before,
+.icon-fullscreen-exit:before {
+  display: inline-block;
+  font-family: "fontcustom";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.icon-add:before { content: "\f100"; }
+.icon-circle-blank:before { content: "\f101"; }
+.icon-circle-spot:before { content: "\f102"; }
+.icon-close:before { content: "\f103"; }
+.icon-delete:before { content: "\f104"; }
+.icon-fullscreen:before { content: "\f105"; }
+.icon-fullscreen-exit:before { content: "\f106"; }

@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2015-4-16: Created with FontForge (http://fontforge.org)
+-->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+<metadata>
+Created by FontForge 20150131 at Thu Apr 16 14:34:29 2015
+ By guenther
+Copyright (c) 2015, guenther
+</metadata>
+<defs>
+<font id="fontcustom" horiz-adv-x="512" >
+  <font-face 
+    font-family="fontcustom"
+    font-weight="400"
+    font-stretch="normal"
+    units-per-em="512"
+    panose-1="2 0 5 3 0 0 0 0 0 0"
+    ascent="448"
+    descent="-64"
+    bbox="42.667 -21.333 469.333 405.333"
+    underline-thickness="25.6"
+    underline-position="-51.2"
+    unicode-range="U+0020-F106"
+  />
+    <missing-glyph />
+    <glyph glyph-name="space" unicode=" " horiz-adv-x="200" 
+ />
+    <glyph glyph-name="uniF105" unicode="&#xf105;" 
+d="M149.333 149.333v-64h64v-42.666h-106.666v106.666h42.666zM106.667 234.667v106.666h106.666v-42.666h-64v-64h-42.666zM362.667 85.333v64h42.666v-106.666h-106.666v42.666h64zM298.667 341.333h106.666v-106.666h-42.666v64h-64v42.666z" />
+    <glyph glyph-name="uniF101" unicode="&#xf101;" 
+d="M256 405.333c117.333 0 213.333 -96 213.333 -213.333s-96 -213.333 -213.333 -213.333s-213.333 96 -213.333 213.333s96 213.333 213.333 213.333z" />
+    <glyph glyph-name="uniF102" unicode="&#xf102;" 
+d="M256 298.667c59.7334 0 106.667 -46.9336 106.667 -106.667s-46.9336 -106.667 -106.667 -106.667s-106.667 46.9336 -106.667 106.667s46.9336 106.667 106.667 106.667zM256 405.333c117.333 0 213.333 -96 213.333 -213.333s-96 -213.333 -213.333 -213.333
+s-213.333 96 -213.333 213.333s96 213.333 213.333 213.333zM256 21.333c93.8662 0 170.667 76.8008 170.667 170.667s-76.8008 170.667 -170.667 170.667s-170.667 -76.8008 -170.667 -170.667s76.8008 -170.667 170.667 -170.667z" />
+    <glyph glyph-name="uniF100" unicode="&#xf100;" 
+d="M405.333 170.667h-128v-128h-42.666v128h-128v42.666h128v128h42.666v-128h128v-42.666z" />
+    <glyph glyph-name="uniF106" unicode="&#xf106;" 
+d="M106.667 106.667v42.666h106.666v-106.666h-42.666v64h-64zM170.667 277.333v64h42.666v-106.666h-106.666v42.666h64zM298.667 42.667v106.666h106.666v-42.666h-64v-64h-42.666zM341.333 277.333h64v-42.666h-106.666v106.666h42.666v-64z" />
+    <glyph glyph-name="uniF103" unicode="&#xf103;" 
+d="M405.333 311.467l-119.467 -119.467l119.467 -119.467l-29.8662 -29.8662l-119.467 119.467l-119.467 -119.467l-29.8662 29.8662l119.467 119.467l-119.467 119.467l29.8662 29.8662l119.467 -119.467l119.467 119.467z" />
+    <glyph glyph-name="uniF104" unicode="&#xf104;" 
+d="M128 42.667v256h256v-256c0 -23.4668 -19.2002 -42.667 -42.667 -42.667h-170.666c-23.4668 0 -42.667 19.2002 -42.667 42.667zM405.333 362.667v-42.667h-298.666v42.667h74.666l21.334 21.333h106.666l21.334 -21.333h74.666z" />
+  </font>
+</defs></svg>

@@ -30,20 +30,21 @@
     <script type="text/javascript" src="assets/javascripts/perfect-scrollbar.jquery.min.js"></script>
     <script type="text/javascript" src="assets/javascripts/application.js"></script>
   </head>
-  <body class="maxdown-light">
+  <body>
 
-    <div class="wrapper">
+    <section class="wrapper write maxdown-light">
 
       <div class="btn-menu">
         <div class="stripes"></div>
       </div>
       <sidebar class="main-nav">
-        <a href="https://github.com/opoloo/maxdown" target="_blank" title="Visit the Github Repository" class="btn-github fontawesome-github"></a>
-        <div class="btn-install fontawesome-download" title="Install Maxdown"></div>
+        <!-- <a href="https://github.com/opoloo/maxdown" target="_blank" title="Visit the Github Repository" class="btn-github fontawesome-github"></a> -->
+        <!-- <div class="btn-install fontawesome-download" title="Install Maxdown"></div> -->
         <div class="actions">
-          <div class="btn-theme icon-circle-spot" title="Toggle theme"></div>
-          <div class="btn-delete-all icon-delete" title="Remove all documents (confirmation required)"></div>
+          <!-- <div class="btn-theme icon-circle-spot" title="Toggle theme"></div> -->
+          <!-- <div class="btn-delete-all icon-delete" title="Remove all documents (confirmation required)"></div> -->
           <div class="btn-fullscreen icon-fullscreen" title="Toggle fullscreen mode"></div>
+          <div class="btn-manage icon-settings" title="Manage Maxdown"></div>
         </div>
         <div class="btn-new-document"><span class="icon-add"></span> New Document</div>
         <div class="documents"></div>
@@ -53,7 +54,100 @@
 
       <div class="save-info fontawesome-refresh"></div>
       
-    </div>
+    </section>
+
+    <section class="wrapper manage">
+      <header class="app-bar">
+        <div class="icon-arrow-back title btn-manage">Manage</div>
+        <div class="tab-bar">
+          <nav class="tab-bar-wrapper">
+            <ul>
+              <li class="tab-link tab-active" data-tab="app"><span class="icon-home"></span></li>
+              <li class="tab-link" data-tab="export"><span class="icon-export"></span></li>
+              <li class="tab-link" data-tab="synch"><span class="icon-file-download"></span></li>
+              <li class="tab-link" data-tab="about"><span class="icon-info"></span></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <div class="app-bar-spacer"></div>
+      <section class="tab active" data-tab="app">
+        <div class="box">
+          <h2>Editor Themes</h2>
+          <div class="theme-radio">
+            <input type="radio" id="theme-1" name="theme-switch" data-theme="maxdown-light"></input>
+            <label for="theme-1">Maxdown Light</label>
+          </div>
+          <div class="theme-radio">
+            <input type="radio" id="theme-2" name="theme-switch" data-theme="maxdown-dark"></input>
+            <label for="theme-2">Maxdown Dark</label>
+          </div>
+
+          <p>The theme will be saved until you change it again.</p>
+        </div>
+
+        <div class="box">
+          <h2>Font</h2>
+          <p>Comig soon: Change font size, color &amp; family.</p>
+        </div>
+
+        <div class="box">
+          <h2>Install</h2>
+          <p>Install Maxdown as an app on your device:</p>
+          <p>Firefox/FirefoxOS: <span class="btn-install">Install</span></p>
+          <p>Android: Coming soon</p>
+        </div>
+
+        <div class="box">
+          <h2>Reset</h2>
+          <p><span class="btn-delete-all">Delete all documents from Maxdown (confirmation required)</span></p>
+        </div>
+      </section>
+
+      <section class="tab" data-tab="export">
+        <div class="box">
+          <h2>Preview</h2>
+          <p>Coming soon: Preview your documents (parsed HTML)</p>
+        </div>
+
+        <div class="box">
+          <h2>Export</h2>
+          <p>Coming soon: Download your documents either in *.md or *.html</p>
+        </div>
+      </section>
+
+      <section class="tab" data-tab="synch">
+        <div class="box">
+          <h2>Dropbox</h2>
+          <p>Coming soon: Synch all documents with your Dropbox.</p>
+        </div>
+
+        <div class="box">
+          <h2>OwnCloud</h2>
+          <p>Coming soon: Synch all documents with your OwnCloud.</p>
+        </div>
+      </section>
+
+      <section class="tab" data-tab="about">
+        <div class="box">
+          <h2>Maxdown</h2>
+          <p>Maxdown is a simple markdown editor, using the codemirror-engine. Simple design for easy writing without distraction. Markdown will be highlighted as you type. The whole project is open-source. Feel free to contribute in any way you like.</p>
+        </div>
+
+        <div class="box">
+          <h2>Version</h2>
+          <p>
+            Current version: <span class="current-version"></span><br />
+            Latest version: (version check coming soon)
+          </p>
+        </div>
+
+        <div class="box">
+          <h2>Github</h2>
+          <p>Find the source-code on <a href="http://github.com/opoloo/maxdown" class="icon-github">Github</a>.</p>
+        </div>
+      </section>
+    </section>
 
   </body>
 </html>
