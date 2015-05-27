@@ -1,9 +1,40 @@
 $(document).ready ->
   cache.init()
   app.init()
+  dropbox.init()
   maxdown.init(".editor")
 
 # --------------- #
+
+dropbox =
+  app_key: "qf2b38mqupuufxi"
+  # redirect_uri: "http://opoloo.github.io/maxdown"
+  redirect_uri: "http://localhost/maxdown"
+  oauth_url: "https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=" + @app_key + "&redirect_uri=" + @redirect_uri
+
+  init: ->
+    # @authorize()
+    @check_for_code()
+
+  check_for_code: ->
+    if document.referrer.includes('dropbox')
+      console.log "Referrer was Dropbox and transmitted the following code: " + @get_url_parameter('code')
+
+  get_url_parameter: (param) ->
+    url = window.location.search.substring(1)
+    params = url.split('&')
+    i = 0
+    while i < params.length
+      param_name = params[i].split('=')
+      if param_name[0] is param 
+        return param_name[1]
+      i++
+
+  authorize: ->
+    $.ajax(
+      url: ""
+    ).done (data) ->
+      console.log data
 
 app =
   manifest_url: location.href + 'manifest.webapp'

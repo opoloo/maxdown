@@ -7,6 +7,7 @@
 - v0.3.1 (27. May 2015)
   - Fixed initial theme bug (#38)
   - Added local appcache (still testing)
+  - Added first dropbox integration code (still in development)
 - v0.3.0 (22. May 2015)
   - Added new editor manager (including all current and following settings)
 - v0.2.13 (13. May 2015)
