@@ -1,9 +1,12 @@
 # Changelog
 
-![current version](https://img.shields.io/badge/current_version-0.3.0-brightgreen.svg)
-![latest update](https://img.shields.io/badge/latest_update-22._May_2015-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.3.1-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-27._May_2015-brightgreen.svg)
 ![status](https://img.shields.io/badge/status-stable--beta-yellow.svg)
 
+- v0.3.1 (27. May 2015)
+  - Fixed initial theme bug (#38)
+  - Added local appcache (still testing)
 - v0.3.0 (22. May 2015)
   - Added new editor manager (including all current and following settings)
 - v0.2.13 (13. May 2015)

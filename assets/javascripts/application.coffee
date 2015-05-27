@@ -1,4 +1,5 @@
 $(document).ready ->
+  cache.init()
   app.init()
   maxdown.init(".editor")
 
@@ -162,6 +163,58 @@ app =
       if x == c_name
         return unescape(y)
       i++
+
+
+cache =
+  app_cache: window.applicationCache
+
+  init: ->
+    @bind_events()
+
+  bind_events: ->
+    # Check if a new cache is available on page load.
+    window.applicationCache.addEventListener 'updateready', ((e) ->
+      if window.applicationCache.status == window.applicationCache.UPDATEREADY
+        # Browser downloaded a new app cache.
+        if confirm('A new version of this site is available. Load it?')
+          window.location.reload()
+      else
+        # Manifest didn't changed. Nothing new to server.
+      return
+    ), false
+
+    # Fired after the first cache of the manifest.
+    @app_cache.addEventListener 'cached', @handle_cache_event, false
+
+    # Checking for an update. Always the first event fired in the sequence.
+    @app_cache.addEventListener 'checking', @handle_cache_event, false
+
+    # An update was found. The browser is fetching resources.
+    @app_cache.addEventListener 'downloading', @handle_cache_event, false
+
+    # The manifest returns 404 or 410, the download failed,
+    # or the manifest changed while the download was in progress.
+    @app_cache.addEventListener 'error', @handle_cache_error, false
+
+    # Fired after the first download of the manifest.
+    @app_cache.addEventListener 'noupdate', @handle_cache_event, false
+
+    # Fired if the manifest file returns a 404 or 410.
+    # This results in the application cache being deleted.
+    @app_cache.addEventListener 'obsolete', @handle_cache_event, false
+
+    # Fired for each resource listed in the manifest as it is being fetched.
+    @app_cache.addEventListener 'progress', @handle_cache_event, false
+
+    # Fired when the manifest resources have been newly redownloaded.
+    @app_cache.addEventListener 'updateready', @handle_cache_event, false
+
+  handle_cache_event: (e) ->
+    console.log 'App-Cache: ' + e.type
+
+  handle_cache_error: (e) ->
+    console.log 'App-Cache Error: Cache failed to update!'
+
 
 
 # ------------------------------ #

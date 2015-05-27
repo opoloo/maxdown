@@ -11,8 +11,8 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
 - [Open new issue](https://github.com/opoloo/maxdown/issues/new)
 - ~~[Official website](#)~~ (coming soon)
 
-![current version](https://img.shields.io/badge/current_version-0.3.0-brightgreen.svg)
-![latest update](https://img.shields.io/badge/latest_update-22._May_2015-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.3.1-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-27._May_2015-brightgreen.svg)
 ![status](https://img.shields.io/badge/status-stable--beta-yellow.svg)
 
 ## Features
