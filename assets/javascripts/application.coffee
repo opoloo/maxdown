@@ -209,6 +209,8 @@ maxdown =
     # Check if theme cookie is set
     if app.get_cookie("maxdown_theme") != undefined
       @set_theme app.get_cookie("maxdown_theme")
+    else
+      app.set_cookie("maxdown_theme", "maxdown-light")
 
     # Checks if fullscreen mode is rather supported or not
     unless @fullscreen_possible

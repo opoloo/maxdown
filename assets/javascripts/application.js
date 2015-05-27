@@ -201,6 +201,8 @@
       this.load_documents();
       if (app.get_cookie("maxdown_theme") !== void 0) {
         this.set_theme(app.get_cookie("maxdown_theme"));
+      } else {
+        app.set_cookie("maxdown_theme", "maxdown-light");
       }
       if (!this.fullscreen_possible) {
         $(".actions .btn-fullscreen").hide();
