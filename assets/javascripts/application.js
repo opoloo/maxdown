@@ -49,7 +49,7 @@
       $(".dropbox-oauth").html("Logged in as: " + this.current_user.name + " (" + this.current_user.email + ")");
       return test = setInterval(function() {
         return dropbox.synch();
-      }, 10000);
+      }, 30000);
     },
     get_user_info: function() {
       return this.client.getAccountInfo(function(error, accountInfo) {
@@ -321,11 +321,10 @@
       });
       this.bind_events();
       this.load_documents();
-      if (app.get_cookie("maxdown_theme") !== void 0) {
-        this.set_theme(app.get_cookie("maxdown_theme"));
-      } else {
+      if (app.get_cookie("maxdown_theme") === void 0) {
         app.set_cookie("maxdown_theme", "maxdown-light");
       }
+      this.set_theme(app.get_cookie("maxdown_theme"));
       if (!this.fullscreen_possible) {
         $(".actions .btn-fullscreen").hide();
       }
@@ -546,9 +545,9 @@
     save_document: function() {
       var doc, doc_id, docname;
       docname = this.default_title;
-      doc_id = this.generate_uuid();
+      doc_id = 'maxdown:document:' + this.generate_uuid();
       doc = {
-        id: 'maxdown:document:' + doc_id,
+        id: doc_id,
         created_at: Date.now(),
         updated_at: Date.now(),
         title: docname,

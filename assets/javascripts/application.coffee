@@ -42,7 +42,7 @@ dropbox =
     $(".dropbox-oauth").html("Logged in as: " + @current_user.name + " (" + @current_user.email + ")")
     test = setInterval(->
       dropbox.synch()
-    , 10000)
+    , 30000)
 
   get_user_info: ->
     @client.getAccountInfo (error, accountInfo) ->
@@ -331,10 +331,9 @@ maxdown =
     @load_documents()
 
     # Check if theme cookie is set
-    if app.get_cookie("maxdown_theme") != undefined
-      @set_theme app.get_cookie("maxdown_theme")
-    else
+    if app.get_cookie("maxdown_theme") is undefined
       app.set_cookie("maxdown_theme", "maxdown-light")
+    @set_theme app.get_cookie("maxdown_theme")
 
     # Checks if fullscreen mode is rather supported or not
     unless @fullscreen_possible
@@ -569,11 +568,11 @@ maxdown =
     docname = @default_title
 
     # Get unique file ID
-    doc_id = @generate_uuid()
+    doc_id = 'maxdown:document:' + @generate_uuid()
 
     # Create new file object
     doc =
-      id: 'maxdown:document:' + doc_id
+      id: doc_id
       created_at: Date.now()
       updated_at: Date.now()
       title: docname

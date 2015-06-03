@@ -6,6 +6,8 @@
 
 - v0.3.3 (03. June 2015)
   - Fixed firefox bug (polyfill for includes)
+  - Fixed firefox font bug
+  - Fixed document save-bug (wrong ID saved)
 - v0.3.2 (28. May 2015)
   - Added more functions to dropbox integration (still in development)
   - **IMPORTANT** As of this version the document structure has changed. Please reset the app (in settings or clear browser data for maxdown).
