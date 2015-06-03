@@ -1,9 +1,14 @@
 # Changelog
 
-![current version](https://img.shields.io/badge/current_version-0.3.1-brightgreen.svg)
-![latest update](https://img.shields.io/badge/latest_update-27._May_2015-brightgreen.svg)
-![status](https://img.shields.io/badge/status-stable--beta-yellow.svg)
+![current version](https://img.shields.io/badge/current_version-0.3.3-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-03._June_2015-brightgreen.svg)
+![status](https://img.shields.io/badge/status-stable--alpha-yellow.svg)
 
+- v0.3.3 (03. June 2015)
+  - Fixed firefox bug (polyfill for includes)
+- v0.3.2 (28. May 2015)
+  - Added more functions to dropbox integration (still in development)
+  - **IMPORTANT** As of this version the document structure has changed. Please reset the app (in settings or clear browser data for maxdown).
 - v0.3.1 (27. May 2015)
   - Fixed initial theme bug (#38)
   - Added local appcache (still testing)

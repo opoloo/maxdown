@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html manifest="local.appcache">
-<!-- <html> -->
+<!-- <html manifest="local.appcache"> -->
+<html>
   <head>
     <!-- Meta -->
     <meta charset="utf-8" />
@@ -38,6 +38,7 @@
     <script type="text/javascript" src="codemirror/mode/gfm/gfm.js"></script>
     <script type="text/javascript" src="codemirror/addon/display/placeholder.js"></script>
     <script type="text/javascript" src="assets/javascripts/mousetrap.min.js"></script>
+    <script type="text/javascript" src="assets/javascripts/dropbox-0.10.2.min.js"></script>
     <script type="text/javascript" src="assets/javascripts/perfect-scrollbar.jquery.min.js"></script>
     <script type="text/javascript" src="assets/javascripts/application.js"></script>
   </head>
@@ -130,7 +131,11 @@
       <section class="tab" data-tab="synch">
         <div class="box">
           <h2>Dropbox</h2>
-          <p>Coming soon: Synch all documents with your Dropbox.</p>
+          <p>
+            <span class="btn-dropbox-oauth">Link Maxdown to your Dropbox account</span>
+            <span class="dropbox-oauth"></span>
+          </p>
+          <p>This feature is still under heavy development. Only use if you're told so by the administrator!</p>
         </div>
 
         <div class="box">

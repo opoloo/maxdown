@@ -11,34 +11,79 @@
 
   dropbox = {
     app_key: "qf2b38mqupuufxi",
-    redirect_uri: "http://localhost/maxdown",
-    oauth_url: "https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=" + this.app_key + "&redirect_uri=" + this.redirect_uri,
+    client: "",
+    current_user: "",
     init: function() {
-      return this.check_for_code();
+      this.client = new Dropbox.Client({
+        key: this.app_key
+      });
+      return this.authenticate();
     },
-    check_for_code: function() {
-      if (document.referrer.includes('dropbox')) {
-        return console.log("Referrer was Dropbox and transmitted the following code: " + this.get_url_parameter('code'));
-      }
-    },
-    get_url_parameter: function(param) {
-      var i, param_name, params, url;
-      url = window.location.search.substring(1);
-      params = url.split('&');
+    synch: function() {
+      var doc, documents, i, keys, _results;
+      documents = [];
+      keys = Object.keys(localStorage);
       i = 0;
-      while (i < params.length) {
-        param_name = params[i].split('=');
-        if (param_name[0] === param) {
-          return param_name[1];
+      while (i < keys.length) {
+        if (keys[i].includes('maxdown:document:')) {
+          documents.push(JSON.parse(localStorage.getItem(keys[i])));
         }
         i++;
       }
+      _results = [];
+      for (doc in documents) {
+        doc = documents[doc];
+        _results.push(this.client.writeFile(doc.title + ".md", doc.content, function(error, stat) {
+          if (error) {
+            console.log(error);
+            return false;
+          }
+          return console.log("Dropbox-Synch: File (" + doc.id + ") saved as revision " + stat.versionTag);
+        }));
+      }
+      return _results;
     },
-    authorize: function() {
-      return $.ajax({
-        url: ""
-      }).done(function(data) {
-        return console.log(data);
+    logged_in: function() {
+      var test;
+      $(".btn-dropbox-oauth").hide();
+      $(".dropbox-oauth").html("Logged in as: " + this.current_user.name + " (" + this.current_user.email + ")");
+      return test = setInterval(function() {
+        return dropbox.synch();
+      }, 10000);
+    },
+    get_user_info: function() {
+      return this.client.getAccountInfo(function(error, accountInfo) {
+        if (error) {
+          console.log(error);
+          return false;
+        }
+        dropbox.current_user = accountInfo;
+        dropbox.logged_in();
+      });
+    },
+    authenticate: function() {
+      return this.client.authenticate({
+        interactive: false
+      }, function(error, client) {
+        var button;
+        if (error) {
+          console.log(error);
+          return false;
+        }
+        if (client.isAuthenticated()) {
+          return dropbox.get_user_info();
+        } else {
+          button = document.querySelector('.btn-dropbox-oauth');
+          return button.addEventListener('click', function() {
+            return client.authenticate(function(error, client) {
+              if (error) {
+                console.log(error);
+                return false;
+              }
+              return dropbox.get_user_info();
+            });
+          });
+        }
       });
     }
   };
@@ -46,6 +91,7 @@
   app = {
     manifest_url: location.href + 'manifest.webapp',
     init: function() {
+      this.polyfills();
       this.bind_events();
       this.beautify_scrollbars();
       this.is_installed();
@@ -147,6 +193,14 @@
         return app.install();
       });
     },
+    polyfills: function() {
+      if (!String.prototype.includes) {
+        return String.prototype.includes = function() {
+          'use strict';
+          return String.prototype.indexOf.apply(this, arguments) !== -1;
+        };
+      }
+    },
     install: function() {
       var install_loc_find;
       install_loc_find = navigator.mozApps.install(this.manifest_url);
@@ -233,7 +287,7 @@
   };
 
   maxdown = {
-    version: '0.3.1 (27. May 2015)',
+    version: '0.3.3 (03. June 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
@@ -463,7 +517,9 @@
       keys = Object.keys(localStorage);
       i = 0;
       while (i < keys.length) {
-        documents.push(JSON.parse(localStorage.getItem(keys[i])));
+        if (keys[i].includes('maxdown:document:')) {
+          documents.push(JSON.parse(localStorage.getItem(keys[i])));
+        }
         i++;
       }
       documents.sort(function(a, b) {
@@ -492,7 +548,7 @@
       docname = this.default_title;
       doc_id = this.generate_uuid();
       doc = {
-        id: doc_id,
+        id: 'maxdown:document:' + doc_id,
         created_at: Date.now(),
         updated_at: Date.now(),
         title: docname,

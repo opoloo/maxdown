@@ -8,38 +8,72 @@ $(document).ready ->
 
 dropbox =
   app_key: "qf2b38mqupuufxi"
-  # redirect_uri: "http://opoloo.github.io/maxdown"
-  redirect_uri: "http://localhost/maxdown"
-  oauth_url: "https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=" + @app_key + "&redirect_uri=" + @redirect_uri
+  client: ""
+  current_user: ""
 
   init: ->
-    # @authorize()
-    @check_for_code()
+    @client = new Dropbox.Client key: @app_key
+    @authenticate()
 
-  check_for_code: ->
-    if document.referrer.includes('dropbox')
-      console.log "Referrer was Dropbox and transmitted the following code: " + @get_url_parameter('code')
-
-  get_url_parameter: (param) ->
-    url = window.location.search.substring(1)
-    params = url.split('&')
+  synch: ->
+    documents = []
+    keys = Object.keys localStorage
     i = 0
-    while i < params.length
-      param_name = params[i].split('=')
-      if param_name[0] is param 
-        return param_name[1]
+
+    # Read all saved documents from localStorage
+    while i < keys.length
+      # Only add documents from localStorage (not settings)
+      if keys[i].includes('maxdown:document:')
+        documents.push JSON.parse(localStorage.getItem(keys[i]))
       i++
 
-  authorize: ->
-    $.ajax(
-      url: ""
-    ).done (data) ->
-      console.log data
+    #Synch with Dropbox Account
+    for doc of documents
+      doc = documents[doc]
+      @client.writeFile doc.title + ".md", doc.content, (error, stat) ->
+        if error
+          console.log error
+          return false
+        console.log "Dropbox-Synch: File (" + doc.id + ") saved as revision " + stat.versionTag
+
+
+  logged_in: ->
+    $(".btn-dropbox-oauth").hide()
+    $(".dropbox-oauth").html("Logged in as: " + @current_user.name + " (" + @current_user.email + ")")
+    test = setInterval(->
+      dropbox.synch()
+    , 10000)
+
+  get_user_info: ->
+    @client.getAccountInfo (error, accountInfo) ->
+      if error
+        console.log error
+        return false
+      dropbox.current_user = accountInfo
+      dropbox.logged_in()
+      return
+
+  authenticate: ->
+    @client.authenticate {interactive: false}, (error, client) ->
+      if error
+        console.log error
+        return false
+      if client.isAuthenticated()
+        dropbox.get_user_info()
+      else
+        button = document.querySelector('.btn-dropbox-oauth')
+        button.addEventListener 'click', ->
+          client.authenticate (error, client) ->
+            if error
+              console.log error
+              return false
+            dropbox.get_user_info()
 
 app =
   manifest_url: location.href + 'manifest.webapp'
 
   init: ->
+    @polyfills()
     @bind_events()
     @beautify_scrollbars()
     @is_installed()
@@ -153,6 +187,12 @@ app =
       e.preventDefault()
       app.install()
 
+  polyfills: ->
+    if !String::includes
+      String::includes = ->
+        'use strict'
+        String::indexOf.apply(this, arguments) != -1
+
   install: ->
     install_loc_find = navigator.mozApps.install @manifest_url
     install_loc_find.onsuccess = (data) ->
@@ -252,7 +292,7 @@ cache =
 
 
 maxdown =
-  version: '0.3.1 (27. May 2015)'
+  version: '0.3.3 (03. June 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
@@ -421,6 +461,7 @@ maxdown =
 
   delete_all_documents: ->
     @current_doc = null
+    # Only clear docs, not settings
     localStorage.clear()
     @load_documents()
     console.log "Deleted all documents"
@@ -489,7 +530,9 @@ maxdown =
 
     # Read all saved documents from localStorage
     while i < keys.length
-      documents.push JSON.parse(localStorage.getItem(keys[i]))
+      # Only add documents from localStorage (not settings)
+      if keys[i].includes('maxdown:document:')
+        documents.push JSON.parse(localStorage.getItem(keys[i]))
       i++
 
     # Sort documents (updated_at DESC)
@@ -530,7 +573,7 @@ maxdown =
 
     # Create new file object
     doc =
-      id: doc_id
+      id: 'maxdown:document:' + doc_id
       created_at: Date.now()
       updated_at: Date.now()
       title: docname
