@@ -1,9 +1,11 @@
 # Changelog
 
-![current version](https://img.shields.io/badge/current_version-0.3.3-brightgreen.svg)
-![latest update](https://img.shields.io/badge/latest_update-03._June_2015-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.3.4-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-22._June_2015-brightgreen.svg)
 ![status](https://img.shields.io/badge/status-stable--alpha-yellow.svg)
 
+- v0.3.4 (22. June 2015)
+  - Added dropbox JS to appcache
 - v0.3.3 (03. June 2015)
   - Fixed firefox bug (polyfill for includes)
   - Fixed firefox font bug

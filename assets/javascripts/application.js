@@ -287,7 +287,7 @@
   };
 
   maxdown = {
-    version: '0.3.3 (03. June 2015)',
+    version: '0.3.4 (22. June 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,

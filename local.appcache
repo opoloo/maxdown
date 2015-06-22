@@ -8,6 +8,7 @@ assets/javascripts/application.js
 assets/javascripts/mousetrap.min.js
 assets/javascripts/perfect-scrollbar.jquery.min.js
 assets/javascripts/jquery-2.1.4.min.js
+assets/javascripts/dropbox-0.10.2.min.js
 codemirror/lib/codemirror.js
 codemirror/lib/codemirror.css
 codemirror/theme/maxdown-light.css
