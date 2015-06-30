@@ -6,6 +6,7 @@
 
 - v0.3.5 (30. June 2015)
   - All current keyboard shortcuts are now accessable within the editor (while in focus)
+  - Included version check via github
 - v0.3.4 (22. June 2015)
   - Added dropbox JS to appcache
 - v0.3.3 (03. June 2015)

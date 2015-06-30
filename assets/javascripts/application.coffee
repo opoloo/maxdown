@@ -361,6 +361,13 @@ maxdown =
     # Get current version of maxdown
     $(".current-version").html @version
 
+    # Get latest version from github
+    url = "https://raw.githubusercontent.com/opoloo/maxdown/gh-pages/version"
+    xmlhttp = new XMLHttpRequest()
+    xmlhttp.open("GET", url, false)
+    xmlhttp.send()
+    $(".latest-version").html xmlhttp.responseText
+
   get_remote_version: ->
     # Todo: Get version of online stable version
 

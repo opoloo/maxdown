@@ -354,7 +354,13 @@
       });
     },
     get_version: function() {
-      return $(".current-version").html(this.version);
+      var url, xmlhttp;
+      $(".current-version").html(this.version);
+      url = "https://raw.githubusercontent.com/opoloo/maxdown/gh-pages/version";
+      xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", url, false);
+      xmlhttp.send();
+      return $(".latest-version").html(xmlhttp.responseText);
     },
     get_remote_version: function() {},
     fullscreen_possible: function() {
