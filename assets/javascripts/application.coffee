@@ -312,6 +312,7 @@ maxdown =
 
     @get_version()
 
+    # Initialize codemirror instance
     @cm = CodeMirror($(selector)[0],
       value: @default_value
       mode:
@@ -357,6 +358,7 @@ maxdown =
           return "You have unsaved changes in your document."
 
   get_version: ->
+    # Get current version of maxdown
     $(".current-version").html @version
 
   get_remote_version: ->
@@ -370,8 +372,10 @@ maxdown =
       return false
 
   toggle_fullscreen: ->
+    # Toggle fullscreen button icon
     $(".btn-fullscreen").toggleClass "icon-fullscreen icon-fullscreen-exit"
     if @is_fullscreen()
+      # Exit fullscreen mode
       if document.exitFullscreen
         document.exitFullscreen()
       else if document.webkitExitFullscreen
@@ -382,6 +386,7 @@ maxdown =
         document.msExitFullscreen()
       console.log 'Fullscreen-Mode disabled'
     else
+      # Enable fullscreen mode
       i = document.querySelector("html");
       if i.requestFullscreen
         i.requestFullscreen()
