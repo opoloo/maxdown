@@ -322,9 +322,13 @@ maxdown =
       theme: t
       viewportMargin: Infinity
       placeholder: "Start writing here..."
-      # extraKeys:
-      #   Space: ->
-      #     console.log "Test"
+      extraKeys:
+        "Ctrl-M": ->
+          maxdown.toggle_sidebar()
+        "Ctrl-Alt-F": ->
+          maxdown.toggle_fullscreen()
+        "Ctrl-Alt-N": ->
+          maxdown.new_document()
     )
 
     @bind_events()

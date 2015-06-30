@@ -317,7 +317,18 @@
         tabSize: 2,
         theme: t,
         viewportMargin: Infinity,
-        placeholder: "Start writing here..."
+        placeholder: "Start writing here...",
+        extraKeys: {
+          "Ctrl-M": function() {
+            return maxdown.toggle_sidebar();
+          },
+          "Ctrl-Alt-F": function() {
+            return maxdown.toggle_fullscreen();
+          },
+          "Ctrl-Alt-N": function() {
+            return maxdown.new_document();
+          }
+        }
       });
       this.bind_events();
       this.load_documents();
