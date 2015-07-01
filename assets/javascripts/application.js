@@ -99,7 +99,7 @@
       return tabs.init();
     },
     bind_events: function() {
-      $(document).on("click", ".btn-menu", function(e) {
+      $(document).on("click", ".btn-menu, .btn-close-menu", function(e) {
         e.preventDefault();
         return maxdown.toggle_sidebar();
       });
@@ -173,11 +173,17 @@
       });
       $(document).on("click", ".documents .document.active > span", function(e) {
         e.preventDefault();
+        $(this).hide();
         return $("input", $(this).parent()).show().focus().select();
       });
       $(document).on("click", ".btn-fullscreen", function(e) {
         e.preventDefault();
         return maxdown.toggle_fullscreen();
+      });
+      $(document).on("click", ".btn-export", function(e) {
+        e.preventDefault();
+        $('.wrapper').fadeToggle('fast');
+        return tabs.switch_tab('export');
       });
       Mousetrap.bind('ctrl+m', function() {
         return maxdown.toggle_sidebar();
@@ -400,9 +406,7 @@
       }
     },
     toggle_sidebar: function() {
-      $(".btn-menu").toggleClass("active");
-      $(".main-nav").toggleClass("active");
-      return $(".main-nav").fadeToggle("fast");
+      return $(".main-nav").toggleClass("active").fadeToggle("fast");
     },
     autosave: function() {
       var doc;
@@ -421,6 +425,7 @@
           console.log('Document overwritten (Doc-ID: ' + this.current_doc + ')');
           this.is_saved = true;
           window.onbeforeunload = void 0;
+          this.generate_preview();
           return this.load_documents();
         }
       }
@@ -440,7 +445,7 @@
       this.cm.setValue("");
       this.cm.clearHistory();
       this.save_document();
-      if ($(".btn-menu").hasClass('active')) {
+      if ($(".main-nav").hasClass('active')) {
         this.toggle_sidebar();
       }
       return this.cm.focus();
@@ -468,6 +473,7 @@
       this.current_doc = doc.id;
       this.get_headlines(id);
       $("html,body").scrollTop(0);
+      this.generate_preview();
       return this.is_saved = true;
     },
     get_headlines: function(id) {
@@ -521,6 +527,11 @@
       $(".theme-radio input[data-theme='" + theme + "']").prop('checked', true);
       return localStorage.setItem('maxdown:settings:theme', theme);
     },
+    generate_preview: function() {
+      var doc;
+      doc = JSON.parse(localStorage.getItem(this.current_doc));
+      return $('.preview').html(markdown.toHTML(doc.content));
+    },
     load_documents: function() {
       var doc, documents, i, keys;
       documents = [];
@@ -567,6 +578,7 @@
       localStorage.setItem(doc_id, JSON.stringify(doc));
       console.log('New document created. (Doc-ID: ' + doc_id + ')');
       this.current_doc = doc_id;
+      this.generate_preview();
       return this.load_documents();
     },
     generate_uuid: function() {

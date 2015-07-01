@@ -82,7 +82,7 @@ app =
 
   bind_events: ->
     # Toggle Sidebar Menu
-    $(document).on "click", ".btn-menu", (e) ->
+    $(document).on "click", ".btn-menu, .btn-close-menu", (e) ->
       e.preventDefault()
       maxdown.toggle_sidebar()
 
@@ -163,12 +163,19 @@ app =
     # Handle active document click (renaming)
     $(document).on "click", ".documents .document.active > span", (e) ->
       e.preventDefault()
+      $(this).hide()
       $("input", $(this).parent()).show().focus().select()
 
     # Handle Fullscreen button
     $(document).on "click", ".btn-fullscreen", (e) ->
       e.preventDefault()
       maxdown.toggle_fullscreen()
+
+    # Handle Export Button
+    $(document).on "click", ".btn-export", (e) ->
+      e.preventDefault()
+      $('.wrapper').fadeToggle('fast')
+      tabs.switch_tab('export')
 
     # Keyboard Shortcut Sidebar
     Mousetrap.bind 'ctrl+m', ->
@@ -413,9 +420,7 @@ maxdown =
       return false
 
   toggle_sidebar: ->
-    $(".btn-menu").toggleClass "active"
-    $(".main-nav").toggleClass "active"
-    $(".main-nav").fadeToggle "fast"
+    $(".main-nav").toggleClass("active").fadeToggle("fast")
 
   autosave: ->
     if @current_doc != null and @is_saved != true
@@ -438,6 +443,9 @@ maxdown =
         console.log 'Document overwritten (Doc-ID: ' + @current_doc + ')'
         @is_saved = true
         window.onbeforeunload = undefined
+        # Generate export preview
+        @generate_preview()
+        # Reload documents
         @load_documents()
 
   rename_document: (new_title) ->
@@ -463,7 +471,7 @@ maxdown =
     @cm.setValue ""
     @cm.clearHistory()
     @save_document()
-    if $(".btn-menu").hasClass 'active'
+    if $(".main-nav").hasClass 'active'
       @toggle_sidebar()
     @cm.focus()
 
@@ -494,9 +502,11 @@ maxdown =
     # Go back to top
     $("html,body").scrollTop(0)
 
+    # Render preview to export tab
+    @generate_preview()
+
     # Fix save info bug
     @is_saved = true
-    # $(".save-info").hide()
 
   get_headlines: (id) ->
     $(".documents .document[data-docid='" + id + "'] .headlines").html("")
@@ -537,6 +547,10 @@ maxdown =
     $('.write').addClass(theme)
     $(".theme-radio input[data-theme='" + theme + "']").prop('checked', true)
     localStorage.setItem 'maxdown:settings:theme', theme
+
+  generate_preview: ->
+    doc = JSON.parse(localStorage.getItem(@current_doc))
+    $('.preview').html(markdown.toHTML(doc.content))
 
   load_documents: ->
     documents = []
@@ -600,6 +614,9 @@ maxdown =
 
     # Update current doc ID
     @current_doc = doc_id
+
+    # Generate export preview
+    @generate_preview()
 
     # Update documents list
     @load_documents()

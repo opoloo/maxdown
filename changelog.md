@@ -9,6 +9,8 @@
   - Added new welcome/instruction text
   - Disabled version control due to various crawling bugs (better AJAX call required)
   - Save theme settings into localStorage rather than a cookie
+  - Restyled sidebar
+  - Added HTML preview
 - v0.3.5 (30. June 2015)
   - All current keyboard shortcuts are now accessable within the editor (while in focus)
   - Included version check via github

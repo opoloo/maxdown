@@ -43,3 +43,4 @@ Feel free to fork the code to contribute and/or open issues for bugs/suggestions
 - [Mousetrap](https://craig.is/killing/mice)
 - [perfect-scrollbar](https://github.com/noraesae/perfect-scrollbar)
 - [dropbox-js](https://github.com/dropbox/dropbox-js)
+- [markdown-js](https://github.com/evilstreak/markdown-js)

@@ -1,11 +1,4 @@
-@import url(../fonts/fira-mono/fira-mono.css); // 300, 400, 600
-@import url(../fonts/iconfont/iconfont.css);
-@import url(http://weloveiconfonts.com/api/?family=fontawesome);
-
-/* fontawesome */
-[class*="fontawesome-"]:before {
-  font-family: 'FontAwesome', sans-serif;
-}
+@import url(fonts.css);
 
 @mixin vendor($a, $v) {
   -webkit-#{$a}: $v;
@@ -26,6 +19,8 @@
   clear: both;
   display: table;
 }
+
+$color-alpha: #2ecc71;
 
 * {
   margin: 0;
@@ -62,130 +57,24 @@ body {
 .maxdown-light {
   background-color: #fff;
   color: #000;
-  .btn-menu {
-    .stripes {
-      background-color: #000;
-      &:before, &:after {
-        background-color: #000;
-      }
-    }
-    &.active {
-      .stripes {
-        background-color: #fff;
-      }
-    }
-  }
-  .main-nav {
-    .documents {
-      &::-webkit-scrollbar {
-        background-color: #fff;
-      }
-      &::-webkit-scrollbar-thumb {
-        background-color: rgba(#000, .1);
-      }
-      .document {
-        .btn-delete-document {
-          color: #000;
-        }
-        input {
-          background-color: #fff;
-          color: #000;
-        }
-        .headlines {
-          color: #000;
-        }
-      }
-    }
-    &.active {
-      background-color: #fff;
-    }
-  }
 }
 .maxdown-dark {
   background-color: #1a1a1a;
   color: #fff;
-  .btn-menu {
-    .stripes {
-      background-color: #fff;
-      &:before, &:after {
-        background-color: #fff;
-      }
-    }
-    &.active {
-      .stripes {
-        background-color: #1a1a1a;
-      }
-    }
-  }
-  .main-nav {
-    .documents {
-      &::-webkit-scrollbar {
-        background-color: #1a1a1a;
-      }
-      &::-webkit-scrollbar-thumb {
-        background-color: rgba(#fff, .25);
-      }
-      .document {
-        .btn-delete-document {
-          color: #fff;
-        }
-        input {
-          background-color: #1a1a1a;
-          color: #fff;
-        }
-        .headlines {
-          color: #fff;
-        }
-      }
-    }
-    &.active {
-      background-color: #1a1a1a;
-    }
-  }
 }
 
 .btn-menu {
   position: fixed;
   top: 0;
   right: 0;
-  width: 48px;
-  height: 48px;
+  width: 95px;
+  height: 95px;
   cursor: pointer;
-  z-index: 100;
-  .stripes {
-    width: 18px;
-    height: 2px;
-    position: absolute;
-    background-color: #000;
-    top: 50%;
-    left: 50%;
-    @include vendor(transform, translate3d(-50%, -50%, 0));
-    &:before, &:after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background-color: #000;
-      @include vendor(transition, transform .3s ease);
-    }
-    &:before {
-      @include vendor(transform, translateY(-250%) rotate(0deg));
-    }
-    &:after {
-      @include vendor(transform, translateY(250%) rotate(0deg));
-    }
-  }
-  &.active {
-    .stripes {
-      background-color: #fff;
-      &:before {
-        @include vendor(transform, translateY(0%) rotate(45deg));
-      }
-      &:after {
-        @include vendor(transform, translateY(0%) rotate(-45deg));
-      }
-    }
-  }
+  z-index: 0;
+  line-height: 95px;
+  text-align: center;
+  font-size: 1.5em;
+  opacity: 0.2;
 }
 
 .navbar-spacer {
@@ -196,14 +85,16 @@ body {
 
 .main-nav {
   width: 100%;
-  max-width: 360px;
+  max-width: 425px;
   height: 100%;
   position: fixed;
   z-index: 90;
-  padding: 0 20px;
+  padding: 0 35px;
   top: 0;
   right: 0;
+  background-color: $color-alpha;
   display: none;
+  color: #fff;
   &.active {
     .main-nav-toggle {
 
@@ -213,97 +104,64 @@ body {
     display: none;
   }
   .btn-new-document {
-    line-height: 48px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    line-height: 95px;
     cursor: pointer;
     text-transform: uppercase;
     font-weight: 500;
-    font-size: 1.2em;
+    font-size: 1em;
+    padding: 0 35px;
     font-family: 'Fira Sans', sans-serif;
+    @include vendor(transition, all .3s ease);
     span {
       font-weight: bold;
-      color: #2ecc71;
     }
-  }
-  .btn-github {
-    position: absolute;
-    left: 20px;
-    bottom: 0;
-    width: 48px;
-    height: 48px;
-    font-size: 1.5em;
-    display: block;
-    line-height: 48px;
-    text-align: center;
-    color: currentColor;
-    text-decoration: none;
     &:hover {
-      background-color: #2ecc71;
-      color: #fff;
-    }
-  }
-  .btn-install {
-    position: absolute;
-    left: 68px;
-    bottom: 0;
-    width: 48px;
-    height: 48px;
-    font-size: 1.5em;
-    line-height: 48px;
-    text-align: center;
-    color: currentColor;
-    cursor: pointer;
-    &:hover {
-      background-color: #2ecc71;
-      color: #fff;
+      background-color: darken(#2ecc71, 5%);
     }
   }
   .actions {
     position: absolute;
-    bottom: 0;
-    right: 20px;
-    line-height: 48px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    line-height: 95px;
     > div {
       display: block;
       float: left;
       cursor: pointer;
-      background-color: transparent;
-      width: 48px;
-      height: 48px;
+      width: 25%;
+      height: 95px;
       text-align: center;
-      line-height: 48px;
+      line-height: 95px;
       font-size: 1.5em;
       cursor: pointer;
+      @include vendor(transition, all .3s ease);
       &:hover {
-        background-color: #2ecc71;
-        color: #fff;
+        background-color: darken(#2ecc71, 5%);
       }
     }
   }
   .documents {
     overflow-y: scroll;
     position: absolute;
-    top: 48px;
-    left: 20px;
-    right: 20px;
-    bottom: 48px;
+    top: 95px;
+    left: 35px;
+    right: 35px;
+    bottom: 95px;
     padding-top: 1em;
     padding-bottom: 1em;
-    &::-webkit-scrollbar {
-      background-color: #fff;
-      width: 4px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(#000, .1);
-      border-radius: 2px;
-    }
     .document {
       position: relative;
       .btn-delete-document {
         position: absolute;
         top: 0;
-        right: .5em;
+        right: 0;
         font-size: 1em;
-        color: #000;
+        color: #fff;
         opacity: 0.2;
         cursor: pointer;
         z-index: 0;
@@ -312,14 +170,10 @@ body {
         }
       }
       input {
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 0;
         width: 100%;
-        background-color: #fff;
-        color: #000;
-        border-bottom: 2px solid #2ecc71;
+        background-color: $color-alpha;
+        color: #ffffff;
+        border-bottom: 2px solid #ffffff;
         font-size: 1em;
         font-family: 'Fira Mono', sans-serif;
         font-weight: bold;
@@ -328,60 +182,66 @@ body {
       span {
         cursor: pointer;
         display: block;
+        width: calc(100% - 1em);
       }
       .headlines {
         display: none;
         font-size: 0.85em;
-        color: #000;
+        color: #fff;
         margin-top: .5em;
         .headline {
           cursor: pointer;
-          padding: .5em 0;
+          padding: .5em 0 .5em 4.055em;
           &:before {
             position: absolute;
             left: 0;
+            width: 55px;
+            text-align: right;
           }
           &.headline-1 {
             opacity: 0.8;
-            padding-left: 1em;
+            // padding-left: 1em;
             &:before {
               content: "#";
             }
           }
           &.headline-2 {
             opacity: 0.6;
-            padding-left: 1.611em;
+            // padding-left: 1.611em;
             &:before {
               content: "##";
             }
           }
           &.headline-3 {
             opacity: 0.4;
-            padding-left: 2.222em;
+            // padding-left: 2.222em;
             &:before {
               content: "###";
             }
           }
           &.headline-4 {
             opacity: 0.4;
-            padding-left: 2.833em;
+            // padding-left: 2.833em;
             &:before {
               content: "####";
             }
           }
           &.headline-5 {
             opacity: 0.4;
-            padding-left: 3.444em;
+            // padding-left: 3.444em;
             &:before {
               content: "#####";
             }
           }
           &.headline-6 {
             opacity: 0.4;
-            padding-left: 4.055em;
+            // padding-left: 4.055em;
             &:before {
               content: "######";
             }
+          }
+          &:hover {
+            opacity: 1;
           }
         }
       }
@@ -431,7 +291,7 @@ body {
  * Manage Section
  */
 .manage {
-  background-color: #f4f4f4;
+  background-color: #f2f2f2;
   font-family: sans-serif;
   a {
     color: #2ECC71;
@@ -474,7 +334,7 @@ body {
       height: 60px;
       .tab-bar-wrapper {
         width: 100%;
-        max-width: 980px;
+        max-width: 780px;
         margin: 0 auto;
         padding: 0 20px;
         ul {
@@ -526,7 +386,7 @@ body {
   }
   .tab {
     width: 100%;
-    max-width: 980px;
+    max-width: 780px;
     padding: 60px 20px;
     margin: 0 auto;
     display: none;
@@ -535,9 +395,7 @@ body {
     }
     .box {
       background-color: #fff;
-      box-shadow: 0 2px 0 #ddd;
-      padding: 1em;
-      border-radius: 3px;
+      padding: 2em;
       h2 {
         text-transform: uppercase;
         font-size: 1.2em;
@@ -582,4 +440,129 @@ body {
 .btn-install, .btn-delete-all, .btn-dropbox-oauth {
   color: #2ECC71;
   cursor: pointer;
+}
+
+/*
+ * Preview
+ */
+
+.preview {
+  font-size: 20px;
+  font-family: 'Merriweather', serif;
+  color: rgba(#000, 0.8);
+  line-height: 1.4;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fira Sans', sans-serif;
+  }
+  h1 {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 2.5em 0 1.25em 0;
+  }
+  h2 {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin: 2.5em 0 1.25em 0;
+  }
+  h3 {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin: 0.909em 0;
+  }
+  h4 {
+    font-size: 1em;
+    font-weight: 500;
+    margin: 1em 0;
+  }
+  h5 {
+    font-size: 1em;
+    font-weight: 400;
+    margin: 1em 0;
+  }
+  h6 {
+    font-size: 0.9em;
+    font-weight: 400;
+    margin: 1.111em 0;
+  }
+  p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+  }
+  ul, ol {
+    font-family: 'Merriweather Sans', sans-serif;
+    list-style: none;
+    margin: 2em 0;
+    padding: 0 0 0 1em;
+    li {
+      position: relative;
+      &+li {
+        margin-top: 1em;
+      }
+    }
+  }
+  ul {
+    li {
+      padding-left: 1em;
+      &:before {
+        content: "";
+        position: absolute;
+        width: 0.2em;
+        height: 0.2em;
+        background-color: currentColor;
+        border-radius: 50%;
+        left: 0;
+        top: 0.6em;
+      }
+    }
+  }
+  ol {
+    counter-reset: items;
+    li {
+      counter-increment: items;
+      padding-left: 1em;
+      &:before {
+        content: counter(items) ".";
+        position: absolute;
+        left: 0;
+      }
+      > ol {
+        counter-reset: subitems;
+        li {
+          counter-increment: subitems;
+          padding-left: 2em;
+          &:before {
+            content: counter(items) "." counter(subitems) ".";
+          }
+        }
+      }
+    }
+  }
+  hr {
+    width: 33.33%;
+    height: 2px;
+    margin: 4em auto;
+    background-color: darken(#f2f2f2, 10%);
+  }
+  code {
+    font-family: 'Fira Mono', monospace;
+    background-color: darken(#f2f2f2, 10%);
+    display: block;
+    padding: 1em;
+  }
+  blockquote {
+    font-size: 1.1em;
+    font-style: italic;
+    color: rgba(#000, 0.6);
+    margin: 1.818em 0 2.727em 0;
+    padding: 0 1.818em;
+    p {
+      &:before {
+        content: "“";
+      }
+      &:after {
+        content: "”";
+      }
+    }
+  }
 }

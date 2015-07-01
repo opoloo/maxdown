@@ -40,23 +40,20 @@
     <script type="text/javascript" src="assets/javascripts/mousetrap.min.js"></script>
     <script type="text/javascript" src="assets/javascripts/dropbox-0.10.2.min.js"></script>
     <script type="text/javascript" src="assets/javascripts/perfect-scrollbar.jquery.min.js"></script>
+    <script type="text/javascript" src="assets/javascripts/markdown.min.js"></script>
     <script type="text/javascript" src="assets/javascripts/application.js"></script>
   </head>
   <body>
 
     <section class="wrapper write maxdown-light">
 
-      <div class="btn-menu">
-        <div class="stripes"></div>
-      </div>
+      <div class="btn-menu icon-menu"></div>
       <sidebar class="main-nav">
-        <!-- <a href="https://github.com/opoloo/maxdown" target="_blank" title="Visit the Github Repository" class="btn-github fontawesome-github"></a> -->
-        <!-- <div class="btn-install fontawesome-download" title="Install Maxdown"></div> -->
         <div class="actions">
-          <!-- <div class="btn-theme icon-circle-spot" title="Toggle theme"></div> -->
-          <!-- <div class="btn-delete-all icon-delete" title="Remove all documents (confirmation required)"></div> -->
           <div class="btn-fullscreen icon-fullscreen" title="Toggle fullscreen mode"></div>
+          <div class="btn-export icon-export" title="Export document"></div>
           <div class="btn-manage icon-settings" title="Manage Maxdown"></div>
+          <div class="btn-close-menu icon-close"></div>
         </div>
         <div class="btn-new-document"><span class="icon-add"></span> New Document</div>
         <div class="documents"></div>
@@ -98,10 +95,10 @@
           <p>The theme will be saved until you change it again.</p>
         </div>
 
-        <div class="box">
+        <!-- <div class="box">
           <h2>Font</h2>
           <p>Comig soon: Change font size, color &amp; family.</p>
-        </div>
+        </div> -->
 
         <div class="box">
           <h2>Install</h2>
@@ -118,13 +115,11 @@
 
       <section class="tab" data-tab="export">
         <div class="box">
-          <h2>Preview</h2>
-          <p>Coming soon: Preview your documents (parsed HTML)</p>
+          Download ability (.md &amp; .html) coming soon.
         </div>
 
-        <div class="box">
-          <h2>Export</h2>
-          <p>Coming soon: Download your documents either in *.md or *.html</p>
+        <div class="preview">
+          
         </div>
       </section>
 
@@ -146,21 +141,21 @@
 
       <section class="tab" data-tab="about">
         <div class="box">
-          <h2>Maxdown</h2>
-          <p>Maxdown is a simple markdown editor, using the codemirror-engine. Simple design for easy writing without distraction. Markdown will be highlighted as you type. The whole project is open-source. Feel free to contribute in any way you like.</p>
+          <h2>Maxdown – Markdown Editor</h2>
+          <p>Writing is thinking. To think well, you need space. Maxdown text editor keeps your eyes and mind free from distraction so you can focus on your writing and your writing only.</p>
         </div>
 
         <div class="box">
           <h2>Version</h2>
           <p>
             Current version: <span class="current-version"></span><br />
-            Latest version: <span class="latest-version"></span>
+            Latest version: <span class="latest-version">Version control currently disabled</span>
           </p>
         </div>
 
         <div class="box">
-          <h2>Github</h2>
-          <p>Find the source-code on <a href="http://github.com/opoloo/maxdown" class="icon-github">Github</a>.</p>
+          <h2>Open Source / Contribution</h2>
+          <p>Find the source-code on <a href="http://github.com/opoloo/maxdown" class="icon-github">Github</a>. Feel free to contribute.</p>
         </div>
       </section>
     </section>
