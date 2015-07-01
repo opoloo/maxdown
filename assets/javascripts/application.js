@@ -287,14 +287,14 @@
   };
 
   maxdown = {
-    version: '0.3.5 (30. June 2015)',
+    version: '0.3.6 (1. July 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,
     is_saved: true,
     current_doc: null,
     default_title: 'UntitledDocument',
-    default_value: '# Maxdown - Markdown Editor\n\nPlease open a new document or choose an excisting from the sidebar. This document **won\'t be saved**.\n\n---\n\n# Headline 1\n\n## Headline 2\n\n### Headline 3\n\n**strong**\n\n*emphasize*\n\n~~strike-through~~\n\n[Link](http://google.com)\n\n![Image](http://placehold.it/350x150)\n\n---\n\n### Keyboard Shortcuts\n\n- **CTRL+M** -> Toggle sidebar\n- **CTRL+ALT+F** -> Toggle Fullscreen\n- **CTRL+ALT+N** -> New document',
+    default_value: '# Maxdown – Markdown Editor\n\nWriting is thinking. To think well, you need space.\n\nMaxdown text editor keeps your eyes and mind free from distraction so you can focus on your writing and your writing only.\n\n## How does Maxdown work?\n\nOpen a new document or choose an existing one to start writing. This document right here **won’t be saved**, but your future ones will be: type CTRL+ALT+n or tap on the menu-icon in the upper right corner.\n\nYour new document will be auto-saved every five seconds, so you don’t need to worry about losing your text. To undo changes, simply press CTRL+z (CMD+z on a Mac) like you’re used to.\n\nUse *Markdown* to format your text as you write.\n\n## Basic Markdown Formatting\n\nMarkdown follows a few very simple rules that will help you write well, because the rules are logical and semantic.\n\nAnd you’ll love how you don’t need to take your hands off your keyboard to format text.\n\n### 01 Headlines\n\nYou have three levels of headlines to create hierarchy. Build headlines by using #, like so:\n\n# This is a headline\n\n## So is this, it introduces a subsection of the headline above\n\n### This is a third headline\n\n**Headlines** show up in your document structure in the sidebar (behind the menu-icon in the upper right corner). Move around swiftly in your text by clicking on your headlines.\n\n### 02 Emphasis\n\nYou can add *emphasis* to words by framing it with asterisks. Two asterisks will add even more **emphasis**, and you can make words ***super-important*** with three asterisks.\n\n*emphasis*\n**importance**\n***incredibly super-importance-emphasis***\n\nYou may also use _underscores_ instead of *asterisks*. __Same result__.\n\nIf you need to, you can also ~~strike through~~.\n\n### 03 Quotes\n\nYou can insert quotes into your text, by simply adding a > before the quote, like so:\n\n> “Writing is the geometry of the soul.”\n> —Plato\n\n### 04 Links\n\nCreate links by putting the link text in [square brackets] while having the actual link in (parentheses), like so:\n\nFind more information [on our blog](http://www.opoloo.com/blog/)\n\n### 05 Keyboard Shortcuts\n\nCTRL+m -> document sidebar\nCTRL+ALT+f -> full screen mode\nCTRL+ALT+n -> new document\nCTRL+z -> undo\n\n## Feedback\n\nWe’re constantly maintaining Maxdown, improving the writing experience along the way. But we’d love to hear from you about how we can better serve your needs, so just let us know what’s on your mind and what we can improve. [Write a few lines to us](mailto: info@opoloo.com).',
     init: function(selector, t) {
       if (t == null) {
         t = 'maxdown-light';
@@ -332,10 +332,10 @@
       });
       this.bind_events();
       this.load_documents();
-      if (app.get_cookie("maxdown_theme") === void 0) {
-        app.set_cookie("maxdown_theme", "maxdown-light");
+      if (localStorage.getItem('maxdown:settings:theme') === null) {
+        localStorage.setItem('maxdown:settings:theme', 'maxdown-light');
       }
-      this.set_theme(app.get_cookie("maxdown_theme"));
+      this.set_theme(localStorage.getItem('maxdown:settings:theme'));
       if (!this.fullscreen_possible) {
         $(".actions .btn-fullscreen").hide();
       }
@@ -354,13 +354,7 @@
       });
     },
     get_version: function() {
-      var url, xmlhttp;
-      $(".current-version").html(this.version);
-      url = "https://raw.githubusercontent.com/opoloo/maxdown/gh-pages/version";
-      xmlhttp = new XMLHttpRequest();
-      xmlhttp.open("GET", url, false);
-      xmlhttp.send();
-      return $(".latest-version").html(xmlhttp.responseText);
+      return $(".current-version").html(this.version);
     },
     get_remote_version: function() {},
     fullscreen_possible: function() {
@@ -512,11 +506,11 @@
       $(".write").toggleClass("maxdown-light maxdown-dark");
       if (this.cm.getOption('theme') === 'maxdown-light') {
         this.cm.setOption('theme', 'maxdown-dark');
-        return app.set_cookie("maxdown_theme", "maxdown-dark");
+        return localStorage.setItem('maxdown:settings:theme', "maxdown-dark");
       } else {
         if (this.cm.getOption('theme') === 'maxdown-dark') {
           this.cm.setOption('theme', 'maxdown-light');
-          return app.set_cookie("maxdown_theme", "maxdown-light");
+          return localStorage.setItem('maxdown:settings:theme', "maxdown-light");
         }
       }
     },
@@ -525,7 +519,7 @@
       $('.write').removeClass("maxdown-light maxdown-dark");
       $('.write').addClass(theme);
       $(".theme-radio input[data-theme='" + theme + "']").prop('checked', true);
-      return app.set_cookie('maxdown_theme', theme);
+      return localStorage.setItem('maxdown:settings:theme', theme);
     },
     load_documents: function() {
       var doc, documents, i, keys;
