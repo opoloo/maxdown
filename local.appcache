@@ -29,5 +29,6 @@ assets/fonts/iconfont/iconfont.eot?#iefix-977u7o
 assets/fonts/iconfont/iconfont.ttf?-977u7o
 assets/fonts/iconfont/iconfont.svg?-977u7o#icomoon
 
-NETWORK
+# Use from network if available
+NETWORK:
 assets/javascripts/dropbox-0.10.2.min.js
