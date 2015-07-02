@@ -3,12 +3,14 @@ CACHE MANIFEST
 index.html
 favicon.ico
 favicon_save.ico
+assets/stylesheets/fonts.css
 assets/stylesheets/application.css
 assets/stylesheets/perfect-scrollbar.css
 assets/javascripts/application.js
 assets/javascripts/mousetrap.min.js
 assets/javascripts/perfect-scrollbar.jquery.min.js
 assets/javascripts/jquery-2.1.4.min.js
+assets/javascripts/markdown.min.js
 codemirror/lib/codemirror.js
 codemirror/lib/codemirror.css
 codemirror/theme/maxdown-light.css
