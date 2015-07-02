@@ -551,12 +551,12 @@ body {
     padding: 1em;
   }
   blockquote {
-    font-size: 1.1em;
-    font-style: italic;
-    color: rgba(#000, 0.6);
-    margin: 1.818em 0 2.727em 0;
-    padding: 0 1.818em;
     p {
+      font-style: italic;
+      color: rgba(#000, 0.6);
+      margin: 1.818em 0 2.727em 0;
+      padding: 0 1.818em;
+      font-size: 1.1em;
       &:before {
         content: "“";
       }

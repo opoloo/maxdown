@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v0.3.7 02-07-2015
+# v0.3.7 02-07-2015 live
 index.html
 favicon.ico
 favicon_save.ico
@@ -30,6 +30,30 @@ assets/fonts/iconfont/iconfont.eot?-977u7o
 assets/fonts/iconfont/iconfont.eot?#iefix-977u7o
 assets/fonts/iconfont/iconfont.ttf?-977u7o
 assets/fonts/iconfont/iconfont.svg?-977u7o#icomoon
+assets/fonts/Fira_Sans/FiraSans-Bold.ttf
+assets/fonts/Fira_Sans/FiraSans-BoldItalic.ttf
+assets/fonts/Fira_Sans/FiraSans-Italic.ttf
+assets/fonts/Fira_Sans/FiraSans-Light.ttf
+assets/fonts/Fira_Sans/FiraSans-LightItalic.ttf
+assets/fonts/Fira_Sans/FiraSans-Medium.ttf
+assets/fonts/Fira_Sans/FiraSans-MediumItalic.ttf
+assets/fonts/Fira_Sans/FiraSans-Regular.ttf
+assets/fonts/Merriweather/Merriweather-Black.ttf
+assets/fonts/Merriweather/Merriweather-Bold.ttf
+assets/fonts/Merriweather/Merriweather-BoldItalic.ttf
+assets/fonts/Merriweather/Merriweather-HeavyItalic.ttf
+assets/fonts/Merriweather/Merriweather-Italic.ttf
+assets/fonts/Merriweather/Merriweather-Light.ttf
+assets/fonts/Merriweather/Merriweather-LightItalic.ttf
+assets/fonts/Merriweather/Merriweather-Regular.ttf
+assets/fonts/Merriweather_Sans/MerriweatherSans-Bold.ttf
+assets/fonts/Merriweather_Sans/MerriweatherSans-BoldItalic.ttf
+assets/fonts/Merriweather_Sans/MerriweatherSans-ExtraBold.ttf
+assets/fonts/Merriweather_Sans/MerriweatherSans-ExtraBoldItalic.ttf
+assets/fonts/Merriweather_Sans/MerriweatherSans-Italic.ttf
+assets/fonts/Merriweather_Sans/MerriweatherSans-Light.ttf
+assets/fonts/Merriweather_Sans/MerriweatherSans-LightItalic.ttf
+assets/fonts/Merriweather_Sans/MerriweatherSans-Regular.ttf
 
 # Use from network if available
 NETWORK:

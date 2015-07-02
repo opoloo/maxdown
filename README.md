@@ -28,6 +28,7 @@ Maxdown is a simple markdown editor, using the [codemirror](http://codemirror.ne
   - **CTRL+M** -> Toggle sidebar
   - **CTRL+ALT+N** -> New document
   - **CTRL+ALT+F** -> Toggle fullscreen
+  - **CTRL+ALT+E** -> Export/Preview
 - Install maxdown as a local app on firefox browsers and/or firefox OS
 - Even more. I don't know. I'm just the developer :) Cheers. RTFM
 - This list may not be up to date all the time...

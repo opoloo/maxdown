@@ -7,6 +7,8 @@
 
 - v0.3.7 (2. July 2015)
   - Updated offline app-cache
+  - Added character count, word count and reading time to export/preview screen
+  - Added keyboard shortcut (CTRL + ALT + E) to export/preview screen
 - v0.3.6 (1. July 2015)
   - Added new welcome/instruction text
   - Disabled version control due to various crawling bugs (better AJAX call required)

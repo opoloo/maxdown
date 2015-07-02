@@ -194,6 +194,10 @@
       Mousetrap.bind('ctrl+alt+n', function() {
         return maxdown.new_document();
       });
+      Mousetrap.bind('ctrl+alt+e', function() {
+        $('.wrapper').fadeToggle('fast');
+        return tabs.switch_tab('export');
+      });
       return $(document).on("click", ".btn-install", function(e) {
         e.preventDefault();
         return app.install();
@@ -300,7 +304,7 @@
     is_saved: true,
     current_doc: null,
     default_title: 'UntitledDocument',
-    default_value: '# Maxdown – Markdown Editor\n\nWriting is thinking. To think well, you need space.\n\nMaxdown text editor keeps your eyes and mind free from distraction so you can focus on your writing and your writing only.\n\n## How does Maxdown work?\n\nOpen a new document or choose an existing one to start writing. This document right here **won’t be saved**, but your future ones will be: type CTRL+ALT+n or tap on the menu-icon in the upper right corner.\n\nYour new document will be auto-saved every five seconds, so you don’t need to worry about losing your text. To undo changes, simply press CTRL+z (CMD+z on a Mac) like you’re used to.\n\nUse *Markdown* to format your text as you write.\n\n## Basic Markdown Formatting\n\nMarkdown follows a few very simple rules that will help you write well, because the rules are logical and semantic.\n\nAnd you’ll love how you don’t need to take your hands off your keyboard to format text.\n\n### 01 Headlines\n\nYou have three levels of headlines to create hierarchy. Build headlines by using #, like so:\n\n# This is a headline\n\n## So is this, it introduces a subsection of the headline above\n\n### This is a third headline\n\n**Headlines** show up in your document structure in the sidebar (behind the menu-icon in the upper right corner). Move around swiftly in your text by clicking on your headlines.\n\n### 02 Emphasis\n\nYou can add *emphasis* to words by framing it with asterisks. Two asterisks will add even more **emphasis**, and you can make words ***super-important*** with three asterisks.\n\n*emphasis*\n**importance**\n***incredibly super-importance-emphasis***\n\nYou may also use _underscores_ instead of *asterisks*. __Same result__.\n\nIf you need to, you can also ~~strike through~~.\n\n### 03 Quotes\n\nYou can insert quotes into your text, by simply adding a > before the quote, like so:\n\n> “Writing is the geometry of the soul.”\n> —Plato\n\n### 04 Links\n\nCreate links by putting the link text in [square brackets] while having the actual link in (parentheses), like so:\n\nFind more information [on our blog](http://www.opoloo.com/blog/)\n\n### 05 Keyboard Shortcuts\n\nCTRL+m -> document sidebar\nCTRL+ALT+f -> full screen mode\nCTRL+ALT+n -> new document\nCTRL+z -> undo\n\n## Feedback\n\nWe’re constantly maintaining Maxdown, improving the writing experience along the way. But we’d love to hear from you about how we can better serve your needs, so just let us know what’s on your mind and what we can improve. [Write a few lines to us](mailto: info@opoloo.com).',
+    default_value: '# Maxdown – Markdown Editor\n\nWriting is thinking. To think well, you need space.\n\nMaxdown text editor keeps your eyes and mind free from distraction so you can focus on your writing and your writing only.\n\n## How does Maxdown work?\n\nOpen a new document or choose an existing one to start writing. This document right here **won’t be saved**, but your future ones will be: type CTRL+ALT+n or tap on the menu-icon in the upper right corner.\n\nYour new document will be auto-saved every five seconds, so you don’t need to worry about losing your text. To undo changes, simply press CTRL+z (CMD+z on a Mac) like you’re used to.\n\nUse *Markdown* to format your text as you write.\n\n## Basic Markdown Formatting\n\nMarkdown follows a few very simple rules that will help you write well, because the rules are logical and semantic.\n\nAnd you’ll love how you don’t need to take your hands off your keyboard to format text.\n\n### 01 Headlines\n\nYou have three levels of headlines to create hierarchy. Build headlines by using #, like so:\n\n# This is a headline\n\n## So is this, it introduces a subsection of the headline above\n\n### This is a third headline\n\n**Headlines** show up in your document structure in the sidebar (behind the menu-icon in the upper right corner). Move around swiftly in your text by clicking on your headlines.\n\n### 02 Emphasis\n\nYou can add *emphasis* to words by framing it with asterisks. Two asterisks will add even more **emphasis**, and you can make words ***super-important*** with three asterisks.\n\n*emphasis*\n**importance**\n***incredibly super-importance-emphasis***\n\nYou may also use _underscores_ instead of *asterisks*. __Same result__.\n\nIf you need to, you can also ~~strike through~~.\n\n### 03 Quotes\n\nYou can insert quotes into your text, by simply adding a > before the quote, like so:\n\n> “Writing is the geometry of the soul.”\n> —Plato\n\n### 04 Links\n\nCreate links by putting the link text in [square brackets] while having the actual link in (parentheses), like so:\n\nFind more information [on our blog](http://www.opoloo.com/blog/)\n\n### 05 Keyboard Shortcuts\n\nCTRL+m -> document sidebar\nCTRL+ALT+f -> full screen mode\nCTRL+ALT+n -> new document\nCTRL+ALT+e -> export/preview\nCTRL+z -> undo\n\n## Feedback\n\nWe’re constantly maintaining Maxdown, improving the writing experience along the way. But we’d love to hear from you about how we can better serve your needs, so just let us know what’s on your mind and what we can improve. [Write a few lines to us](mailto: info@opoloo.com).',
     init: function(selector, t) {
       if (t == null) {
         t = 'maxdown-light';
@@ -333,6 +337,10 @@
           },
           "Ctrl-Alt-N": function() {
             return maxdown.new_document();
+          },
+          "Ctrl-Alt-E": function() {
+            $('.wrapper').fadeToggle('fast');
+            return tabs.switch_tab('export');
           }
         }
       });
@@ -529,8 +537,23 @@
     },
     generate_preview: function() {
       var doc;
+      this.calculate_doc_info();
       doc = JSON.parse(localStorage.getItem(this.current_doc));
       return $('.preview').html(markdown.toHTML(doc.content));
+    },
+    calculate_doc_info: function() {
+      var char_count, content, doc, reading_time, word_count;
+      doc = JSON.parse(localStorage.getItem(this.current_doc));
+      content = markdown.toHTML(doc.content).replace(/(<([^>]+)>)/ig, "").replace(/\n\s*\n/g, " ");
+      char_count = content.length;
+      word_count = content.split(" ").length;
+      reading_time = Math.ceil(word_count / 200);
+      $('.reading-time').html('~' + reading_time + ' minutes');
+      $('.word-count').html(this.format_number(word_count) + ' words');
+      return $('.character-count').html(this.format_number(char_count) + ' characters');
+    },
+    format_number: function(num) {
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
     },
     load_documents: function() {
       var doc, documents, i, keys;
