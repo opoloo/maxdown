@@ -1,10 +1,12 @@
 # Changelog
 
-![current version](https://img.shields.io/badge/current_version-0.3.6-brightgreen.svg)
-![latest update](https://img.shields.io/badge/latest_update-1._July_2015-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.3.7-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-2._July_2015-brightgreen.svg)
 ![status](https://img.shields.io/badge/status-stable--alpha-yellow.svg)
 
 
+- v0.3.7 (2. July 2015)
+  - Updated offline app-cache
 - v0.3.6 (1. July 2015)
   - Added new welcome/instruction text
   - Disabled version control due to various crawling bugs (better AJAX call required)

@@ -1,4 +1,5 @@
 CACHE MANIFEST
+# v0.3.7 02-07-2015
 index.html
 favicon.ico
 favicon_save.ico
@@ -8,7 +9,6 @@ assets/javascripts/application.js
 assets/javascripts/mousetrap.min.js
 assets/javascripts/perfect-scrollbar.jquery.min.js
 assets/javascripts/jquery-2.1.4.min.js
-assets/javascripts/dropbox-0.10.2.min.js
 codemirror/lib/codemirror.js
 codemirror/lib/codemirror.css
 codemirror/theme/maxdown-light.css
@@ -17,7 +17,6 @@ codemirror/addon/mode/overlay.js
 codemirror/mode/markdown/markdown.js
 codemirror/mode/gfm/gfm.js
 codemirror/addon/display/placeholder.js
-http://weloveiconfonts.com/api/?family=fontawesome
 assets/fonts/fira-mono/FiraMono-Regular.woff
 assets/fonts/fira-mono/FiraMono-Regular.ttf
 assets/fonts/fira-mono/FiraMono-Bold.woff
@@ -29,3 +28,6 @@ assets/fonts/iconfont/iconfont.eot?-977u7o
 assets/fonts/iconfont/iconfont.eot?#iefix-977u7o
 assets/fonts/iconfont/iconfont.ttf?-977u7o
 assets/fonts/iconfont/iconfont.svg?-977u7o#icomoon
+
+NETWORK
+assets/javascripts/dropbox-0.10.2.min.js
