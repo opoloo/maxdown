@@ -85,7 +85,7 @@ body {
 
 .main-nav {
   width: 100%;
-  max-width: 425px;
+  max-width: 380px;
   height: 100%;
   position: fixed;
   z-index: 90;
@@ -307,85 +307,40 @@ body {
     }
   }
   .app-bar {
-    background-color: #2ECC71;
+    background-color: $color-alpha;
     width: 100%;
-    height: 60px;
+    height: 95px;
     position: fixed;
     top: 0;
     left: 0;
-    line-height: 60px;
+    line-height: 95px;
     z-index: 1;
-    .title {
-      line-height: 60px;
-      color: #fff;
-      padding: 0 20px;
-      cursor: pointer;
-      text-transform: uppercase;
-      @include vendor(transition, all 0.3s ease);
-      &:hover {
-        background-color: darken(#2ECC71, 10%);
-      }
-      &:before {
-        margin-right: 0.5em;
-      }
-    }
-    .tab-bar {
-      position: absolute;
-      top: 60px;
-      left: 0;
+    color: #fff;
+    font-size: 1.5em;
+    .app-bar-wrapper {
       width: 100%;
-      background-color: #2ECC71;
-      height: 60px;
-      .tab-bar-wrapper {
-        width: 100%;
-        max-width: 780px;
-        margin: 0 auto;
-        padding: 0 20px;
-        ul {
-          list-style: none;
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: -ms-flexbox;
-          display: flex;
-          li {
-            position: relative;
-            flex: 1;
-            text-align: center;
-            color: #fff;
-            cursor: pointer;
-            &:after {
-              content: "";
-              position: absolute;
-              width: 100%;
-              height: 4px;
-              left: 0;
-              bottom: 0;
-              background-color: #fff;
-              opacity: 0;
-              @include vendor(transition, opacity 0.3s ease);
-            }
-            &.tab-active, &:hover {
-              &:after {
-                opacity: 1;
-              }
-            }
-          }
-        }
-      }
-      &:after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 10px;
-        bottom: -10px;
-        background: linear-gradient(rgba(#000, 0.25), rgba(#000, 0));
+      max-width: 780px;
+      padding: 0 20px;
+      margin: 0 auto;
+    }
+    .btn-manage-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 95px;
+      height: 95px;
+      cursor: pointer;
+      text-align: center;
+      @include vendor(transition, all .3s ease);
+      &:hover {
+        background-color: darken($color-alpha, 5%);
       }
     }
   }
   .app-bar-spacer {
     position: relative;
     width: 100%;
-    height: 120px;
+    height: 95px;
     z-index: 0;
   }
   .tab {

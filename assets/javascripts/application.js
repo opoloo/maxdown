@@ -103,8 +103,10 @@
         e.preventDefault();
         return maxdown.toggle_sidebar();
       });
-      $(document).on("click", ".btn-manage", function(e) {
-        return $(".wrapper").fadeToggle("fast");
+      $(document).on("click", ".btn-manage, .btn-manage-close", function(e) {
+        $('.manage-title').html('Settings');
+        $(".wrapper").fadeToggle("fast");
+        return tabs.switch_tab('settings');
       });
       $(document).on("click", ".btn-theme", function(e) {
         e.preventDefault();
@@ -181,8 +183,11 @@
         return maxdown.toggle_fullscreen();
       });
       $(document).on("click", ".btn-export", function(e) {
+        var doc;
         e.preventDefault();
         if (!$(this).hasClass('inactive')) {
+          doc = JSON.parse(localStorage.getItem(maxdown.current_doc));
+          $('.manage-title').html(doc.title);
           $('.wrapper').fadeToggle('fast');
           return tabs.switch_tab('export');
         }
@@ -609,6 +614,7 @@
       localStorage.setItem(doc_id, JSON.stringify(doc));
       console.log('New document created. (Doc-ID: ' + doc_id + ')');
       this.current_doc = doc_id;
+      $('.btn-export').removeClass('inactive');
       this.generate_preview();
       return this.load_documents();
     },

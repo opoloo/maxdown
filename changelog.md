@@ -7,6 +7,9 @@
 
 - v0.3.8 (7. July 2015)
   - Enable/Disable Export Button if document is/is not active
+  - Updated settings/export navbar
+  - New settings screen
+  - Resized sidebar
 - v0.3.7 (2. July 2015)
   - Updated offline app-cache
   - Added character count, word count and reading time to export/preview screen

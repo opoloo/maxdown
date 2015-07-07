@@ -87,8 +87,10 @@ app =
       maxdown.toggle_sidebar()
 
     # Toggle Manage section
-    $(document).on "click", ".btn-manage", (e) ->
+    $(document).on "click", ".btn-manage, .btn-manage-close", (e) ->
+      $('.manage-title').html('Settings')
       $(".wrapper").fadeToggle("fast")
+      tabs.switch_tab('settings')
 
     # Toggle theme
     $(document).on "click", ".btn-theme", (e) ->
@@ -175,6 +177,8 @@ app =
     $(document).on "click", ".btn-export", (e) ->
       e.preventDefault()
       unless $(this).hasClass('inactive')
+        doc = JSON.parse(localStorage.getItem(maxdown.current_doc))
+        $('.manage-title').html(doc.title)
         $('.wrapper').fadeToggle('fast')
         tabs.switch_tab('export')
 
@@ -644,6 +648,9 @@ maxdown =
 
     # Update current doc ID
     @current_doc = doc_id
+
+    # Enable Export Button
+    $('.btn-export').removeClass('inactive')
 
     # Generate export preview
     @generate_preview()
