@@ -174,8 +174,9 @@ app =
     # Handle Export Button
     $(document).on "click", ".btn-export", (e) ->
       e.preventDefault()
-      $('.wrapper').fadeToggle('fast')
-      tabs.switch_tab('export')
+      unless $(this).hasClass('inactive')
+        $('.wrapper').fadeToggle('fast')
+        tabs.switch_tab('export')
 
     # Keyboard Shortcut Sidebar
     Mousetrap.bind 'ctrl+m', ->
@@ -191,8 +192,9 @@ app =
 
     # Keyboard Shortcut Export/Preview
     Mousetrap.bind 'ctrl+alt+e', ->
-      $('.wrapper').fadeToggle('fast')
-      tabs.switch_tab('export')
+      unless $('.btn-export').hasClass('inactive')
+        $('.wrapper').fadeToggle('fast')
+        tabs.switch_tab('export')
 
     # Handle install button
     $(document).on "click", ".btn-install", (e) ->
@@ -343,8 +345,9 @@ maxdown =
         "Ctrl-Alt-N": ->
           maxdown.new_document()
         "Ctrl-Alt-E": ->
-          $('.wrapper').fadeToggle('fast')
-          tabs.switch_tab('export')
+          unless $('.btn-export').hasClass('inactive')
+            $('.wrapper').fadeToggle('fast')
+            tabs.switch_tab('export')
     )
 
     @bind_events()
@@ -486,6 +489,8 @@ maxdown =
   delete_document: (id) ->
     if @current_doc is id
       @current_doc = null
+      # Disable Export Button
+      $('.btn-export').addClass('inactive')
     localStorage.removeItem id
     @load_documents()
     console.log "Deleted document (Doc-ID: " + id + ")"
@@ -503,6 +508,9 @@ maxdown =
     $(".title input").val doc.title
     @cm.setValue(doc.content)
     @current_doc = doc.id
+
+    # Enable Export button
+    $(".btn-export").removeClass('inactive')
 
     # Get headline
     @get_headlines(id)

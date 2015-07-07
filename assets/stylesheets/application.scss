@@ -140,6 +140,10 @@ body {
       font-size: 1.5em;
       cursor: pointer;
       @include vendor(transition, all .3s ease);
+      &.inactive {
+        color: rgba(#fff, 0.35);
+        cursor: not-allowed;
+      }
       &:hover {
         background-color: darken(#2ecc71, 5%);
       }
