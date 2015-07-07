@@ -306,7 +306,7 @@ cache =
 
 
 maxdown =
-  version: '0.3.7 (2. July 2015)'
+  version: '0.3.8 (7. July 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
