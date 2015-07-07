@@ -197,6 +197,8 @@ app =
     # Keyboard Shortcut Export/Preview
     Mousetrap.bind 'ctrl+alt+e', ->
       unless $('.btn-export').hasClass('inactive')
+        doc = JSON.parse(localStorage.getItem(maxdown.current_doc))
+        $('.manage-title').html(doc.title)
         $('.wrapper').fadeToggle('fast')
         tabs.switch_tab('export')
 
@@ -350,6 +352,8 @@ maxdown =
           maxdown.new_document()
         "Ctrl-Alt-E": ->
           unless $('.btn-export').hasClass('inactive')
+            doc = JSON.parse(localStorage.getItem(maxdown.current_doc))
+            $('.manage-title').html(doc.title)
             $('.wrapper').fadeToggle('fast')
             tabs.switch_tab('export')
     )

@@ -202,7 +202,10 @@
         return maxdown.new_document();
       });
       Mousetrap.bind('ctrl+alt+e', function() {
+        var doc;
         if (!$('.btn-export').hasClass('inactive')) {
+          doc = JSON.parse(localStorage.getItem(maxdown.current_doc));
+          $('.manage-title').html(doc.title);
           $('.wrapper').fadeToggle('fast');
           return tabs.switch_tab('export');
         }
@@ -348,7 +351,10 @@
             return maxdown.new_document();
           },
           "Ctrl-Alt-E": function() {
+            var doc;
             if (!$('.btn-export').hasClass('inactive')) {
+              doc = JSON.parse(localStorage.getItem(maxdown.current_doc));
+              $('.manage-title').html(doc.title);
               $('.wrapper').fadeToggle('fast');
               return tabs.switch_tab('export');
             }
