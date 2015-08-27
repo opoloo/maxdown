@@ -453,6 +453,9 @@ body {
     list-style: none;
     margin: 2em 0;
     padding: 0 0 0 1em;
+    ul, ol {
+      margin: 1em 0;
+    }
     li {
       position: relative;
       &+li {
@@ -461,39 +464,24 @@ body {
     }
   }
   ul {
-    li {
-      padding-left: 1em;
+    > li {
       &:before {
-        content: "";
+        content: "●";
         position: absolute;
-        width: 0.2em;
-        height: 0.2em;
-        background-color: currentColor;
-        border-radius: 50%;
         left: 0;
-        top: 0.6em;
+        transform: translateX(-150%);
       }
     }
   }
   ol {
     counter-reset: items;
-    li {
+    > li {
       counter-increment: items;
-      padding-left: 1em;
       &:before {
         content: counter(items) ".";
         position: absolute;
         left: 0;
-      }
-      > ol {
-        counter-reset: subitems;
-        li {
-          counter-increment: subitems;
-          padding-left: 2em;
-          &:before {
-            content: counter(items) "." counter(subitems) ".";
-          }
-        }
+        transform: translateX(-150%);
       }
     }
   }

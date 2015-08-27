@@ -7,6 +7,7 @@
 
 - v0.3.9 (27. August 2015)
   - Links in document preview will now open in a new tab
+  - Fixed lists in preview
 - v0.3.8 (7. July 2015)
   - Enable/Disable Export Button if document is/is not active
   - Updated settings/export navbar
