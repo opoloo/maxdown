@@ -576,6 +576,7 @@ maxdown =
     @calculate_doc_info()
     doc = JSON.parse(localStorage.getItem(@current_doc))
     $('.preview').html(markdown.toHTML(doc.content))
+    $('.preview a').attr('target', '_blank')
 
   calculate_doc_info: ->
     doc = JSON.parse(localStorage.getItem(@current_doc))

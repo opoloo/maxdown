@@ -1,10 +1,12 @@
 # Changelog
 
-![current version](https://img.shields.io/badge/current_version-0.3.8-brightgreen.svg)
-![latest update](https://img.shields.io/badge/latest_update-7._July_2015-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.3.9-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-27._August_2015-brightgreen.svg)
 ![status](https://img.shields.io/badge/status-stable--alpha-yellow.svg)
 
 
+- v0.3.9 (27. August 2015)
+  - Links in document preview will now open in a new tab
 - v0.3.8 (7. July 2015)
   - Enable/Disable Export Button if document is/is not active
   - Updated settings/export navbar

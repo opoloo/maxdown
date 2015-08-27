@@ -558,7 +558,8 @@
       var doc;
       this.calculate_doc_info();
       doc = JSON.parse(localStorage.getItem(this.current_doc));
-      return $('.preview').html(markdown.toHTML(doc.content));
+      $('.preview').html(markdown.toHTML(doc.content));
+      return $('.preview a').attr('target', '_blank');
     },
     calculate_doc_info: function() {
       var char_count, content, doc, reading_time, word_count;
