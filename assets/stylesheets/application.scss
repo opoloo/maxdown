@@ -201,45 +201,34 @@ body {
             left: 0;
             width: 55px;
             text-align: right;
+            opacity: 0.7;
           }
           &.headline-1 {
-            opacity: 0.8;
-            // padding-left: 1em;
             &:before {
               content: "#";
             }
           }
           &.headline-2 {
-            opacity: 0.6;
-            // padding-left: 1.611em;
             &:before {
               content: "##";
             }
           }
           &.headline-3 {
-            opacity: 0.4;
-            // padding-left: 2.222em;
             &:before {
               content: "###";
             }
           }
           &.headline-4 {
-            opacity: 0.4;
-            // padding-left: 2.833em;
             &:before {
               content: "####";
             }
           }
           &.headline-5 {
-            opacity: 0.4;
-            // padding-left: 3.444em;
             &:before {
               content: "#####";
             }
           }
           &.headline-6 {
-            opacity: 0.4;
-            // padding-left: 4.055em;
             &:before {
               content: "######";
             }
@@ -266,7 +255,7 @@ body {
 
 .editor {
   width: 100%;
-  max-width: 740px;
+  max-width: 800px;
   padding: 60px 20px;
   margin: 0 auto;
 }

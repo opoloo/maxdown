@@ -30,10 +30,13 @@ dropbox =
     #Synch with Dropbox Account
     for doc of documents
       doc = documents[doc]
-      @client.writeFile doc.title + ".md", doc.content, (error, stat) ->
+      dropbox_options =
+        noOverwrite = true
+      @client.writeFile doc.title + ".md", doc.content, dropbox_options, (error, stat) ->
         if error
-          console.log error
+          console.log 'Dropbox-Error: ' + error
           return false
+        console.log stat
         console.log "Dropbox-Synch: File (" + doc.id + ") saved as revision " + stat.versionTag
 
 
@@ -312,7 +315,7 @@ cache =
 
 
 maxdown =
-  version: '0.3.9 (27. August 2015)'
+  version: '0.3.10 (2. September 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000

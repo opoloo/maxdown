@@ -20,7 +20,7 @@
       return this.authenticate();
     },
     synch: function() {
-      var doc, documents, i, keys, _results;
+      var doc, documents, dropbox_options, i, keys, noOverwrite, _results;
       documents = [];
       keys = Object.keys(localStorage);
       i = 0;
@@ -33,11 +33,13 @@
       _results = [];
       for (doc in documents) {
         doc = documents[doc];
-        _results.push(this.client.writeFile(doc.title + ".md", doc.content, function(error, stat) {
+        dropbox_options = noOverwrite = true;
+        _results.push(this.client.writeFile(doc.title + ".md", doc.content, dropbox_options, function(error, stat) {
           if (error) {
-            console.log(error);
+            console.log('Dropbox-Error: ' + error);
             return false;
           }
+          console.log(stat);
           return console.log("Dropbox-Synch: File (" + doc.id + ") saved as revision " + stat.versionTag);
         }));
       }
@@ -309,7 +311,7 @@
   };
 
   maxdown = {
-    version: '0.3.9 (27. August 2015)',
+    version: '0.3.10 (2. September 2015)',
     cm: '',
     autosave_interval_id: null,
     autosave_interval: 5000,

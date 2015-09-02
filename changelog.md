@@ -1,10 +1,13 @@
 # Changelog
 
-![current version](https://img.shields.io/badge/current_version-0.3.9-brightgreen.svg)
-![latest update](https://img.shields.io/badge/latest_update-27._August_2015-brightgreen.svg)
+![current version](https://img.shields.io/badge/current_version-0.3.10-brightgreen.svg)
+![latest update](https://img.shields.io/badge/latest_update-2._September_2015-brightgreen.svg)
 ![status](https://img.shields.io/badge/status-stable--alpha-yellow.svg)
 
 
+- v0.3.10 (2. September 2015)
+  - Changed headlines styling in sidebar
+  - Increased width of editor area
 - v0.3.9 (27. August 2015)
   - Links in document preview will now open in a new tab
   - Fixed lists in preview
