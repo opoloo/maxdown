@@ -315,7 +315,7 @@ cache =
 
 
 maxdown =
-  version: '0.3.10 (2. September 2015)'
+  version: '0.3.11 (3. September 2015)'
   cm: ''
   autosave_interval_id: null
   autosave_interval: 5000
@@ -502,6 +502,9 @@ maxdown =
       @current_doc = null
       # Disable Export Button
       $('.btn-export').addClass('inactive')
+    $.post('delete-file.php',
+      doc_id: id
+    )
     localStorage.removeItem id
     @load_documents()
     console.log "Deleted document (Doc-ID: " + id + ")"
@@ -578,8 +581,21 @@ maxdown =
   generate_preview: ->
     @calculate_doc_info()
     doc = JSON.parse(localStorage.getItem(@current_doc))
+    @save_docs_local(doc)
     $('.preview').html(markdown.toHTML(doc.content))
     $('.preview a').attr('target', '_blank')
+    $('.btn-download-md span, .btn-download-html span').html(doc.title)
+    $('.btn-download-md').attr('download', doc.title + '.md')
+    $('.btn-download-html').attr('download', doc.title + '.html')
+    $('.btn-download-md').attr('href', 'documents/' + doc.id + '.md')
+    $('.btn-download-html').attr('href', 'documents/' + doc.id + '.html')
+
+  save_docs_local: (doc) ->
+    $.post('write-file.php', 
+      doc_id: doc.id
+      doc_content_md: doc.content
+      doc_content_html: markdown.toHTML(doc.content)
+    )
 
   calculate_doc_info: ->
     doc = JSON.parse(localStorage.getItem(@current_doc))

@@ -1,0 +1,1 @@
+This directory will contain all md and html versions of the users documents.

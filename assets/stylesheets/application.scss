@@ -93,7 +93,7 @@ body {
   top: 0;
   right: 0;
   background-color: $color-alpha;
-  display: none;
+  // display: none;
   color: #fff;
   &.active {
     .main-nav-toggle {
@@ -349,6 +349,14 @@ body {
         font-size: 1.2em;
         border-bottom: 1px solid #ddd;
         margin-bottom: 1em;
+      }
+      ul {
+        padding-left: 1em;
+        li {
+          &+li {
+            margin-top: 0.5em;
+          }
+        }
       }
       &+.box {
         margin-top: 2em;
